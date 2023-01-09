@@ -48,6 +48,12 @@ public class CharacterPhysicsHandler : MonoBehaviour, ICharacterPhysicsHandler
         rigidbody.velocity = new Vector2(GetAcceleration() * speed, rigidbody.velocity.y + (jump ? jumpForce : 0));
     }
 
+    public void Move(Vector2 direction, bool jump)
+    {
+        float mult = speed * Time.deltaTime * 100;
+        rigidbody.velocity = new Vector2(direction.x * mult/2, direction.y * mult + (jump ? jumpForce : 0));
+    }
+
     public float GetAcceleration() => accelerationCurve.Evaluate(accelerationStep);
 
     public void SetAccelerationStepCap(float val) => accelerationStepCap = val;
@@ -57,6 +63,8 @@ public class CharacterPhysicsHandler : MonoBehaviour, ICharacterPhysicsHandler
 
     public void SetAccelerationStep(float val) => accelerationStep = val;
 
-    public float GetSpeed() => speed; 
+    public float GetSpeed() => speed;
+
+    public void FreezeGravity(bool freeze) => rigidbody.gravityScale = freeze ? 0 : 3; 
 }
 

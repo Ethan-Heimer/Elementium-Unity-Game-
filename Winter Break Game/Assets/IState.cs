@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface IState
 {
-    void OnEnter(StateMachine owner);
-    void WhileInState(StateMachine owner);
-    void OnExit(StateMachine owner);
+    void OnEnter();
+    void WhileInState();
+    void OnExit();
     void Transition(StateMachine owner); 
 }

@@ -24,7 +24,7 @@ public class StateMachine
 
     public void SwitchState(string name)
     {
-        currentState?.OnExit(this);
+        currentState?.OnExit();
 
         IState newState = null; 
 
@@ -32,19 +32,21 @@ public class StateMachine
         {
             newState = possableStates.First(x => x.GetType().Name == name);
         }
-        catch (InvalidOperationException e)
+        catch (InvalidOperationException)
         {
             Debug.LogError("State Does Not Exist -- State Will Stay The Same \n transition from:" +currentState.GetType().Name);
             return;
         }
 
         currentState = newState; 
-        currentState.OnEnter(this);
+        currentState.OnEnter();
+
+        Debug.Log(newState.GetType().Name);
     }
 
     public void InvokeCurrentState()
     {
-        currentState?.WhileInState(this);
-        currentState.Transition(this);
+        currentState?.WhileInState();
+        currentState?.Transition(this);
     }
 }

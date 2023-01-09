@@ -50,19 +50,19 @@ public class CharacterGroundedState : IState
         controller = _controller;
     }
 
-    public void OnEnter(StateMachine owner)
+    public void OnEnter()
     {
         controller.physicsHandler.SetAccelerationStepCap(1);
         controller.eventHandler.InvokeEvent("OnGround");
     }
-    public void WhileInState(StateMachine owner)
+    public void WhileInState()
     {
         float xInput = controller.input.GetHorizontalInput();
         IsWalking = xInput != 0;
         jump = controller.input.GetJumpInput(); 
         controller.physicsHandler.Move(xInput, jump);
     }
-    public void OnExit(StateMachine owner)
+    public void OnExit()
     {
         IsWalking = false;
         controller.eventHandler.InvokeEvent("OnEndWalk");
@@ -71,12 +71,19 @@ public class CharacterGroundedState : IState
     {
         if (!controller.groundStatus.IsOnGround())
         {
-            owner.SwitchState("CharacterAirborneState");
+            if (controller.wallStatus.IsOnWall())
+            {
+                owner.SwitchState("CharacterWallState");
+            }
 
+            else
+            {
+                owner.SwitchState("CharacterAirborneState");
+            }
         }
-        else if (controller.wallStatus.IsOnWall())
+        else if (controller.climbStatus.CanClimb() && (controller.input.GetVerticalInput() > .5f || controller.input.GetVerticalInput() < -.5f))
         {
-            owner.SwitchState("CharacterWallState");
+            owner.SwitchState("CharacterClimbState"); 
         }
     }
 }

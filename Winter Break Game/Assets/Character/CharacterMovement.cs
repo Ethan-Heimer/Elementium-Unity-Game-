@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    [SerializeReference] public ICharacterInputHandler input;
+    public ICharacterInputHandler input;
     public ICharacterGroundStatusProvider groundStatus;
     public IChararacterWallStatusProvider wallStatus;
     public ICharacterDirectionHandler directionHandler;
     public ICharacterPhysicsHandler physicsHandler;
-    public ICharacterEventHandler eventHandler; 
+    public ICharacterEventHandler eventHandler;
+    public ICharacterClimbStatusProvider climbStatus; 
 
     public StateMachine characterStateMachine;
 
@@ -21,11 +22,13 @@ public class CharacterMovement : MonoBehaviour
         directionHandler = GetComponent<ICharacterDirectionHandler>();
         physicsHandler = GetComponent<ICharacterPhysicsHandler>();
         eventHandler = GetComponent<ICharacterEventHandler>();
+        climbStatus = GetComponent<ICharacterClimbStatusProvider>();
 
         characterStateMachine = new StateMachine("CharacterGroundedState",
             new CharacterGroundedState(this),
             new CharacterAirborneState(this),
-            new CharacterWallState(this));
+            new CharacterWallState(this),
+            new CharacterClimbState(this));
     }
 
     public void Update()

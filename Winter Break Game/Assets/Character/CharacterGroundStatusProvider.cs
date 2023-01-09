@@ -8,11 +8,15 @@ public class CharacterGroundStatusProvider : MonoBehaviour, ICharacterGroundStat
     [SerializeField] Vector3 checkBoxOffset; 
    public bool IsOnGround()
    {
-        RaycastHit2D hit = Physics2D.BoxCast(transform.position-checkBoxOffset, checkBoxSize, 0f, Vector2.down, 0, LayerMask.GetMask("Enviorment"));
-        Collider2D collider = hit.collider;
-        if (collider is null) return false;
-        return !collider.isTrigger; 
+        RaycastHit2D[] hit = Physics2D.BoxCastAll(transform.position-checkBoxOffset, checkBoxSize, 0f, Vector2.down, 0, LayerMask.GetMask("Enviorment"));
 
+        foreach(RaycastHit2D o in hit)
+        {
+            if (o.collider.isTrigger) continue;
+            return true; 
+        }
+
+        return false; 
    }
 
     public void OnDrawGizmos()

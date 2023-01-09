@@ -5,6 +5,7 @@ using UnityEngine;
 public interface ICharacterInputHandler
 {
     float GetHorizontalInput();
+    float GetVerticalInput(); 
     bool GetJumpInput();
     
 }

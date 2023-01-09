@@ -5,6 +5,8 @@ using UnityEngine;
 public interface ICharacterPhysicsHandler
 {
     public void Move(float direction, bool jump);
+    public void Move(Vector2 vector, bool jump); 
+
     public void SetVelocity(Vector2 velocity);
     public Vector2 GetVelocity();
 
@@ -14,4 +16,5 @@ public interface ICharacterPhysicsHandler
 
     public float GetSpeed();
 
+    public void FreezeGravity(bool freeze); 
 }

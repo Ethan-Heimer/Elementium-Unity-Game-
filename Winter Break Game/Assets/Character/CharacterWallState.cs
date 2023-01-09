@@ -11,13 +11,13 @@ public class CharacterWallState : IState
         controller = _controller;
     }
 
-    public void OnEnter(StateMachine owner)
+    public void OnEnter()
     {
         controller.physicsHandler.SetAccelerationStepCap(1);
         controller.eventHandler.InvokeEvent("OnWall");
     }
 
-    public void WhileInState(StateMachine owner)
+    public void WhileInState()
     {
         int dirFacing = controller.directionHandler.GetCurrentDirection();
         float inputDir = controller.input.GetHorizontalInput();
@@ -32,7 +32,7 @@ public class CharacterWallState : IState
             controller.physicsHandler.SetAccelerationStep(0);
         }
 
-        if(controller.input.GetJumpInput())
+        if (controller.input.GetJumpInput())
         {
             controller.physicsHandler.SetAccelerationStep(-dirFacing);
             controller.eventHandler.InvokeEvent("OnJump");
@@ -40,16 +40,14 @@ public class CharacterWallState : IState
         }
     }
 
-    public void OnExit(StateMachine owner) => controller.eventHandler.InvokeEvent("OffWall");
+    public void OnExit() => controller.eventHandler.InvokeEvent("OffWall");
     public void Transition(StateMachine owner)
     {
-        if (controller.wallStatus.IsOnWall()) return;
-
         if (controller.groundStatus.IsOnGround())
         {
             owner.SwitchState("CharacterGroundedState");
         }
-        else
+        else if(!controller.groundStatus.IsOnGround() && !controller.wallStatus.IsOnWall())
         {
             owner.SwitchState("CharacterAirborneState");
         }

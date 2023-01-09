@@ -57,4 +57,12 @@ MonoBehaviour:
             m_StringArgument: On Player Die
             m_BoolArgument: 0
           m_CallState: 2
+  - Name: OnPlayerClimbing
+    _event:
+      m_PersistentCalls:
+        m_Calls: []
+  - Name: OnPlayerClimbIdle
+    _event:
+      m_PersistentCalls:
+        m_Calls: []
   flagEvents: []

@@ -28,26 +28,30 @@ public class CharacterAirborneState : IState
         }
     }
 
+    Timer climbTimer = new Timer(.3f); 
+
     public CharacterAirborneState(CharacterMovement _controller)
     {
         controller = _controller;
     }
 
-    public void OnEnter(StateMachine owner) 
+    public void OnEnter() 
     {
         controller.physicsHandler.SetAccelerationStepCap(.65f);
         controller.eventHandler.InvokeEvent("InAir");
 
-        jumpsLeft = 1; 
+        jumpsLeft = 1;
+        climbTimer.ResetTimer();
+
     }
 
-    public void WhileInState(StateMachine owner)
+    public void WhileInState()
     {
         jump = controller.input.GetJumpInput(); 
         controller.physicsHandler.Move(controller.input.GetHorizontalInput(), jump);
     }
 
-    public void OnExit(StateMachine owner) { }
+    public void OnExit() { }
 
     public void Transition(StateMachine owner)
     {
@@ -58,6 +62,10 @@ public class CharacterAirborneState : IState
         else if (controller.wallStatus.IsOnWall())
         {
             owner.SwitchState("CharacterWallState");
+        }
+        else if (controller.climbStatus.CanClimb() && (controller.input.GetVerticalInput() > .5f || controller.input.GetVerticalInput() < -.5f) && climbTimer.IsTimerUp())
+        {
+            owner.SwitchState("CharacterClimbState");
         }
     }
 }
