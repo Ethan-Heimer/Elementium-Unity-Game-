@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterClimbStatusProvider : MonoBehaviour, ICharacterClimbStatusProvider
+[System.Serializable]
+public class CharacterClimbStatusProvider : ICharacterClimbStatusProvider
 {
+    Transform transform;
+    public void Constructer(Character character)
+    {
+        transform = character.transform;
+    }
     public bool CanClimb()
     {
         RaycastHit2D hit = Physics2D.BoxCast(transform.position, Vector2.one * .2f, 0f, Vector2.one, 0f, LayerMask.GetMask("Enviorment"));
@@ -17,4 +23,6 @@ public class CharacterClimbStatusProvider : MonoBehaviour, ICharacterClimbStatus
 
         return false; 
     }
+
+    public object Clone() => MemberwiseClone(); 
 }

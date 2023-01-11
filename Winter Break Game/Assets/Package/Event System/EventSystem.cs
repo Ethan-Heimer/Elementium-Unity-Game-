@@ -18,7 +18,6 @@ public class EventSystem : ScriptableObject
         try
         {
             events.First(evnt => evnt.Name == name)._event.AddListener(action);
-            Debug.Log(name + " Has been subscribed too");
         }
         catch(InvalidOperationException)
         {

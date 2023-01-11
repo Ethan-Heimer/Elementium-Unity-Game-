@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDamageChecker : MonoBehaviour, ICharacterDamageChecker
+public class PlayerDamageChecker : ICharacterDamageChecker
 {
+    Transform transform;
+    public void Constructer(Character character) 
+    {
+        transform = character.transform; 
+    }
+
     public bool CheckDamage()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, .5f); 
@@ -18,4 +24,7 @@ public class PlayerDamageChecker : MonoBehaviour, ICharacterDamageChecker
 
         return false;
     }
+
+  
+    public object Clone() => MemberwiseClone(); 
 }

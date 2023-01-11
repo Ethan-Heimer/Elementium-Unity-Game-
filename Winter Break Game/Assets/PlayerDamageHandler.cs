@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDamageHandler : MonoBehaviour, ICharacherDamageHandler
+public class PlayerDamageHandler :  ICharacterDamageHandler
 {
-    [SerializeField] CheckPointData checkPointData;
-    ICharacterEventHandler eventHandler; 
-
+    public CheckPointData checkPointData;
+    ICharacterEventHandler eventHandler;
+    Transform transform; 
     Vector2 startingPos;
     Vector2 checkPointPos
     {
@@ -20,10 +20,12 @@ public class PlayerDamageHandler : MonoBehaviour, ICharacherDamageHandler
             return checkPointData.GetCurrentCheckpointPosition(); 
         }
     }
-    void Start()
+    public void Constructer(Character character) 
     {
+        transform = character.transform;
+
         startingPos = transform.position;
-        eventHandler = GetComponent<ICharacterEventHandler>();
+        eventHandler = character.movement.eventHandler; 
     }
 
     public void OnDamaged()
@@ -31,4 +33,7 @@ public class PlayerDamageHandler : MonoBehaviour, ICharacherDamageHandler
         transform.position = checkPointPos;
         eventHandler.InvokeEvent("OnPlayerDie");
     }
+
+    
+    public object Clone() =>  MemberwiseClone();
 }

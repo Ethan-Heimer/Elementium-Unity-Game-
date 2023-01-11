@@ -5107,18 +5107,11 @@ GameObject:
   - component: {fileID: 409946313}
   - component: {fileID: 409946317}
   - component: {fileID: 409946306}
-  - component: {fileID: 409946307}
-  - component: {fileID: 409946312}
-  - component: {fileID: 409946314}
-  - component: {fileID: 409946325}
-  - component: {fileID: 409946315}
-  - component: {fileID: 409946316}
   - component: {fileID: 409946321}
   - component: {fileID: 409946320}
   - component: {fileID: 409946319}
   - component: {fileID: 409946322}
   - component: {fileID: 409946323}
-  - component: {fileID: 409946324}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5138,18 +5131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ac7d25d26dd408458968407ed8a2955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &409946307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 409946305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f13e4119d4853942ba2c099cbc3b092, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 69dccfdb742cf664282ff881b927d316, type: 2}
 --- !u!50 &409946308
 Rigidbody2D:
   serializedVersion: 4
@@ -5212,7 +5194,7 @@ SpriteRenderer:
   m_SortingLayerID: 1303815981
   m_SortingLayer: -3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1837182285, guid: cdbe4317bcd597848bc996c04fac0117, type: 3}
+  m_Sprite: {fileID: -1797373952, guid: cdbe4317bcd597848bc996c04fac0117, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5243,20 +5225,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &409946312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 409946305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ca7c16e051e41d40a9eb6cf854d0fb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  checkBoxSize: {x: 0.48, y: 0.21}
-  checkBoxOffset: {x: 0, y: 0.6, z: 0}
 --- !u!70 &409946313
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -5273,81 +5241,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.8, y: 1}
   m_Direction: 0
---- !u!114 &409946314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 409946305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7a48c84215827849b15b28acb0dd4d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  checkDistance: 0.5
---- !u!114 &409946315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 409946305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a48166bbe26bd64a85bcf54726a7bc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  renderer: {fileID: 409946309}
---- !u!114 &409946316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 409946305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86561f067e10b4f41b20ac87955c908b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  accelerationSpeed: 1
-  speed: 20
-  jumpForce: 20
-  accelerationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.99964833
-      value: -1.0052717
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 0
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  rigidbody: {fileID: 409946308}
 --- !u!95 &409946317
 Animator:
   serializedVersion: 4
@@ -5490,31 +5383,6 @@ MonoBehaviour:
         eventName: OnEndWalk
         particles: {fileID: 2144921724}
         Play: 0
---- !u!114 &409946324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 409946305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c19d1f956605d5d46a07cc06432f6dd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventSystem: {fileID: 11400000, guid: 8259de290f148dc49b48f7559604ccce, type: 2}
---- !u!114 &409946325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 409946305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dcfee08109d47d458d244112c7a86c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &487486205
 GameObject:
   m_ObjectHideFlags: 0

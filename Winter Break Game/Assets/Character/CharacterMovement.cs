@@ -2,8 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterMovement : MonoBehaviour
+public class CharacterMovement
 {
+    public CharacterConfig config;
+    public Character character; 
+
+    public CharacterMovement(Character _character)
+    {
+        character = _character;
+        config = character.config; 
+    }
+
     public ICharacterInputHandler input;
     public ICharacterGroundStatusProvider groundStatus;
     public IChararacterWallStatusProvider wallStatus;
@@ -14,15 +23,23 @@ public class CharacterMovement : MonoBehaviour
 
     public StateMachine characterStateMachine;
 
-    public void Awake()
+    public void SetUp()
     {
-        input = GetComponent<ICharacterInputHandler>();
-        groundStatus = GetComponent<ICharacterGroundStatusProvider>();
-        wallStatus = GetComponent<IChararacterWallStatusProvider>();
-        directionHandler = GetComponent<ICharacterDirectionHandler>();
-        physicsHandler = GetComponent<ICharacterPhysicsHandler>();
-        eventHandler = GetComponent<ICharacterEventHandler>();
-        climbStatus = GetComponent<ICharacterClimbStatusProvider>();
+        input = config.GetInputHandler();
+        groundStatus = config.GetGroundHandler();
+        wallStatus = config.GetWallProvider();
+        directionHandler = config.GetDirectionHandler();
+        physicsHandler = config.GetPhysicsHandler();
+        eventHandler = config.GetEventHandler();
+        climbStatus = config.GetClimbHandler();
+
+        input.Constructer(character);
+        groundStatus.Constructer(character);
+        wallStatus.Constructer(character);
+        directionHandler.Constructer(character);
+        physicsHandler.Constructer(character);
+        eventHandler.Constructer(character);
+        climbStatus.Constructer(character);
 
         characterStateMachine = new StateMachine("CharacterGroundedState",
             new CharacterGroundedState(this),
@@ -31,7 +48,7 @@ public class CharacterMovement : MonoBehaviour
             new CharacterClimbState(this));
     }
 
-    public void Update()
+    public void Tick()
     {
         characterStateMachine.InvokeCurrentState();
     }

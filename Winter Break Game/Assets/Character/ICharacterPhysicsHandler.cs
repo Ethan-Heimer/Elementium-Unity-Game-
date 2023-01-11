@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System; 
 
-public interface ICharacterPhysicsHandler
+public interface ICharacterPhysicsHandler : ICharacterInterface
 {
     public void Move(float direction, bool jump);
     public void Move(Vector2 vector, bool jump); 

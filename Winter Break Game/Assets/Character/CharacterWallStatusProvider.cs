@@ -2,14 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterWallStatusProvider : MonoBehaviour, IChararacterWallStatusProvider
+[System.Serializable]
+public class CharacterWallStatusProvider : IChararacterWallStatusProvider
 {
+    
     [SerializeField] float checkDistance;
 
     ICharacterDirectionHandler directionHandler;
+    Transform transform;
+    
+    public void Constructer(Character character)
+    {
+        Debug.Log(character.movement is not null);
+        directionHandler = character.movement.directionHandler;
+        
+        transform = character.transform;
+    }
 
-    void Awake() => directionHandler = GetComponent<ICharacterDirectionHandler>(); 
-  
+
     public bool IsOnWall()
     {
         if (directionHandler is null) return false; 
@@ -27,4 +37,6 @@ public class CharacterWallStatusProvider : MonoBehaviour, IChararacterWallStatus
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + (checkDistance * directionHandler.GetCurrentDirection()), transform.position.y, 0));
     }
+
+    public object Clone() => MemberwiseClone(); 
 }

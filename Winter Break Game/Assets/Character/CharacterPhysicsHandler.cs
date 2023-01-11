@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterPhysicsHandler : MonoBehaviour, ICharacterPhysicsHandler
+[System.Serializable]
+public class CharacterPhysicsHandler : ICharacterPhysicsHandler
 {
     public float accelerationSpeed = 0;
     public float speed;
@@ -27,10 +28,10 @@ public class CharacterPhysicsHandler : MonoBehaviour, ICharacterPhysicsHandler
         }
     }
 
-    void Awake()
+    public void Constructer(Character character)
     {
-        rigidbody = GetComponent<Rigidbody2D>();
-        directionHandler = GetComponent<ICharacterDirectionHandler>();
+        rigidbody = character.GetComponent<Rigidbody2D>();
+        directionHandler = character.movement.directionHandler;
     }
 
     public void Move(float direction, bool jump)
@@ -65,6 +66,8 @@ public class CharacterPhysicsHandler : MonoBehaviour, ICharacterPhysicsHandler
 
     public float GetSpeed() => speed;
 
-    public void FreezeGravity(bool freeze) => rigidbody.gravityScale = freeze ? 0 : 3; 
+    public void FreezeGravity(bool freeze) => rigidbody.gravityScale = freeze ? 0 : 3;
+
+    public object Clone() => MemberwiseClone(); 
 }
 

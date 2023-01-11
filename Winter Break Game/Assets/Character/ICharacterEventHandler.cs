@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events; 
+using UnityEngine.Events;
+using System;
 
-public interface ICharacterEventHandler
+public interface ICharacterEventHandler : ICharacterInterface
 {
     void InvokeEvent(string name);
     void SubscribeToEvent(string name, UnityAction action);

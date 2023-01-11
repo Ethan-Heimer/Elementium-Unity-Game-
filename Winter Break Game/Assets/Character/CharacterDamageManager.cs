@@ -2,18 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterDamageManager : MonoBehaviour
+public class CharacterDamageManager
 {
-    ICharacterDamageChecker damageChecker;
-    ICharacherDamageHandler damageHandler;
+    CharacterConfig config;
+    Character character; 
 
-    private void Awake()
+    ICharacterDamageChecker damageChecker;
+    ICharacterDamageHandler damageHandler;
+
+    public CharacterDamageManager(Character _character)
     {
-        damageChecker = GetComponent<ICharacterDamageChecker>();
-        damageHandler = GetComponent<ICharacherDamageHandler>();
+        character = _character;
+        config = character.config; 
     }
 
-    public void Update()
+    public void SetUp()
+    {
+        damageChecker = config.GetDamageChecker();
+        damageHandler = config.GetDamageHandler();
+
+        damageChecker.Constructer(character);
+        damageHandler.Constructer(character); 
+    }
+
+    public void Tick()
     {
         bool damaged = damageChecker.CheckDamage();
 

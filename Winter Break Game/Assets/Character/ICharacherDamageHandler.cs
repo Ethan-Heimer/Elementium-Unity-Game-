@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ICharacherDamageHandler
+public interface ICharacterDamageHandler : ICharacterInterface
 {
     void OnDamaged();
 }

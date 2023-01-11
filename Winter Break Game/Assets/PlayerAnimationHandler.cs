@@ -18,7 +18,7 @@ public class PlayerAnimationHandler : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        eventHandler = GetComponent<ICharacterEventHandler>();
+        eventHandler = GetComponent<Character>().config.eventHandler;  
 
         foreach (AnimationEvent o in animationEvents)
         {
