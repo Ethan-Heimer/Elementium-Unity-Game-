@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class CharacterPhysicsHandler : ICharacterPhysicsHandler
+public class CharacterPhysicsHandler : CharacterClass, ICharacterPhysicsHandler
 {
-    public float accelerationSpeed = 0;
-    public float speed;
-    public float jumpForce;
     public AnimationCurve accelerationCurve;
 
     [SerializeField] Rigidbody2D rigidbody;
     ICharacterDirectionHandler directionHandler;
     float accelerationStepCap = 1;
-   
+    float accelerationSpeed;
+
     float _step = 0;
     float accelerationStep
     {
@@ -28,13 +26,17 @@ public class CharacterPhysicsHandler : ICharacterPhysicsHandler
         }
     }
 
-    public void Constructer(Character character)
+    public override void Constructer(Character character)
     {
+        base.Constructer(character);
+
         rigidbody = character.GetComponent<Rigidbody2D>();
         directionHandler = character.movement.directionHandler;
+
+        accelerationSpeed = character.statsHandler.GetStat("Acceleration Speed");
     }
 
-    public void Move(float direction, bool jump)
+    public void Move(float direction, float speed, bool jump, float jumpForce)
     {
         directionHandler?.FlipCharacter((int)direction);
         if (direction != 0)
@@ -49,7 +51,7 @@ public class CharacterPhysicsHandler : ICharacterPhysicsHandler
         rigidbody.velocity = new Vector2(GetAcceleration() * speed, rigidbody.velocity.y + (jump ? jumpForce : 0));
     }
 
-    public void Move(Vector2 direction, bool jump)
+    public void Move(Vector2 direction, float speed, bool jump, float jumpForce)
     {
         float mult = speed * Time.deltaTime * 100;
         rigidbody.velocity = new Vector2(direction.x * mult/2, direction.y * mult + (jump ? jumpForce : 0));
@@ -64,10 +66,6 @@ public class CharacterPhysicsHandler : ICharacterPhysicsHandler
 
     public void SetAccelerationStep(float val) => accelerationStep = val;
 
-    public float GetSpeed() => speed;
-
     public void FreezeGravity(bool freeze) => rigidbody.gravityScale = freeze ? 0 : 3;
-
-    public object Clone() => MemberwiseClone(); 
 }
 

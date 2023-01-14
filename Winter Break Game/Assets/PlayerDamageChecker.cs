@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDamageChecker : ICharacterDamageChecker
+public class PlayerDamageChecker : CharacterClass, ICharacterDamageChecker
 {
     Transform transform;
-    public void Constructer(Character character) 
+    public override void Constructer(Character character) 
     {
+        base.Constructer(character);
         transform = character.transform; 
     }
 
@@ -24,7 +25,4 @@ public class PlayerDamageChecker : ICharacterDamageChecker
 
         return false;
     }
-
-  
-    public object Clone() => MemberwiseClone(); 
 }

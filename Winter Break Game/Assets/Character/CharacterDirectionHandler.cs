@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class CharacterDirectionHandler : ICharacterDirectionHandler
+public class CharacterDirectionHandler : CharacterClass, ICharacterDirectionHandler
 {
     [SerializeField] SpriteRenderer renderer;
-    public void Constructer(Character character)
+    public override void Constructer(Character character)
     {
+        base.Constructer(character);
         renderer = character.GetComponent<SpriteRenderer>();
     }
 
@@ -26,6 +27,4 @@ public class CharacterDirectionHandler : ICharacterDirectionHandler
     }
 
     public int GetCurrentDirection() => renderer.flipX?-1:1;
-
-    public object Clone() => MemberwiseClone(); 
 }

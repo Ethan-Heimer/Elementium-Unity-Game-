@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class CharacterGroundStatusProvider : ICharacterGroundStatusProvider
+public class CharacterGroundStatusProvider : CharacterClass, ICharacterGroundStatusProvider
 {
    [SerializeField] Vector2 checkBoxSize;
    [SerializeField] Vector3 checkBoxOffset;
 
     Transform transform; 
-   public void Constructer(Character character)
+   public override void Constructer(Character character)
     {
+        base.Constructer(character);
         transform = character.transform; 
     }
 
@@ -31,10 +32,5 @@ public class CharacterGroundStatusProvider : ICharacterGroundStatusProvider
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(transform.position-checkBoxOffset, checkBoxSize); 
-    }
-
-    public object Clone()
-    {
-        return MemberwiseClone();
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class CharacterWallStatusProvider : IChararacterWallStatusProvider
+public class CharacterWallStatusProvider : CharacterClass, IChararacterWallStatusProvider
 {
     
     [SerializeField] float checkDistance;
@@ -11,9 +11,9 @@ public class CharacterWallStatusProvider : IChararacterWallStatusProvider
     ICharacterDirectionHandler directionHandler;
     Transform transform;
     
-    public void Constructer(Character character)
+    public  override void Constructer(Character character)
     {
-        Debug.Log(character.movement is not null);
+        base.Constructer(character);
         directionHandler = character.movement.directionHandler;
         
         transform = character.transform;

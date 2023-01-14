@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDamageHandler :  ICharacterDamageHandler
+public class PlayerDamageHandler : CharacterClass, ICharacterDamageHandler
 {
     public CheckPointData checkPointData;
-    ICharacterEventHandler eventHandler;
+  
     Transform transform; 
     Vector2 startingPos;
     Vector2 checkPointPos
@@ -20,20 +20,18 @@ public class PlayerDamageHandler :  ICharacterDamageHandler
             return checkPointData.GetCurrentCheckpointPosition(); 
         }
     }
-    public void Constructer(Character character) 
+    public override void Constructer(Character _character) 
     {
+        base.Constructer(_character);
+
         transform = character.transform;
 
         startingPos = transform.position;
-        eventHandler = character.movement.eventHandler; 
     }
 
     public void OnDamaged()
     {
         transform.position = checkPointPos;
-        eventHandler.InvokeEvent("OnPlayerDie");
+        character.eventManager.InvokeEvent("OnPlayerDie");
     }
-
-    
-    public object Clone() =>  MemberwiseClone();
 }

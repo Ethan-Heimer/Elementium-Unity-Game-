@@ -2,54 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterWallState : IState
+public class CharacterWallState : CharacterClass, IWallState
 {
-    CharacterMovement controller;
-    
-    public CharacterWallState(CharacterMovement _controller)
-    {
-        controller = _controller;
-    }
-
     public void OnEnter()
     {
-        controller.physicsHandler.SetAccelerationStepCap(1);
-        controller.eventHandler.InvokeEvent("OnWall");
+        character.movement.physicsHandler.SetAccelerationStepCap(1);
+        character.eventManager.InvokeEvent("OnWall");
     }
 
     public void WhileInState()
     {
-        int dirFacing = controller.directionHandler.GetCurrentDirection();
-        float inputDir = controller.input.GetHorizontalInput();
+        int dirFacing = character.movement.directionHandler.GetCurrentDirection();
+        float inputDir = character.movement.input.GetHorizontalInput();
 
-        if(inputDir == dirFacing && controller.physicsHandler.GetVelocity().y < 0)
-        { 
-           controller.physicsHandler.SetVelocity(new Vector2(controller.physicsHandler.GetSpeed() * dirFacing, -controller.physicsHandler.GetSpeed()/1.5f));
+        if(inputDir == dirFacing && character.movement.physicsHandler.GetVelocity().y < 0)
+        {
+            character.movement.physicsHandler.SetVelocity(new Vector2(character.statsHandler.GetStat("Speed") * dirFacing, -character.statsHandler.GetStat("Speed") / 1.5f));
         }
         else if(inputDir == -dirFacing)
         {
-            controller.directionHandler.FlipCharacter(-dirFacing);
-            controller.physicsHandler.SetAccelerationStep(0);
+            character.movement.directionHandler.FlipCharacter(-dirFacing);
+            character.movement.physicsHandler.SetAccelerationStep(0);
         }
 
-        if (controller.input.GetJumpInput())
+        if (character.movement.input.GetJumpInput())
         {
-            controller.physicsHandler.SetAccelerationStep(-dirFacing);
-            controller.eventHandler.InvokeEvent("OnJump");
-            controller.physicsHandler.Move(-dirFacing, true);
+            character.movement.physicsHandler.SetAccelerationStep(-dirFacing);
+            character.eventManager.InvokeEvent("OnJump");
+            character.movement.physicsHandler.Move(-dirFacing, character.statsHandler.GetStat("Speed"), true, character.statsHandler.GetStat("Jump Force"));
         }
     }
 
-    public void OnExit() => controller.eventHandler.InvokeEvent("OffWall");
+    public void OnExit() => character.eventManager.InvokeEvent("OffWall");
     public void Transition(StateMachine owner)
     {
-        if (controller.groundStatus.IsOnGround())
+        if (character.movement.groundStatus.IsOnGround())
         {
-            owner.SwitchState("CharacterGroundedState");
+            owner.SwitchState("Ground");
         }
-        else if(!controller.groundStatus.IsOnGround() && !controller.wallStatus.IsOnWall())
+        else if(!character.movement.groundStatus.IsOnGround() && !character.movement.wallStatus.IsOnWall())
         {
-            owner.SwitchState("CharacterAirborneState");
+            owner.SwitchState("Air");
         }
     }
 }

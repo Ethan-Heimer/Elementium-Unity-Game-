@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class CharacterClimbStatusProvider : ICharacterClimbStatusProvider
+public class CharacterClimbStatusProvider : CharacterClass,  ICharacterClimbStatusProvider
 {
     Transform transform;
-    public void Constructer(Character character)
+    public override void Constructer(Character character)
     {
+        base.Constructer(character);
         transform = character.transform;
     }
     public bool CanClimb()
@@ -23,6 +24,4 @@ public class CharacterClimbStatusProvider : ICharacterClimbStatusProvider
 
         return false; 
     }
-
-    public object Clone() => MemberwiseClone(); 
 }

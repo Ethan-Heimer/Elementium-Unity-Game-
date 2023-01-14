@@ -3,87 +3,68 @@ using System.Collections.Generic;
 using UnityEngine;
 using System; 
 
-public class CharacterGroundedState : IState
+public class CharacterGroundedState : CharacterClass, IGroundState
 {
-    CharacterMovement controller;
-
-    bool _IsWalking;
-    bool IsWalking
-    {
-        get
-        {
-            return _IsWalking;
-        }
-
-        set
-        {
-            if (value && !_IsWalking)
-            {
-                controller.eventHandler.InvokeEvent("OnStartWalk");
-            }
-            else if (!value && _IsWalking)
-            {
-                controller.eventHandler.InvokeEvent("OnEndWalk");
-            }
-
-            _IsWalking = value;
-        }
-    }
-
-    bool _jump; 
-    bool jump
-    {
-        get
-        {
-            return _jump;
-        }
-
-        set
-        {
-            if(value) controller.eventHandler.InvokeEvent("OnJump");
-            _jump = value; 
-        }
-    }
-
-    public CharacterGroundedState(CharacterMovement _controller)
-    {
-        controller = _controller;
-    }
-
     public void OnEnter()
     {
-        controller.physicsHandler.SetAccelerationStepCap(1);
-        controller.eventHandler.InvokeEvent("OnGround");
+        character.movement.physicsHandler.SetAccelerationStepCap(1);
+        character.eventManager.InvokeEvent("OnGround");
     }
     public void WhileInState()
     {
-        float xInput = controller.input.GetHorizontalInput();
-        IsWalking = xInput != 0;
-        jump = controller.input.GetJumpInput(); 
-        controller.physicsHandler.Move(xInput, jump);
+        float xInput = character.movement.input.GetHorizontalInput();
+        CheckWalking(xInput);
+
+        character.movement.physicsHandler.Move(xInput, character.statsHandler.GetStat("Speed"), CanJump(), character.statsHandler.GetStat("Jump Force"));
     }
     public void OnExit()
     {
-        IsWalking = false;
-        controller.eventHandler.InvokeEvent("OnEndWalk");
+        CheckWalking(0);
     }
+
     public void Transition(StateMachine owner)
     {
-        if (!controller.groundStatus.IsOnGround())
+        if (!character.movement.groundStatus.IsOnGround())
         {
-            if (controller.wallStatus.IsOnWall())
+            if (character.movement.wallStatus.IsOnWall())
             {
-                owner.SwitchState("CharacterWallState");
+                owner.SwitchState("Wall");
             }
 
             else
             {
-                owner.SwitchState("CharacterAirborneState");
+                owner.SwitchState("Air");
             }
         }
-        else if (controller.climbStatus.CanClimb() && (controller.input.GetVerticalInput() > .5f || controller.input.GetVerticalInput() < -.5f))
+        else if (character.movement.climbStatus.CanClimb() && (character.movement.input.GetVerticalInput() > .5f || character.movement.input.GetVerticalInput() < -.5f))
         {
-            owner.SwitchState("CharacterClimbState"); 
+            owner.SwitchState("Climb"); 
+        }
+    }
+
+    bool CanJump()
+    {
+
+        if (character.movement.input.GetJumpInput())
+        {
+            character.eventManager.InvokeEvent("OnJump");
+        }
+
+        return character.movement.input.GetJumpInput();
+    }
+
+    bool isWalking; 
+    void CheckWalking(float input)
+    {
+        if(input is not 0 && !isWalking)
+        {
+            isWalking = true;
+            character.eventManager.InvokeEvent("OnStartWalk");
+        }
+        else if(input is 0 && isWalking)
+        {
+            isWalking = false;
+            character.eventManager.InvokeEvent("OnEndWalk");
         }
     }
 }

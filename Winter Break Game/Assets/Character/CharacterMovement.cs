@@ -5,32 +5,35 @@ using UnityEngine;
 public class CharacterMovement
 {
     public CharacterConfig config;
-    public Character character; 
-
-    public CharacterMovement(Character _character)
-    {
-        character = _character;
-        config = character.config; 
-    }
+    Character character;
 
     public ICharacterInputHandler input;
     public ICharacterGroundStatusProvider groundStatus;
     public IChararacterWallStatusProvider wallStatus;
     public ICharacterDirectionHandler directionHandler;
     public ICharacterPhysicsHandler physicsHandler;
-    public ICharacterEventHandler eventHandler;
-    public ICharacterClimbStatusProvider climbStatus; 
+    public ICharacterClimbStatusProvider climbStatus;
 
     public StateMachine characterStateMachine;
 
+
+    public CharacterMovement(Character _character)
+    {
+        character = _character;
+        config = character.config;
+    }
+
+   
     public void SetUp()
     {
+        Debug.Log(config.GetInputHandler().GetType().Name);
+        Debug.Log(config.GetGroundState().GetType().Name);
+
         input = config.GetInputHandler();
         groundStatus = config.GetGroundHandler();
         wallStatus = config.GetWallProvider();
         directionHandler = config.GetDirectionHandler();
         physicsHandler = config.GetPhysicsHandler();
-        eventHandler = config.GetEventHandler();
         climbStatus = config.GetClimbHandler();
 
         input.Constructer(character);
@@ -38,14 +41,13 @@ public class CharacterMovement
         wallStatus.Constructer(character);
         directionHandler.Constructer(character);
         physicsHandler.Constructer(character);
-        eventHandler.Constructer(character);
         climbStatus.Constructer(character);
 
-        characterStateMachine = new StateMachine("CharacterGroundedState",
-            new CharacterGroundedState(this),
-            new CharacterAirborneState(this),
-            new CharacterWallState(this),
-            new CharacterClimbState(this));
+        characterStateMachine = new CharacterStateMachiene(
+            config.GetGroundState(),
+            config.GetAirState(),
+            config.GetWallState(),
+            config.GetClimbState(), character);
     }
 
     public void Tick()

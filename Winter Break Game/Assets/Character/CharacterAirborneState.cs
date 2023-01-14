@@ -2,70 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterAirborneState : IState
+public class CharacterAirborneState : CharacterClass, IAirState
 {
-    CharacterMovement controller;
-    int jumpsLeft;
-
-    bool _jump;
-    bool jump
-    {
-        get
-        {
-            return _jump; 
-        }
-
-        set
-        {
-            _jump = value && jumpsLeft > 0;
-
-            if (_jump)
-            {
-                controller.physicsHandler.SetVelocity(new Vector2(controller.physicsHandler.GetVelocity().x, 0));
-                jumpsLeft--;
-                controller.eventHandler.InvokeEvent("OnJump");
-            }
-        }
-    }
-
     Timer climbTimer = new Timer(.3f); 
-
-    public CharacterAirborneState(CharacterMovement _controller)
-    {
-        controller = _controller;
-    }
 
     public void OnEnter() 
     {
-        controller.physicsHandler.SetAccelerationStepCap(.65f);
-        controller.eventHandler.InvokeEvent("InAir");
+        character.movement.physicsHandler.SetAccelerationStepCap(.65f);
+        character.eventManager.InvokeEvent("InAir");
 
-        jumpsLeft = 1;
+        character.statsHandler.ResetStatValue("Double Jump Amount");
         climbTimer.ResetTimer();
-
     }
 
     public void WhileInState()
     {
-        jump = controller.input.GetJumpInput(); 
-        controller.physicsHandler.Move(controller.input.GetHorizontalInput(), jump);
+        character.movement.physicsHandler.Move(character.movement.input.GetHorizontalInput(), character.statsHandler.GetStat("Speed"), CanJump(), character.statsHandler.GetStat("Jump Force"));
     }
 
     public void OnExit() { }
 
     public void Transition(StateMachine owner)
     {
-        if (controller.groundStatus.IsOnGround())
+        if (character.movement.groundStatus.IsOnGround())
         {
-            owner.SwitchState("CharacterGroundedState");
+            owner.SwitchState("Ground");
         }
-        else if (controller.wallStatus.IsOnWall())
+        else if (character.movement.wallStatus.IsOnWall())
         {
-            owner.SwitchState("CharacterWallState");
+            owner.SwitchState("Wall");
         }
-        else if (controller.climbStatus.CanClimb() && (controller.input.GetVerticalInput() > .5f || controller.input.GetVerticalInput() < -.5f) && climbTimer.IsTimerUp())
+        else if (character.movement.climbStatus.CanClimb() && (character.movement.input.GetVerticalInput() > .5f || character.movement.input.GetVerticalInput() < -.5f) && climbTimer.IsTimerUp())
         {
-            owner.SwitchState("CharacterClimbState");
+            owner.SwitchState("Climb");
         }
+    }
+
+    bool CanJump()
+    {
+        bool jump = character.movement.input.GetJumpInput() && character.statsHandler.GetStat("Double Jump Amount") > 0;
+
+        if (jump)
+        {
+            character.movement.physicsHandler.SetVelocity(new Vector2(character.movement.physicsHandler.GetVelocity().x, 0));
+            character.statsHandler.DecreaseStatValue("Double Jump Amount");
+            character.eventManager.InvokeEvent("OnJump");
+        }
+
+        return jump;
     }
 }
