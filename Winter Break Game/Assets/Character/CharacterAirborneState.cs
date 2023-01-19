@@ -45,7 +45,7 @@ public class CharacterAirborneState : CharacterClass, IAirState
         if (jump)
         {
             character.movement.physicsHandler.SetVelocity(new Vector2(character.movement.physicsHandler.GetVelocity().x, 0));
-            character.statsHandler.DecreaseStatValue("Double Jump Amount");
+            character.statsHandler.SubtractStatValue("Double Jump Amount", 1);
             character.eventManager.InvokeEvent("OnJump");
         }
 

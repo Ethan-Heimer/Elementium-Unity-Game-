@@ -7,20 +7,65 @@ public class CharacterStatsHandler : CharacterClass, ICharacterStatsHandler
 {
     [SerializeField] Stat[] stats;
 
-    public float GetStat(string name) => stats.First(x => x.GetName() == name).GetValue();
-    public void SetStat(string name, float value) => stats.First(x => x.GetName() == name).SetValue(value);
-    public void ResetStatValue(string name) => stats.First(x => x.GetName() == name).ResetStatValue();
+    public float GetStat(string name) => GetTargetStat(name).GetValue();
+    public void SetStat(string name, float value) => GetTargetStat(name).SetValue(value);
+    public void ResetStatValue(string name) => GetTargetStat(name).ResetStatValue();
 
-    public void DecreaseStatValue(string name)
+    public void AddStatValue(string name, float amount)
     {
-        Stat stat = stats.First(x => x.GetName() == name);
-        stat.SetValue(stat.GetValue() - 1); 
+        Stat stat = GetTargetStat(name);
+        stat.SetValue(stat.GetValue() + amount);
+    }
+    public void SubtractStatValue(string name, float amount)
+    {
+        Stat stat = GetTargetStat(name);
+        stat.SetValue(stat.GetValue() - amount);
+    }
+    public void MultiplyStatValue(string name, float amount)
+    {
+        Stat stat = GetTargetStat(name);
+        stat.SetValue(stat.GetValue() * amount);
+    }
+    public void DivideStatValue(string name, float amount)
+    {
+        Stat stat = GetTargetStat(name);
+        stat.SetValue(stat.GetValue() / amount);
     }
 
-    public void IncreaseStatValue(string name)
+    public void AddStatValueFromBase(string name, float amount)
     {
-        Stat stat = stats.First(x => x.GetName() == name);
-        stat.SetValue(stat.GetValue() + 1);
+        Stat stat = GetTargetStat(name);
+        stat.SetValue(stat.GetBaseValue() + amount);
+    }
+    public void SubtractStatValueFromBase(string name, float amount)
+    {
+        Stat stat = GetTargetStat(name);
+        stat.SetValue(stat.GetBaseValue() - amount);
+    }
+    public void MultiplyStatValueFromBase(string name, float amount)
+    {
+        Stat stat = GetTargetStat(name);
+        stat.SetValue(stat.GetBaseValue() * amount);
+    }
+    public void DivideStatValueFromBase(string name, float amount)
+    {
+        Stat stat = GetTargetStat(name);
+        stat.SetValue(stat.GetBaseValue() / amount);
+    }
+
+    Stat GetTargetStat(string name)
+    {
+        try
+        {
+            return stats.First(x => x.GetName() == name);
+        }
+        catch (System.InvalidOperationException)
+        {
+            Debug.LogError(name + " Is Not A Stat"); 
+        }
+
+        return null;
+       
     }
 }
 
@@ -29,6 +74,9 @@ public class Stat
 {
     [SerializeField] string name;
     [SerializeField] float startValue;
+
+    [SerializeField] float minValue;
+    [SerializeField] float maxValue; 
 
     float value;
     bool initiated = false;
@@ -46,7 +94,9 @@ public class Stat
         return value; 
     }
 
-    public float SetValue(float _value) => value = _value;
+    public float GetBaseValue() => startValue; 
+
+    public void SetValue(float _value) => value = Mathf.Clamp(_value, minValue, maxValue);
     public void ResetStatValue() => value = startValue; 
     
 

@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d3bc02ff5097d440b18205c93bda3ee, type: 3}
+  m_Name: Fire Slime
+  m_EditorClassIdentifier: 
+  reload: 0
+  statHandlers:
+  - name: CharacterStatProfileHandler
+    use: 0
+  - name: CharacterStatsHandler
+    use: 1
+  inputs:
+  - name: PlayerInputHandler
+    use: 0
+  - name: SlimeInputHandler
+    use: 1
+  groundStatuses:
+  - name: CharacterGroundStatusProvider
+    use: 1
+  wallStatuses:
+  - name: CharacterWallStatusProvider
+    use: 1
+  directionHandlers:
+  - name: CharacterDirectionHandler
+    use: 1
+  physicsHandlers:
+  - name: CharacterPhysicsHandler
+    use: 0
+  - name: CharacterPhysicsHandlerWithoutAcceleration
+    use: 1
+  eventHandlers:
+  - name: CharacterEventHandler
+    use: 1
+  - name: CharacterEventHandlerWithEventSystemAsset
+    use: 0
+  climbStatuses:
+  - name: CharacterClimbStatusProvider
+    use: 1
+  damageCheckers:
+  - name: PlayerDamageChecker
+    use: 0
+  - name: CheckForRay
+    use: 1
+  damageHandlers:
+  - name: PlayerDamageHandler
+    use: 0
+  - name: DestroyOnDamaged
+    use: 1
+  groundStates:
+  - name: CharacterGroundedState
+    use: 0
+  - name: SlimeGroundState
+    use: 1
+  airStates:
+  - name: CharacterAirborneState
+    use: 0
+  - name: EmptyAirborneState
+    use: 1
+  wallStates:
+  - name: CharacterWallState
+    use: 1
+  climbStates:
+  - name: CharacterClimbState
+    use: 1
+  statsHandler:
+    rid: 3407229752565563410
+  input:
+    rid: 3407229752565563413
+  groundStatus:
+    rid: 3407229752565563398
+  wallStatus:
+    rid: 3407229752565563399
+  directionHandler:
+    rid: 3407229752565563400
+  physicsHandler:
+    rid: 3407229752565563416
+  eventHandler:
+    rid: 3407229752565563402
+  climbStatus:
+    rid: 3407229752565563403
+  damageChecker:
+    rid: 3407229752565563417
+  damageHandler:
+    rid: 3407229752565563418
+  groundState:
+    rid: 3407229752565563414
+  wallState:
+    rid: 3407229752565563407
+  airState:
+    rid: 3407229752565563415
+  climbState:
+    rid: 3407229752565563409
+  references:
+    version: 2
+    RefIds:
+    - rid: 3407229752565563398
+      type: {class: CharacterGroundStatusProvider, ns: , asm: Assembly-CSharp}
+      data:
+        checkBoxSize: {x: 0, y: 0}
+        checkBoxOffset: {x: 0, y: 0, z: 0}
+    - rid: 3407229752565563399
+      type: {class: CharacterWallStatusProvider, ns: , asm: Assembly-CSharp}
+      data:
+        checkDistance: 0
+    - rid: 3407229752565563400
+      type: {class: CharacterDirectionHandler, ns: , asm: Assembly-CSharp}
+      data:
+        renderer: {fileID: 0}
+    - rid: 3407229752565563402
+      type: {class: CharacterEventHandler, ns: , asm: Assembly-CSharp}
+    - rid: 3407229752565563403
+      type: {class: CharacterClimbStatusProvider, ns: , asm: Assembly-CSharp}
+    - rid: 3407229752565563407
+      type: {class: CharacterWallState, ns: , asm: Assembly-CSharp}
+    - rid: 3407229752565563409
+      type: {class: CharacterClimbState, ns: , asm: Assembly-CSharp}
+    - rid: 3407229752565563410
+      type: {class: CharacterStatsHandler, ns: , asm: Assembly-CSharp}
+      data:
+        stats:
+        - name: Hop Speed
+          startValue: 1
+          minValue: 0
+          maxValue: 1
+        - name: Speed
+          startValue: 100
+          minValue: 0
+          maxValue: 10
+        - name: Jump Height
+          startValue: 1
+          minValue: 0
+          maxValue: 1
+        - name: Acceleration Speed
+          startValue: 100
+          minValue: 0
+          maxValue: 100
+    - rid: 3407229752565563413
+      type: {class: SlimeInputHandler, ns: , asm: Assembly-CSharp}
+      data:
+        playerSeekDistance: 10
+    - rid: 3407229752565563414
+      type: {class: SlimeGroundState, ns: , asm: Assembly-CSharp}
+    - rid: 3407229752565563415
+      type: {class: EmptyAirborneState, ns: , asm: Assembly-CSharp}
+    - rid: 3407229752565563416
+      type: {class: CharacterPhysicsHandlerWithoutAcceleration, ns: , asm: Assembly-CSharp}
+      data:
+        rigidbody: {fileID: 0}
+    - rid: 3407229752565563417
+      type: {class: CheckForRay, ns: , asm: Assembly-CSharp}
+    - rid: 3407229752565563418
+      type: {class: DestroyOnDamaged, ns: , asm: Assembly-CSharp}

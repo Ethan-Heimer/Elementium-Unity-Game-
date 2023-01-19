@@ -21,6 +21,14 @@ MonoBehaviour:
     _event:
       m_PersistentCalls:
         m_Calls: []
+  - Name: On Ray Collected
+    _event:
+      m_PersistentCalls:
+        m_Calls: []
+  - Name: On Ray List Changed
+    _event:
+      m_PersistentCalls:
+        m_Calls: []
   flagEvents:
   - name: While Ray Shot
     flagged: 0

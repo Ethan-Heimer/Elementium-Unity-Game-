@@ -8,5 +8,5 @@ public interface ICharacterInputHandler : ICharacterInterface
     float GetHorizontalInput();
     float GetVerticalInput(); 
     bool GetJumpInput();
-    
+    bool GetActionInput(); 
 }

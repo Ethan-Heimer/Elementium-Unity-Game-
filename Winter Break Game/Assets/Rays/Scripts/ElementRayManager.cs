@@ -5,7 +5,7 @@ using UnityEngine;
 public class ElementRayManager : MonoBehaviour
 {
     public ElementRayData selectedRay;
-    [SerializeField] ElementRayData[] selectableRays;
+    [SerializeField] List<ElementRayData> selectableRays = new List<ElementRayData>();
     [SerializeField] GameObject ray;
     [SerializeField] EventSystem rayEventSystem;
    
@@ -19,13 +19,13 @@ public class ElementRayManager : MonoBehaviour
 
         set
         {
-            if(value > selectableRays.Length - 1)
+            if(value > selectableRays.Count - 1)
             {
                 _selectedID = 0;
             }
             else if(value < 0)
             {
-                _selectedID = selectableRays.Length - 1;
+                _selectedID = selectableRays.Count - 1;
             }
             else
             {
@@ -36,8 +36,16 @@ public class ElementRayManager : MonoBehaviour
 
     void Start()
     {
-        rayEventSystem.InvokeEvent("On Ray Init", new EventData(new EventInfo("Selectable Rays", selectableRays)));
+        rayEventSystem.SubscribeToEvent("On Ray Collected", AddElement);
+
+        Debug.Log(selectableRays.Count);
+        rayEventSystem.InvokeEvent("On Ray Init", new EventData(new EventInfo("Selectable Rays", selectableRays.ToArray())));
         UpdateSelection();
+    }
+
+    private void OnDestroy()
+    {
+        rayEventSystem.UnsubscribeToEvent("On Ray Collected", AddElement); 
     }
 
     void Update()
@@ -58,5 +66,13 @@ public class ElementRayManager : MonoBehaviour
     {
         selectedRay = selectableRays[selectedID];
         rayEventSystem.InvokeEvent("On Ray Changed", new EventData(new EventInfo("Ray Selected", selectedRay), new EventInfo("Id Selected", selectedID)));
+    }
+
+    void AddElement(EventData data)
+    {
+        ElementRayData ray = (ElementRayData)data.GetData("Ray"); 
+        selectableRays.Add(ray);
+
+        rayEventSystem.InvokeEvent("On Ray List Changed", new EventData(new EventInfo("Selectable Rays", selectableRays.ToArray()))); 
     }
 }

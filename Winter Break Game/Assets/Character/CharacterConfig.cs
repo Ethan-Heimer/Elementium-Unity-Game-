@@ -147,8 +147,7 @@ public class CharacterConfig : ScriptableObject
         if (refrence is null || !CompareClassNames(refrence.GetType().Name, GetSelectedName(list)))
         { 
            refrence = GetClassRefence(list.Find(x => x.use).name) as T;
-        }
-           
+        }     
     }
 }
 

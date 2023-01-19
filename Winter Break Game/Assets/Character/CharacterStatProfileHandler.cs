@@ -10,15 +10,47 @@ public class CharacterStatProfileHandler : CharacterClass, ICharacterStatsHandle
     public void SetStat(string name, float value) => statProfile.GetStat(name).SetValue(value);
     public void ResetStatValue(string name) => statProfile.GetStat(name).ResetStatValue();
 
-    public void DecreaseStatValue(string name)
+    public void AddStatValue(string name, float amount)
     {
         Stat stat = statProfile.GetStat(name);
-        stat.SetValue(stat.GetValue() - 1);
+        stat.SetValue(stat.GetValue() + amount); 
+    }
+    public void SubtractStatValue(string name, float amount)
+    {
+        Stat stat = statProfile.GetStat(name);
+        stat.SetValue(stat.GetValue() - amount); 
+    }
+    public void MultiplyStatValue(string name, float amount)
+    {
+        Stat stat = statProfile.GetStat(name);
+        stat.SetValue(stat.GetValue() * amount); 
+    }
+    public void DivideStatValue(string name, float amount)
+    {
+        Stat stat = statProfile.GetStat(name);
+        stat.SetValue(stat.GetValue() / amount); 
     }
 
-    public void IncreaseStatValue(string name)
+    public void AddStatValueFromBase(string name, float amount)
     {
         Stat stat = statProfile.GetStat(name);
-        stat.SetValue(stat.GetValue() + 1);
+        stat.SetValue(stat.GetBaseValue() + amount);
     }
+    public void SubtractStatValueFromBase(string name, float amount)
+    {
+        Stat stat = statProfile.GetStat(name);
+        stat.SetValue(stat.GetBaseValue() - amount);
+    }
+    public void MultiplyStatValueFromBase(string name, float amount)
+    {
+        Stat stat = statProfile.GetStat(name);
+        stat.SetValue(stat.GetBaseValue() * amount);
+    }
+    public void DivideStatValueFromBase(string name, float amount)
+    {
+        Stat stat = statProfile.GetStat(name);
+        stat.SetValue(stat.GetBaseValue() / amount);
+    }
+
+
 }
