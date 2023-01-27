@@ -21,10 +21,7 @@ public class Character : MonoBehaviour
         eventManager = new CharacterEventManager(this, eventData);
 
         statsHandler = config.GetStatsHandler();
-    }
 
-    public void Start()
-    {
         movement.SetUp();
         damageManager.SetUp();
         eventManager.SetUp();
@@ -34,5 +31,10 @@ public class Character : MonoBehaviour
     {
         movement.Tick();
         damageManager.Tick();
+    }
+
+    public void FixedUpdate()
+    {
+        movement.FixedTick();
     }
 }

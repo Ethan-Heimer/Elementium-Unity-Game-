@@ -14,7 +14,7 @@ public class CharacterMovement
     public ICharacterPhysicsHandler physicsHandler;
     public ICharacterClimbStatusProvider climbStatus;
 
-    public StateMachine characterStateMachine;
+    public CharacterStateMachiene characterStateMachine;
 
 
     public CharacterMovement(Character _character)
@@ -53,6 +53,11 @@ public class CharacterMovement
     public void Tick()
     {
         characterStateMachine.InvokeCurrentState();
+    }
+
+    public void FixedTick()
+    {
+        characterStateMachine.InvokeFixedState();
     }
 }
 

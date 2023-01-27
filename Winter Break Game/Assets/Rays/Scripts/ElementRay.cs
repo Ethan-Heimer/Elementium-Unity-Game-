@@ -7,7 +7,7 @@ public class ElementRay : MonoBehaviour
     [SerializeField] EventSystem rayEventSystem; 
 
     IElementRayRenderer renderer;
-    IElementRayInputProvider input;
+    public IElementRayInputProvider input;
     IElementRayDataProvider data;
     IRayProvider raycast;
     IElementRayRayChecker checker; 

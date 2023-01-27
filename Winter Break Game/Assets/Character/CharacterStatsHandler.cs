@@ -10,6 +10,13 @@ public class CharacterStatsHandler : CharacterClass, ICharacterStatsHandler
     public float GetStat(string name) => GetTargetStat(name).GetValue();
     public void SetStat(string name, float value) => GetTargetStat(name).SetValue(value);
     public void ResetStatValue(string name) => GetTargetStat(name).ResetStatValue();
+    public void InitAllValues()
+    {
+        foreach(Stat o in stats)
+        {
+            o.ResetStatValue();
+        }
+    }
 
     public void AddStatValue(string name, float amount)
     {
@@ -67,6 +74,8 @@ public class CharacterStatsHandler : CharacterClass, ICharacterStatsHandler
         return null;
        
     }
+
+
 }
 
 [System.Serializable]
@@ -74,9 +83,6 @@ public class Stat
 {
     [SerializeField] string name;
     [SerializeField] float startValue;
-
-    [SerializeField] float minValue;
-    [SerializeField] float maxValue; 
 
     float value;
     bool initiated = false;
@@ -94,9 +100,9 @@ public class Stat
         return value; 
     }
 
-    public float GetBaseValue() => startValue; 
+    public float GetBaseValue() => startValue;
 
-    public void SetValue(float _value) => value = Mathf.Clamp(_value, minValue, maxValue);
+    public void SetValue(float _value) => value = _value; 
     public void ResetStatValue() => value = startValue; 
     
 

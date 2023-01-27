@@ -36,7 +36,7 @@ public class CharacterPhysicsHandler : CharacterClass, ICharacterPhysicsHandler
         accelerationSpeed = character.statsHandler.GetStat("Acceleration Speed");
     }
 
-    public void Move(float direction, float speed, bool jump, float jumpForce)
+    public void Move(float direction, float speed)
     {
         directionHandler?.FlipCharacter((int)direction);
         if (direction != 0)
@@ -48,13 +48,19 @@ public class CharacterPhysicsHandler : CharacterClass, ICharacterPhysicsHandler
             accelerationStep = accelerationStep > 0 ? accelerationStep - accelerationSpeed * Time.deltaTime : accelerationStep + accelerationSpeed * Time.deltaTime;
         }
 
-        rigidbody.velocity = new Vector2(GetAcceleration() * speed, rigidbody.velocity.y + (jump ? jumpForce : 0));
+        rigidbody.velocity = new Vector2(GetAcceleration() * speed, rigidbody.velocity.y);
+        // rigidbody.velocity.y + (jump ? jumpForce : 0)
     }
 
-    public void Move(Vector2 direction, float speed, bool jump, float jumpForce)
+    public void Move(Vector2 direction, float speed)
     {
-        float mult = speed * Time.deltaTime * 100;
-        rigidbody.velocity = new Vector2(direction.x * mult/2, direction.y * mult + (jump ? jumpForce : 0));
+        float mult = speed;
+        rigidbody.velocity = new Vector2(direction.x * mult/2, direction.y * mult);
+    }
+
+    public void Jump(bool jump, float jumpHeight)
+    {
+        rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y + (jump ? jumpHeight : 0));
     }
 
     public float GetAcceleration() => accelerationCurve.Evaluate(accelerationStep);

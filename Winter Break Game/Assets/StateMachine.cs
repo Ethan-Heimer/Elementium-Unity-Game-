@@ -40,8 +40,6 @@ public class StateMachine
 
         currentState = newState; 
         currentState.OnEnter();
-
-        Debug.Log(newState.GetType().Name);
     }
 
     public void InvokeCurrentState()
@@ -127,5 +125,11 @@ public class CharacterStateMachiene : StateMachine
         currentState?.OnExit();
         currentState = newState; 
         currentState?.OnEnter();
+    }
+
+    public void InvokeFixedState()
+    {
+        ICharacterState state = currentState as ICharacterState;
+        state.FixedWhileInState();
     }
 }

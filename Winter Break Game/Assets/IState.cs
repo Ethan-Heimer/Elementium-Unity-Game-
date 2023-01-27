@@ -14,6 +14,7 @@ public interface IState
 
 public interface ICharacterState : IState, ICloneable {
     void Constructer(Character character);
+    void FixedWhileInState(); 
 }
 
 public interface IGroundState : ICharacterState { }

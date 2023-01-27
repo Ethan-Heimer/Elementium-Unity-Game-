@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterClimbState : CharacterClass, IClimbState
 {
     bool isClimbing;
-   
+
     public void OnEnter() 
     {
         character.movement.physicsHandler.FreezeGravity(true);
@@ -14,11 +14,14 @@ public class CharacterClimbState : CharacterClass, IClimbState
 
     public void WhileInState()
     {
+        character.movement.physicsHandler.Jump(character.movement.input.GetJumpInput() && character.movement.input.GetVerticalInput() > .1f, character.statsHandler.GetStat("Jump Force")); 
+    }
+
+    public void FixedWhileInState()
+    {
         Vector2 moveVector = new Vector2(character.movement.input.GetHorizontalInput(), character.movement.input.GetVerticalInput());
-
         InvokeEvents(moveVector);
-
-        character.movement.physicsHandler.Move(new Vector2(character.movement.input.GetHorizontalInput(), character.movement.input.GetVerticalInput()), character.statsHandler.GetStat("Speed"), character.movement.input.GetJumpInput() && character.movement.input.GetVerticalInput() > .1f, character.statsHandler.GetStat("Jump Force"));
+        character.movement.physicsHandler.Move(new Vector2(character.movement.input.GetHorizontalInput(), character.movement.input.GetVerticalInput()), character.statsHandler.GetStat("Climb Speed"));
     }
 
     public void OnExit()

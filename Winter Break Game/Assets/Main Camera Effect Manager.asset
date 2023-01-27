@@ -24,27 +24,27 @@ MonoBehaviour:
       type: {class: CameraShake, ns: , asm: Assembly-CSharp}
       data:
         name: Ray Shake
-        ShakeTime: 0.1
-        ShakeIntensity: 0.035
-        ShakeSpeed: 200
+        ShakeTime: 0.15
+        ShakeIntensity: 19
+        ShakeSpeed: 60
     - rid: 3407229401074237441
       type: {class: CameraShake, ns: , asm: Assembly-CSharp}
       data:
         name: Element Destroy
         ShakeTime: 0.15
-        ShakeIntensity: 0.3
+        ShakeIntensity: 40
         ShakeSpeed: 60
     - rid: 3407229445254152201
       type: {class: CameraShake, ns: , asm: Assembly-CSharp}
       data:
         name: On Player Die
         ShakeTime: 0.15
-        ShakeIntensity: 0.3
+        ShakeIntensity: 50
         ShakeSpeed: 60
     - rid: 3407229445254152202
       type: {class: CameraShake, ns: , asm: Assembly-CSharp}
       data:
         name: On Checkpoint Collected
         ShakeTime: 0.15
-        ShakeIntensity: 0.3
+        ShakeIntensity: 30
         ShakeSpeed: 60

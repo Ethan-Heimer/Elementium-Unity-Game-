@@ -129,20 +129,12 @@ MonoBehaviour:
         stats:
         - name: Hop Speed
           startValue: 1
-          minValue: 0
-          maxValue: 1
         - name: Speed
-          startValue: 100
-          minValue: 0
-          maxValue: 10
+          startValue: 10
         - name: Jump Height
-          startValue: 1
-          minValue: 0
-          maxValue: 1
+          startValue: 10
         - name: Acceleration Speed
           startValue: 100
-          minValue: 0
-          maxValue: 100
     - rid: 3407229752565563413
       type: {class: SlimeInputHandler, ns: , asm: Assembly-CSharp}
       data:

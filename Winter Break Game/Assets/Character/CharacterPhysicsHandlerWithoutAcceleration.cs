@@ -15,16 +15,21 @@ public class CharacterPhysicsHandlerWithoutAcceleration : CharacterClass, IChara
         rigidbody = character.GetComponent<Rigidbody2D>();
     }
 
-    public void Move(float direction, float speed, bool jump, float jumpForce)
+    public void Move(float direction, float speed)
     {
         character.movement.directionHandler.FlipCharacter((int)direction);
-        rigidbody.velocity = new Vector2(speed * direction, rigidbody.velocity.y + (jump ? jumpForce : 0));
+        rigidbody.velocity = new Vector2(speed * direction, rigidbody.velocity.y);
     }
 
-    public void Move(Vector2 direction, float speed, bool jump, float jumpForce)
+    public void Move(Vector2 direction, float speed)
     {
-        float mult = speed * Time.deltaTime * 100;
-        rigidbody.velocity = new Vector2(direction.x * mult / 2, direction.y * mult + (jump ? jumpForce : 0));
+        float mult = speed;
+        rigidbody.velocity = new Vector2(direction.x * mult / 2, direction.y * mult);
+    }
+
+    public void Jump(bool jump, float jumpHeight)
+    {
+        rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y + (jump ? jumpHeight : 0)); 
     }
 
     public float GetAcceleration() => 0;

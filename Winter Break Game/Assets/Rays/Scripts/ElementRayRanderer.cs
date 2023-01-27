@@ -5,7 +5,7 @@ using UnityEngine;
 public class ElementRayRanderer : MonoBehaviour, IElementRayRenderer
 {
     LineRenderer renderer;
-
+    [SerializeField] Vector3 offset; 
     //ParticleSystem startParticles;
     [SerializeField] ParticleSystem endParticles;
   
@@ -91,7 +91,7 @@ public class ElementRayRanderer : MonoBehaviour, IElementRayRenderer
     private void DecayWarmingStep() => step -= decaySpeed * Time.deltaTime;
     private void SetRayLength(Vector2 endPos)
     {
-        renderer.SetPosition(0, transform.position);
+        renderer.SetPosition(0, transform.position + offset);
         renderer.SetPosition(1, endPos);
 
         endParticles.gameObject.transform.position = endPos;

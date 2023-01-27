@@ -14,6 +14,11 @@ public class EmptyAirborneState : CharacterClass, IAirState
 
     }
 
+    public void FixedWhileInState()
+    {
+
+    }
+
     public void OnExit()
     {
 

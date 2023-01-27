@@ -8,6 +8,7 @@ public interface ICharacterStatsHandler : ICharacterInterface
     public void SetStat(string name, float value);
 
     public void ResetStatValue(string name);
+    public void InitAllValues();
 
     public void AddStatValue(string name, float amount);
     public void SubtractStatValue(string name, float amount);

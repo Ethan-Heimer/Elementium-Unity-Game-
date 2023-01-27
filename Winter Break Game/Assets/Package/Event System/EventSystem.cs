@@ -116,7 +116,7 @@ public class FlagEvent
         RunFlaggedEvents(_data);
 
 
-        Debug.Log(name + " is Flagged");
+        //Debug.Log(name + " is Flagged");
     }
 
     public void Unflag()
@@ -125,7 +125,7 @@ public class FlagEvent
 
         flagged = false;
 
-        Debug.Log(name + " is Unflagged");
+        //Debug.Log(name + " is Unflagged");
     }
 
 }
@@ -145,7 +145,7 @@ public class EventData
         }
         catch (InvalidOperationException)
         {
-            Debug.LogError(name + "Is not a Data Name"); 
+            //Debug.LogError(name + "Is not a Data Name"); 
         }
 
         return null; 

@@ -5,6 +5,9 @@ using System;
 
 public class CharacterGroundedState : CharacterClass, IGroundState
 {
+    bool jump;
+    float xInput; 
+
     public void OnEnter()
     {
         character.movement.physicsHandler.SetAccelerationStepCap(1);
@@ -12,11 +15,16 @@ public class CharacterGroundedState : CharacterClass, IGroundState
     }
     public void WhileInState()
     {
-        float xInput = character.movement.input.GetHorizontalInput();
-        CheckWalking(xInput);
-
-        character.movement.physicsHandler.Move(xInput, character.statsHandler.GetStat("Speed"), CanJump(), character.statsHandler.GetStat("Jump Force"));
+        character.movement.physicsHandler.Jump(CanJump(), character.statsHandler.GetStat("Jump Force")); 
     }
+
+    public void FixedWhileInState()
+    {
+        xInput = character.movement.input.GetHorizontalInput();
+        CheckWalking(xInput);
+        character.movement.physicsHandler.Move(xInput, character.statsHandler.GetStat("Speed"));
+    }
+
     public void OnExit()
     {
         CheckWalking(0);

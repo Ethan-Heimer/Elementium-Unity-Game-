@@ -10,6 +10,14 @@ public class CharacterStatProfileHandler : CharacterClass, ICharacterStatsHandle
     public void SetStat(string name, float value) => statProfile.GetStat(name).SetValue(value);
     public void ResetStatValue(string name) => statProfile.GetStat(name).ResetStatValue();
 
+    public void InitAllValues()
+    {
+        foreach(Stat o in statProfile.stats)
+        {
+            o.ResetStatValue();
+        }
+    }
+
     public void AddStatValue(string name, float amount)
     {
         Stat stat = statProfile.GetStat(name);

@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class CharacterAirborneState : CharacterClass, IAirState
 {
-    Timer climbTimer = new Timer(.3f); 
+    Timer climbTimer = new Timer(.5f);
+
+    bool jump; 
 
     public void OnEnter() 
     {
@@ -17,7 +19,12 @@ public class CharacterAirborneState : CharacterClass, IAirState
 
     public void WhileInState()
     {
-        character.movement.physicsHandler.Move(character.movement.input.GetHorizontalInput(), character.statsHandler.GetStat("Speed"), CanJump(), character.statsHandler.GetStat("Jump Force"));
+        character.movement.physicsHandler.Jump(CanJump(), character.statsHandler.GetStat("Jump Force")); 
+    }
+
+    public void FixedWhileInState()
+    {
+        character.movement.physicsHandler.Move(character.movement.input.GetHorizontalInput(), character.statsHandler.GetStat("Speed"));
     }
 
     public void OnExit() { }
@@ -40,15 +47,15 @@ public class CharacterAirborneState : CharacterClass, IAirState
 
     bool CanJump()
     {
-        bool jump = character.movement.input.GetJumpInput() && character.statsHandler.GetStat("Double Jump Amount") > 0;
+        bool _jump = character.movement.input.GetJumpInput() && character.statsHandler.GetStat("Double Jump Amount") > 0;
 
-        if (jump)
+        if (_jump)
         {
             character.movement.physicsHandler.SetVelocity(new Vector2(character.movement.physicsHandler.GetVelocity().x, 0));
             character.statsHandler.SubtractStatValue("Double Jump Amount", 1);
             character.eventManager.InvokeEvent("OnJump");
         }
 
-        return jump;
+        return _jump;
     }
 }

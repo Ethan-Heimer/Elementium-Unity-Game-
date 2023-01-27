@@ -56,11 +56,15 @@ public class CharacterConfig : ScriptableObject
     {
         UpdateLists();
         UpdateInspector();
+
+        statsHandler.InitAllValues();
     }
 
     public void OnValidate()
     {
         UpdateInspector();
+
+        statsHandler.InitAllValues();
     }
 
     [ContextMenu("Reload Lists")]

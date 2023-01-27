@@ -8,7 +8,7 @@ public class CheckPointData : ScriptableObject
     GameObject currentCheckPoint;
 
     public GameObject GetCurrentCheckpoint() => currentCheckPoint;
-    public Vector3 GetCurrentCheckpointPosition() => currentCheckPoint.transform.position;
+    public Vector3 GetCurrentCheckpointPosition() => currentCheckPoint is not null ? currentCheckPoint.transform.position : Vector3.zero;
 
     public void SetCurrentCheckpoint(GameObject checkpoint) => currentCheckPoint = checkpoint; 
 

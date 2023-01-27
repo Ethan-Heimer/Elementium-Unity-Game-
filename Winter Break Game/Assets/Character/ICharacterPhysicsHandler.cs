@@ -5,8 +5,10 @@ using System;
 
 public interface ICharacterPhysicsHandler : ICharacterInterface
 {
-    public void Move(float direction, float speed, bool jump, float jumpForce);
-    public void Move(Vector2 vector, float speed, bool jump, float jumpForce); 
+    public void Move(float direction, float speed);
+    public void Move(Vector2 vector, float speed);
+
+    public void Jump(bool jump, float jumpForce);
 
     public void SetVelocity(Vector2 velocity);
     public Vector2 GetVelocity();

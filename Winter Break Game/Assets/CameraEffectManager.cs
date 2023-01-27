@@ -96,8 +96,6 @@ public class CameraShake : CameraEffect
 
     public async void ShakeCam(Camera cam)
     {
-        Debug.Log("Shake"); 
-
         float elapsedTime = 0;
         float percentComplete = 0;
 
@@ -107,7 +105,7 @@ public class CameraShake : CameraEffect
             percentComplete = elapsedTime / ShakeTime;
 
             float shakeBy = GetShakeBy(Time.time);
-
+            Debug.Log(shakeBy);
             ApplyShake(cam, cam.transform.position.y-lastShake, shakeBy);
 
             lastShake = shakeBy; 
@@ -121,14 +119,13 @@ public class CameraShake : CameraEffect
     bool shake = false; 
     public async void StartShake(Camera cam)
     {
-        Debug.Log("Shake");
         shake = true;
 
         while (shake)
         {
             float shakeBy = GetShakeBy(Time.time);
             ApplyShake(cam, cam.transform.position.y - lastShake, shakeBy);
-
+            Debug.Log(shakeBy);
             lastShake = shakeBy;
           
             await Task.Yield();
@@ -139,6 +136,6 @@ public class CameraShake : CameraEffect
 
     public void StopShake() => shake = false; 
 
-    float GetShakeBy(float x) => Mathf.Sin(x * ShakeSpeed) * ShakeIntensity; 
+    float GetShakeBy(float x) => Mathf.Sin(x * ShakeSpeed) * ShakeIntensity * Time.deltaTime; 
     void ApplyShake(Camera cam, float originalPos, float offset) => cam.transform.position = new Vector3(cam.transform.position.x, originalPos + offset, cam.transform.position.z);
 }

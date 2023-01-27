@@ -11,14 +11,19 @@ public class SlimeGroundState : CharacterClass, IGroundState
 
     public void WhileInState()
     {
-        bool move = character.movement.input.GetJumpInput(); 
-
-        if(move)
-        {
-            character.movement.physicsHandler.Move(character.movement.input.GetHorizontalInput(), character.statsHandler.GetStat("Speed"), true, character.statsHandler.GetStat("Jump Height"));
-            Debug.Log(character.movement.input.GetHorizontalInput());
-        }    
        
+    }
+
+
+    public void FixedWhileInState()
+    {
+        bool move = character.movement.input.GetJumpInput();
+
+        if (move)
+        {
+            character.movement.physicsHandler.Move(character.movement.input.GetHorizontalInput(), character.statsHandler.GetStat("Jump Height"));
+            character.movement.physicsHandler.Jump(true, character.statsHandler.GetStat("Speed"));
+        }
     }
 
     public void OnExit()

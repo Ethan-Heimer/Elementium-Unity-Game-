@@ -9,7 +9,6 @@ public class WaterRayDamageReciever : MonoBehaviour, IRayDamageReciever, IWaterR
     public void OnHit(Vector2 whereHit)
     {
         damage = true;
-        Debug.Log("hit");
     }
 
     public bool IsCorrectRayTouching() => damage; 

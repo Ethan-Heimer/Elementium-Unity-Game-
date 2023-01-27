@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CharacterWallState : CharacterClass, IWallState
 {
+    int dirFacing;
+    float inputDir; 
     public void OnEnter()
     {
         character.movement.physicsHandler.SetAccelerationStepCap(1);
@@ -12,24 +14,29 @@ public class CharacterWallState : CharacterClass, IWallState
 
     public void WhileInState()
     {
-        int dirFacing = character.movement.directionHandler.GetCurrentDirection();
-        float inputDir = character.movement.input.GetHorizontalInput();
-
-        if(inputDir == dirFacing && character.movement.physicsHandler.GetVelocity().y < 0)
-        {
-            character.movement.physicsHandler.SetVelocity(new Vector2(character.statsHandler.GetStat("Speed") * dirFacing, -character.statsHandler.GetStat("Speed") / 1.5f));
-        }
-        else if(inputDir == -dirFacing)
-        {
-            character.movement.directionHandler.FlipCharacter(-dirFacing);
-            character.movement.physicsHandler.SetAccelerationStep(0);
-        }
+        dirFacing = character.movement.directionHandler.GetCurrentDirection();
+        inputDir = character.movement.input.GetHorizontalInput();
 
         if (character.movement.input.GetJumpInput())
         {
             character.movement.physicsHandler.SetAccelerationStep(-dirFacing);
             character.eventManager.InvokeEvent("OnJump");
-            character.movement.physicsHandler.Move(-dirFacing, character.statsHandler.GetStat("Speed"), true, character.statsHandler.GetStat("Jump Force"));
+            character.movement.physicsHandler.Move(-dirFacing, character.statsHandler.GetStat("Speed"));
+            character.movement.physicsHandler.Jump(true, character.statsHandler.GetStat("Jump Force"));
+        }
+       
+    }
+
+    public void FixedWhileInState()
+    {
+        if (inputDir == dirFacing && character.movement.physicsHandler.GetVelocity().y < 0)
+        {
+            character.movement.physicsHandler.SetVelocity(new Vector2(character.statsHandler.GetStat("Speed") * dirFacing, -character.statsHandler.GetStat("Speed") / 1.5f));
+        }
+        else if (inputDir == -dirFacing)
+        {
+            character.movement.directionHandler.FlipCharacter(-dirFacing);
+            character.movement.physicsHandler.SetAccelerationStep(0);
         }
     }
 

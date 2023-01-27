@@ -19,7 +19,6 @@ public class CheckForRay : CharacterClass, ICharacterDamageChecker
 
     public bool CheckDamage()
     {
-        Debug.Log(damageReciever.IsCorrectRayTouching());
         return damageReciever.IsCorrectRayTouching(); 
     }
 }
