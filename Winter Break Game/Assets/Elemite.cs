@@ -35,7 +35,6 @@ public class Elemite : MonoBehaviour
 
     public void Init(Character _target, int _delay)
     {
-        Debug.Log(_target.movement.directionHandler.GetType().Name); 
         PositionHandler = new ElemitePositionHandler(this, _target.transform, _delay);
 
         DirectionManager = new ElemiteDirectionManager(this, _target);

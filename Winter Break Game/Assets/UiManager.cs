@@ -56,4 +56,48 @@ public static class UiManager
             await Task.Yield();
         }
     }
+
+    static Queue<PopupUiData> popupData = new Queue<PopupUiData>();
+
+    static bool isDisplayingData = false;
+    public static void UiPopup(Sprite image, string header, string text)
+    {
+        PopupUiData data = new PopupUiData();
+        data.image = image;
+        data.header = header; 
+        data.text = text; 
+
+        popupData.Enqueue(data);
+
+        InvokePopups();
+    }
+
+    static async void InvokePopups()
+    {
+        if (isDisplayingData) return;
+
+        isDisplayingData = true;
+
+        while(popupData.Count > 0)
+        {
+            await ShowPopup(popupData.Dequeue());
+        }
+
+        isDisplayingData = false;
+    }
+
+    static async Task ShowPopup(PopupUiData data)
+    {
+        await PopupUI.Instance.Pop(data, .25f, 3); 
+    }
+
+    
+}
+
+[System.Serializable]
+public struct PopupUiData
+{
+    public Sprite image;
+    public string header; 
+    public string text; 
 }

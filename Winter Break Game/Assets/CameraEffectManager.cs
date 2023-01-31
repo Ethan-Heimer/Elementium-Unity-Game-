@@ -8,8 +8,7 @@ using System;
 [CreateAssetMenu]
 public class CameraEffectManager : ScriptableObject
 {
-    [SerializeReference]
-    public List<CameraEffect> effects = new List<CameraEffect>();
+    [SerializeField] CameraShakeManager CameraShake;
 
     Camera _cam = null;
     Camera mainCamera
@@ -22,53 +21,88 @@ public class CameraEffectManager : ScriptableObject
         }
     }
 
-    public void ExecuteEffect(string name)
-    {
-        try 
-        {
-            effects.Find(x => x.name == name).ExecuteEffect(mainCamera);
-        }
-        catch (NullReferenceException)
-        {
-            Debug.Log("Shake Effect Does Not Exist"); 
-        }
-       
-    }
+    public void ExecuteShake(string name) => CameraShake.InvokeShake(name, mainCamera);
+    public void FlagShake(string name) => CameraShake.FlagEffect(name, mainCamera);
+    public void UnflagShake(string name) => CameraShake.UnflagEffect(name, mainCamera);
 
-    public void FlagEffect(string name)
-    {
-        try
-        {
-            effects.Find(x => x.name == name).OnFlag(mainCamera);
-        }
-        catch (NullReferenceException)
-        {
-            Debug.Log("Shake Effect Does Not Exist");
-        }
-    }
-
-    public void UnflagEffect(string name)
-    {
-        try
-        {
-            effects.Find(x => x.name == name).OnUnflag(mainCamera);
-        }
-        catch (NullReferenceException)
-        {
-            Debug.Log("Shake Effect Does Not Exist");
-        }
-    }
-
-    [ContextMenu("Add Shake")] void AddShake() => effects.Add(new CameraShake()); 
 }
 
 [System.Serializable]
 public abstract class CameraEffect
 {
-     public string name; 
-     public abstract void ExecuteEffect(Camera camera);
+    public string name;
+    public abstract Task ExecuteEffect(Camera camera);
     public abstract void OnFlag(Camera camera);
     public abstract void OnUnflag(Camera camera);
+}
+
+[System.Serializable]
+public class CameraShakeManager
+{
+    [SerializeField] List<CameraShake> cameraShakes = new List<CameraShake>();
+
+    bool isShakeFlagged = false;
+    string flaggedName;
+
+    bool flaggedPaused = false; 
+
+    public async void InvokeShake(string name, Camera mainCamera)
+    {
+        try
+        {
+          
+            string shakeFlaggedName = flaggedName;
+
+            if (isShakeFlagged)
+            {
+                UnflagEffect(shakeFlaggedName, mainCamera);
+                flaggedPaused = true; 
+            }
+
+            await cameraShakes.Find(x => x.name == name).ExecuteEffect(mainCamera);
+
+            if (flaggedPaused) 
+            {
+                FlagEffect(shakeFlaggedName, mainCamera);
+                flaggedPaused = false; 
+            }
+            
+        }
+        catch (NullReferenceException)
+        {
+            Debug.Log("Shake Effect Does Not Exist");
+        }
+    }
+
+    public void FlagEffect(string name, Camera mainCamera)
+    {
+        try
+        {
+            cameraShakes.Find(x => x.name == name).OnFlag(mainCamera);
+            isShakeFlagged = true;
+            flaggedName = name; 
+        }
+        catch (NullReferenceException)
+        {
+            Debug.Log("Shake Effect Does Not Exist");
+        }
+    }
+
+    public void UnflagEffect(string name, Camera mainCamera)
+    {
+        try
+        {
+            cameraShakes.Find(x => x.name == name).OnUnflag(mainCamera);
+            isShakeFlagged = false;
+            flaggedName = "";
+
+            if (flaggedPaused) flaggedPaused = false;
+        }
+        catch (NullReferenceException)
+        {
+            Debug.Log("Shake Effect Does Not Exist");
+        }
+    }
 }
 
 [System.Serializable]
@@ -78,10 +112,10 @@ public class CameraShake : CameraEffect
     public float ShakeIntensity;
     public float ShakeSpeed;
 
-    float lastShake = 0;
-    public override void ExecuteEffect(Camera camera)
+    public async override Task ExecuteEffect(Camera camera)
     {
-        ShakeCam(camera); 
+        await ShakeCam(camera);
+        ReturnToOrigin(camera, .1f); 
     }
 
     public override void OnFlag(Camera camera)
@@ -94,7 +128,7 @@ public class CameraShake : CameraEffect
         StopShake(); 
     }
 
-    public async void ShakeCam(Camera cam)
+    public async Task ShakeCam(Camera cam)
     {
         float elapsedTime = 0;
         float percentComplete = 0;
@@ -105,37 +139,46 @@ public class CameraShake : CameraEffect
             percentComplete = elapsedTime / ShakeTime;
 
             float shakeBy = GetShakeBy(Time.time);
-            Debug.Log(shakeBy);
-            ApplyShake(cam, cam.transform.position.y-lastShake, shakeBy);
-
-            lastShake = shakeBy; 
+         
+            ApplyShake(cam, shakeBy);
 
             await Task.Yield();
         }
-
-        lastShake = 0; 
     }
 
-    bool shake = false; 
+    bool shake = false;
     public async void StartShake(Camera cam)
     {
         shake = true;
 
         while (shake)
         {
-            float shakeBy = GetShakeBy(Time.time);
-            ApplyShake(cam, cam.transform.position.y - lastShake, shakeBy);
-            Debug.Log(shakeBy);
-            lastShake = shakeBy;
-          
-            await Task.Yield();
+            await ShakeCam(cam);
         }
 
-        lastShake = 0;
+        ReturnToOrigin(cam, .1f);
     }
 
     public void StopShake() => shake = false; 
 
-    float GetShakeBy(float x) => Mathf.Sin(x * ShakeSpeed) * ShakeIntensity * Time.deltaTime; 
-    void ApplyShake(Camera cam, float originalPos, float offset) => cam.transform.position = new Vector3(cam.transform.position.x, originalPos + offset, cam.transform.position.z);
+    float GetShakeBy(float x) => Mathf.Sin(x * ShakeSpeed) * ShakeIntensity; 
+    void ApplyShake(Camera cam, float offset) => cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, offset, cam.transform.localPosition.z);
+
+    async void ReturnToOrigin(Camera cam, float speed)
+    {
+        float elapsedTime = 0;
+        float percentComplete = 0;
+
+        Vector2 startPos = cam.transform.localPosition; 
+
+        while (percentComplete < 1)
+        {
+            elapsedTime += Time.deltaTime;
+            percentComplete = elapsedTime / speed;
+
+            cam.transform.localPosition = Vector2.Lerp(startPos, Vector2.zero, percentComplete);
+
+            await Task.Yield();
+        }
+    }
 }

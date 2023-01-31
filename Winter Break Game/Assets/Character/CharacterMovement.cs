@@ -26,9 +26,6 @@ public class CharacterMovement
    
     public void SetUp()
     {
-        Debug.Log(config.GetInputHandler().GetType().Name);
-        Debug.Log(config.GetGroundState().GetType().Name);
-
         input = config.GetInputHandler();
         groundStatus = config.GetGroundHandler();
         wallStatus = config.GetWallProvider();

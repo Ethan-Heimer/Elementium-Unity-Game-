@@ -13,6 +13,8 @@ public class RayCollectable : MonoBehaviour
             rayEventSystem.InvokeEvent("On Ray Collected", new EventData(new EventInfo("Ray", ray)));
 
             Destroy(gameObject);
+
+            UiManager.UiPopup(ray.icon, "New Element!", "New Element Unlocked: " + ray.name); 
         }
     }
 }

@@ -19,7 +19,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 11400000, guid: 9a44992f3c979bb4c9eda0dc84ad072c, type: 2}
           m_TargetAssemblyTypeName: CameraEffectManager, Assembly-CSharp
-          m_MethodName: ExecuteEffect
+          m_MethodName: ExecuteShake
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

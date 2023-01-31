@@ -12,39 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f6274f8bbb10c45ba5fbd113f75f9d, type: 3}
   m_Name: Main Camera Effect Manager
   m_EditorClassIdentifier: 
-  effects:
-  - rid: 3407229401074237440
-  - rid: 3407229401074237441
-  - rid: 3407229445254152201
-  - rid: 3407229445254152202
-  references:
-    version: 2
-    RefIds:
-    - rid: 3407229401074237440
-      type: {class: CameraShake, ns: , asm: Assembly-CSharp}
-      data:
-        name: Ray Shake
-        ShakeTime: 0.15
-        ShakeIntensity: 19
-        ShakeSpeed: 60
-    - rid: 3407229401074237441
-      type: {class: CameraShake, ns: , asm: Assembly-CSharp}
-      data:
-        name: Element Destroy
-        ShakeTime: 0.15
-        ShakeIntensity: 40
-        ShakeSpeed: 60
-    - rid: 3407229445254152201
-      type: {class: CameraShake, ns: , asm: Assembly-CSharp}
-      data:
-        name: On Player Die
-        ShakeTime: 0.15
-        ShakeIntensity: 50
-        ShakeSpeed: 60
-    - rid: 3407229445254152202
-      type: {class: CameraShake, ns: , asm: Assembly-CSharp}
-      data:
-        name: On Checkpoint Collected
-        ShakeTime: 0.15
-        ShakeIntensity: 30
-        ShakeSpeed: 60
+  CameraShake:
+    cameraShakes:
+    - name: Ray Shake
+      ShakeTime: 0.15
+      ShakeIntensity: 0.1
+      ShakeSpeed: 30
+    - name: Element Destroy
+      ShakeTime: 0.25
+      ShakeIntensity: 0.5
+      ShakeSpeed: 30
+    - name: On Player Die
+      ShakeTime: 0.15
+      ShakeIntensity: 1
+      ShakeSpeed: 30
+    - name: On Checkpoint Collected
+      ShakeTime: 0.15
+      ShakeIntensity: 1
+      ShakeSpeed: 30
