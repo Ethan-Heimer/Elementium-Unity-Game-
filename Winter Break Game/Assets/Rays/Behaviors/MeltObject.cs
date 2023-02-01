@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeltObject : MonoBehaviour, IFireRayInteractable
+public class MeltObject : RayAffectable
 {
     [SerializeField] EventSystem interactibleEventSystem; 
     SpriteRenderer renderer;
@@ -23,7 +23,7 @@ public class MeltObject : MonoBehaviour, IFireRayInteractable
     }
 
   
-    public void OnHit(Vector2 intercention)
+    public override void OnHit(Vector2 intercention)
     {
         elapsedTime += Time.deltaTime;
         percentComplete = elapsedTime / timeToMelt;

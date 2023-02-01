@@ -4937,6 +4937,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a28f21161352f1244a2fabba0d65803f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  personalElementTypes:
+  - {fileID: 11400000, guid: 9a3edfec51932004ba5b31d6224d5c2f, type: 2}
+  UseUI: 1
+  uiOffset: {x: 0, y: 0}
+  iconSize: {x: 0.8, y: 0.8}
   interactibleEventSystem: {fileID: 11400000, guid: a181486f27b5cba49b6fe4399c3938e0, type: 2}
   timeToMelt: 1
   meltParticles: {fileID: 5857056229050639740}

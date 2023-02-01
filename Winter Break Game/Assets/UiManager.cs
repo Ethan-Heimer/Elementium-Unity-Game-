@@ -91,7 +91,56 @@ public static class UiManager
         await PopupUI.Instance.Pop(data, .25f, 3); 
     }
 
-    
+    public static Image GetImage(Sprite sprite)
+    {
+        var obj = new GameObject("Image");
+        var img = obj.AddComponent<Image>();
+        img.sprite = sprite;
+
+        return img; 
+    }
+
+    public static Canvas GetNewCanvas(Transform transform, Vector2 offset)
+    {
+        var obj = new GameObject("Canvas");
+        var canvas = obj.AddComponent<Canvas>();
+
+        canvas.renderMode = RenderMode.WorldSpace;
+
+        var rect = canvas.GetComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(3, 2);
+
+        canvas.transform.SetParent(transform);
+        canvas.transform.position = Vector2.zero;
+        canvas.transform.localPosition = offset;
+        return canvas; 
+    }
+
+    public static GridLayoutGroup GetGrid(Canvas canvas, Vector2 cellSize, Vector2 spacing)
+    {
+        var gridObj = new GameObject("Grid Layout Group");
+        var grid = gridObj.AddComponent<GridLayoutGroup>();
+
+        grid.cellSize = cellSize;
+        grid.spacing = spacing;
+
+        grid.transform.SetParent(canvas.transform);
+        grid.transform.position = Vector2.zero;
+        grid.transform.localPosition = Vector2.zero;
+
+        grid.GetComponent<RectTransform>().sizeDelta = canvas.GetComponent<RectTransform>().sizeDelta;
+        grid.childAlignment = TextAnchor.MiddleCenter;
+
+        return grid;
+    }
+
+    public static GridLayoutGroup GetNewCanvasWithGrid(Transform transform, Vector2 offset, Vector2 cellSize, Vector2 spacing)
+    {
+        Canvas canvas = GetNewCanvas(transform, offset);
+        GridLayoutGroup grid = GetGrid(canvas, cellSize, spacing);
+
+        return grid;
+    }
 }
 
 [System.Serializable]

@@ -16,6 +16,7 @@ public class ElementRayManager : MonoBehaviour
         rayEventSystem.SubscribeToEvent("On Ray Collected", AddElement);
 
         rayEventSystem.InvokeEvent("On Ray Init", new EventData(new EventInfo("Selectable Rays", selectableRays.ToArray())));
+
         SelectRay(0);
     }
 

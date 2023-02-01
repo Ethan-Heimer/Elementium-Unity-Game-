@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu]
 public class Element : ScriptableObject
 {
-    Sprite Icon; 
+    public Sprite Icon; 
 }

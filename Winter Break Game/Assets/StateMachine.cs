@@ -123,13 +123,12 @@ public class CharacterStateMachiene : StateMachine
         }
 
         currentState?.OnExit();
-        currentState = newState; 
+        currentState = newState as ICharacterState; 
         currentState?.OnEnter();
     }
 
     public void InvokeFixedState()
     {
-        ICharacterState state = currentState as ICharacterState;
-        state.FixedWhileInState();
+        (currentState as ICharacterState).FixedWhileInState();
     }
 }

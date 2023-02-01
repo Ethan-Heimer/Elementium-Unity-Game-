@@ -42,5 +42,6 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   icon: {fileID: 558333687, guid: cadec40536a05d945bfb83b7b93deb99, type: 3}
-  InterfacesToInvoke:
-  - IFireRayInteractable
+  ElementSToInteractWith:
+  - {fileID: 11400000, guid: 4efc6a0627a496647959213a4c169189, type: 2}
+  - {fileID: 11400000, guid: 9a3edfec51932004ba5b31d6224d5c2f, type: 2}

@@ -98,6 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbe7e64b3583e2c4f8ebb070909243e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  personalElementTypes:
+  - {fileID: 11400000, guid: 655a5ce742660eb4db4364316318ef17, type: 2}
+  UseUI: 1
+  uiOffset: {x: 0, y: 0}
+  iconSize: {x: 1, y: 1}
   LiquidSolidForm: {fileID: 3027065231696171867, guid: 39a6d9864a851c9489b8174247857fe0, type: 3}
 --- !u!61 &4271384082603330481
 BoxCollider2D:

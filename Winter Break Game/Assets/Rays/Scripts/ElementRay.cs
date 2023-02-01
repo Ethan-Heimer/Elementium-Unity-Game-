@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class ElementRay : MonoBehaviour
 {
-    [SerializeField] EventSystem rayEventSystem; 
+    [SerializeField] EventSystem rayEventSystem;
 
     IElementRayRenderer renderer;
     public IElementRayInputProvider input;
     IElementRayDataProvider data;
     IRayProvider raycast;
-    IElementRayRayChecker checker; 
+    IElementRayRayChecker checker;
+
+    ElementRayData rayData;
+    RaycastHit2D ray;
+    Vector2 aimVector;
+    float distance;
     private void Awake()
     {
         renderer = GetComponent<IElementRayRenderer>();
@@ -21,12 +26,12 @@ public class ElementRay : MonoBehaviour
     }
     private void Update()
     {
-        ElementRayData rayData = data.GetRayData(); 
+        rayData = data.GetRayData(); 
 
-        RaycastHit2D ray = raycast.GetRaycast(input.GetAimVector());
-        Vector2 aimVector = input.GetAimVector();
+        ray = raycast.GetRaycast(input.GetAimVector());
+        aimVector = input.GetAimVector();
 
-        float distance = ray.distance != 0 ? ray.distance : raycast.GetRayMaxDistance();
+        distance = ray.distance != 0 ? ray.distance : raycast.GetRayMaxDistance();
 
         if (input.ShootRayIsPressed())
         {

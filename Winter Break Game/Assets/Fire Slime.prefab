@@ -4825,7 +4825,7 @@ GameObject:
   - component: {fileID: 1545553732963511358}
   - component: {fileID: 1545553732963511355}
   - component: {fileID: 1545553732963511354}
-  - component: {fileID: 1545553732963511349}
+  - component: {fileID: 1356548910830335103}
   m_Layer: 3
   m_Name: Fire Slime
   m_TagString: Killable
@@ -4922,7 +4922,7 @@ MonoBehaviour:
           m_Calls:
           - m_Target: {fileID: 11400000, guid: 9a44992f3c979bb4c9eda0dc84ad072c, type: 2}
             m_TargetAssemblyTypeName: CameraEffectManager, Assembly-CSharp
-            m_MethodName: ExecuteEffect
+            m_MethodName: ExecuteShake
             m_Mode: 5
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -4979,7 +4979,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1545553732963511349
+--- !u!114 &1356548910830335103
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4991,3 +4991,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e262826432f86e42b9e4d098a46a96c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  personalElementTypes:
+  - {fileID: 11400000, guid: 5390110c0167d04429bb2fbf42ef027f, type: 2}
+  UseUI: 1
+  uiOffset: {x: 0, y: 0.75}
+  iconSize: {x: 0.75, y: 0.75}

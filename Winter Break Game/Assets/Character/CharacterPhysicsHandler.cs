@@ -61,6 +61,7 @@ public class CharacterPhysicsHandler : CharacterClass, ICharacterPhysicsHandler
     public void Jump(bool jump, float jumpHeight)
     {
         rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y + (jump ? jumpHeight : 0));
+        
     }
 
     public float GetAcceleration() => accelerationCurve.Evaluate(accelerationStep);

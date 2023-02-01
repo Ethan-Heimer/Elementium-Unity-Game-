@@ -6,7 +6,7 @@ public class ProvideSelectedRayFromManager : MonoBehaviour, IElementRayDataProvi
 {
     [SerializeField] EventSystem rayEvent;
     ElementRayData selectedRay;
-    public void Start()
+    public void Awake()
     {
         rayEvent.SubscribeToEvent("On Ray Changed", SetRay);
     }

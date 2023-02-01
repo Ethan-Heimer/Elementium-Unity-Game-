@@ -42,5 +42,6 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   icon: {fileID: -2067478280, guid: cadec40536a05d945bfb83b7b93deb99, type: 3}
-  InterfacesToInvoke:
-  - IWaterRayInteractable
+  ElementSToInteractWith:
+  - {fileID: 11400000, guid: d97348d77be242046aca5f91d1ace25f, type: 2}
+  - {fileID: 11400000, guid: 5390110c0167d04429bb2fbf42ef027f, type: 2}

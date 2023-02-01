@@ -41,8 +41,11 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  icon: {fileID: 0}
-  InterfacesToInvoke:
-  - IFireRayInteractable
-  - IIceRayInteractable
-  - IWaterRayInteractable
+  icon: {fileID: -1098753199, guid: cadec40536a05d945bfb83b7b93deb99, type: 3}
+  ElementSToInteractWith:
+  - {fileID: 11400000, guid: 5390110c0167d04429bb2fbf42ef027f, type: 2}
+  - {fileID: 11400000, guid: 4efc6a0627a496647959213a4c169189, type: 2}
+  - {fileID: 11400000, guid: 9a3edfec51932004ba5b31d6224d5c2f, type: 2}
+  - {fileID: 11400000, guid: 3310700102380174c8c073f8e2cdae61, type: 2}
+  - {fileID: 11400000, guid: 655a5ce742660eb4db4364316318ef17, type: 2}
+  - {fileID: 11400000, guid: d97348d77be242046aca5f91d1ace25f, type: 2}

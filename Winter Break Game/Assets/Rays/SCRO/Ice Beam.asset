@@ -42,5 +42,6 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   icon: {fileID: -2130602190, guid: cadec40536a05d945bfb83b7b93deb99, type: 3}
-  InterfacesToInvoke:
-  - IIceRayInteractable
+  ElementSToInteractWith:
+  - {fileID: 11400000, guid: 3310700102380174c8c073f8e2cdae61, type: 2}
+  - {fileID: 11400000, guid: 655a5ce742660eb4db4364316318ef17, type: 2}

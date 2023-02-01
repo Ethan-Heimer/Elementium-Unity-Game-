@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FreezeableLiquid : MonoBehaviour, IIceRayInteractable
+public class FreezeableLiquid : RayAffectable
 {
     [SerializeField] GameObject LiquidSolidForm; 
-    public void OnHit(Vector2 intercect)
+    public override void OnHit(Vector2 intercect)
     {
         Collider2D hit = Physics2D.OverlapCircle(intercect, .40f); 
 

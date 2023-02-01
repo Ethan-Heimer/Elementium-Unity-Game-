@@ -25,9 +25,10 @@ public class CharacterDamageManager
         damageHandler.Constructer(character); 
     }
 
+    bool damaged;
     public void Tick()
     {
-        bool damaged = damageChecker.CheckDamage();
+        damaged = damageChecker.CheckDamage();
 
         if (damaged)
         {
