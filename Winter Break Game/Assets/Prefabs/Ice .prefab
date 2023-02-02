@@ -17,7 +17,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2774970024407651246
 Transform:
@@ -128,6 +128,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   personalElementTypes:
   - {fileID: 11400000, guid: 9a3edfec51932004ba5b31d6224d5c2f, type: 2}
+  UseUI: 0
+  uiOffset: {x: 0, y: 0}
+  iconSize: {x: 0, y: 0}
   interactibleEventSystem: {fileID: 11400000, guid: a181486f27b5cba49b6fe4399c3938e0, type: 2}
   timeToMelt: 0.1
   meltParticles: {fileID: 4665825657132972510}
@@ -148,7 +151,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3541947348969516904
 Transform:
@@ -4960,7 +4963,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2475699170266604985
 Transform:
