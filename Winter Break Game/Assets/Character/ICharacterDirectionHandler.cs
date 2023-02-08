@@ -4,6 +4,6 @@ using UnityEngine;
 using System;
 public interface ICharacterDirectionHandler : ICharacterInterface
 {
-    void FlipCharacter(int Direction);
+    void FlipCharacter(float Direction);
     int GetCurrentDirection();
 }

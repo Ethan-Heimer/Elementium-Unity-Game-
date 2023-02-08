@@ -6,24 +6,24 @@ using UnityEngine;
 public class CharacterDirectionHandler : CharacterClass, ICharacterDirectionHandler
 {
     [SerializeField] SpriteRenderer renderer;
+    [SerializeField] float flipThreshhold; 
     public override void Constructer(Character character)
     {
         base.Constructer(character);
         renderer = character.GetComponent<SpriteRenderer>();
     }
 
-    public void FlipCharacter(int direction)
+    public void FlipCharacter(float direction)
     {
-        switch(direction)
+        if(direction > flipThreshhold)
         {
-            case 1:
-                renderer.flipX = false; 
-                break;
-
-            case -1:
-                renderer.flipX = true;
-                break;
+            renderer.flipX = false;
         }
+        else if (direction < -flipThreshhold)
+        {
+            renderer.flipX = true;
+        }
+
     }
 
     public int GetCurrentDirection() => renderer.flipX?-1:1;

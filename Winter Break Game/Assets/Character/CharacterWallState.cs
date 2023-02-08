@@ -10,6 +10,7 @@ public class CharacterWallState : CharacterClass, IWallState
     {
         character.movement.physicsHandler.SetAccelerationStepCap(1);
         character.eventManager.InvokeEvent("OnWall");
+        character.movement.physicsHandler.SetAccelerationStep(0);
     }
 
     public void WhileInState()
@@ -36,7 +37,7 @@ public class CharacterWallState : CharacterClass, IWallState
         else if (inputDir == -dirFacing)
         {
             character.movement.directionHandler.FlipCharacter(-dirFacing);
-            character.movement.physicsHandler.SetAccelerationStep(0);
+            character.movement.physicsHandler.SetAccelerationStep(-dirFacing/2);
         }
     }
 

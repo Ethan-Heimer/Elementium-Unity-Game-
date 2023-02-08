@@ -10,7 +10,7 @@ public class CharacterAirborneState : CharacterClass, IAirState
 
     public void OnEnter() 
     {
-        character.movement.physicsHandler.SetAccelerationStepCap(.65f);
+        character.movement.physicsHandler.SetAccelerationStepCap(character.statsHandler.GetStat("Air Resistance"));
         character.eventManager.InvokeEvent("InAir");
 
         character.statsHandler.ResetStatValue("Double Jump Amount");

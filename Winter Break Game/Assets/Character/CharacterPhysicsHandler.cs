@@ -38,7 +38,7 @@ public class CharacterPhysicsHandler : CharacterClass, ICharacterPhysicsHandler
 
     public void Move(float direction, float speed)
     {
-        directionHandler?.FlipCharacter((int)direction);
+        directionHandler?.FlipCharacter(direction);
         if (direction != 0)
         {
             accelerationStep += accelerationSpeed * Time.deltaTime * direction;
