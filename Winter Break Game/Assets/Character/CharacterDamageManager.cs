@@ -7,8 +7,6 @@ public class CharacterDamageManager
     CharacterConfig config;
     Character character; 
 
-    ICharacterDamageChecker damageChecker;
-    ICharacterDamageHandler damageHandler;
 
     public CharacterDamageManager(Character _character)
     {
@@ -16,23 +14,14 @@ public class CharacterDamageManager
         config = character.config; 
     }
 
-    public void SetUp()
-    {
-        damageChecker = config.GetDamageChecker();
-        damageHandler = config.GetDamageHandler();
-
-        damageChecker.Constructer(character);
-        damageHandler.Constructer(character); 
-    }
-
     bool damaged;
     public void Tick()
     {
-        damaged = damageChecker.CheckDamage();
+        damaged = character.damageChecker.CheckDamage();
 
         if (damaged)
         {
-            damageHandler.OnDamaged(); 
+            character.damageHandler.OnDamaged(); 
         }
     }
 }

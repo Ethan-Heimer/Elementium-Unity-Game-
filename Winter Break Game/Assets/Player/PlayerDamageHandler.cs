@@ -32,6 +32,6 @@ public class PlayerDamageHandler : CharacterClass, ICharacterDamageHandler
     public void OnDamaged()
     {
         transform.position = checkPointPos;
-        character.eventManager.InvokeEvent("On Death");
+        character.eventManager.OnDeath.Invoke(); 
     }
 }

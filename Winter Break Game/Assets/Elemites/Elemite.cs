@@ -198,7 +198,7 @@ public class ElemiteDirectionManager
         elemite = _elemite;
 
         inputProvider = GameObject.FindGameObjectWithTag("Ray").GetComponent<ElementRay>().input; 
-        directionHandler = _character.movement.directionHandler; 
+        directionHandler = _character.directionHandler; 
 
     }
 

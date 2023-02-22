@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d3bc02ff5097d440b18205c93bda3ee, type: 3}
-  m_Name: Basic Slime
+  m_Name: Slime
   m_EditorClassIdentifier: 
   reload: 0
   statHandlers:
@@ -37,24 +37,19 @@ MonoBehaviour:
     use: 0
   - name: CharacterPhysicsHandlerWithoutAcceleration
     use: 1
-  eventHandlers:
-  - name: CharacterEventHandler
-    use: 1
-  - name: CharacterEventHandlerWithEventSystemAsset
-    use: 0
   climbStatuses:
   - name: CharacterClimbStatusProvider
     use: 1
   damageCheckers:
-  - name: PlayerDamageChecker
-    use: 0
   - name: CheckForRay
     use: 1
-  damageHandlers:
-  - name: PlayerDamageHandler
+  - name: PlayerDamageChecker
     use: 0
+  damageHandlers:
   - name: DestroyOnDamaged
     use: 1
+  - name: PlayerDamageHandler
+    use: 0
   groundStates:
   - name: CharacterGroundedState
     use: 0
@@ -72,83 +67,77 @@ MonoBehaviour:
   - name: CharacterClimbState
     use: 1
   statsHandler:
-    rid: 3407229752565563410
+    rid: 4115835336619983164
   input:
-    rid: 3407229752565563413
+    rid: 4115835336619983166
   groundStatus:
-    rid: 3407229752565563398
+    rid: 4115835336619983153
   wallStatus:
-    rid: 3407229752565563399
+    rid: 4115835336619983154
   directionHandler:
-    rid: 3407229752565563400
+    rid: 4115835336619983155
   physicsHandler:
-    rid: 3407229752565563416
-  eventHandler:
-    rid: 3407229752565563402
+    rid: 4115835336619983165
   climbStatus:
-    rid: 3407229752565563403
+    rid: 4115835336619983157
   damageChecker:
-    rid: 3407229752565563417
+    rid: 4115835336619983158
   damageHandler:
-    rid: 3407229752565563418
+    rid: 4115835336619983170
   groundState:
-    rid: 3407229752565563414
+    rid: 4115835336619983167
   wallState:
-    rid: 3407229752565563407
+    rid: 4115835336619983161
   airState:
-    rid: 3407229752565563415
+    rid: 4115835336619983168
   climbState:
-    rid: 3407229752565563409
+    rid: 4115835336619983163
   references:
     version: 2
     RefIds:
-    - rid: 3407229752565563398
+    - rid: 4115835336619983153
       type: {class: CharacterGroundStatusProvider, ns: , asm: Assembly-CSharp}
       data:
-        checkBoxSize: {x: 0, y: 0}
-        checkBoxOffset: {x: 0, y: 0, z: 0}
-    - rid: 3407229752565563399
+        checkBoxSize: {x: 1, y: 0.5}
+        checkBoxOffset: {x: 0, y: -0.5, z: 0}
+    - rid: 4115835336619983154
       type: {class: CharacterWallStatusProvider, ns: , asm: Assembly-CSharp}
       data:
         checkDistance: 0
-    - rid: 3407229752565563400
+    - rid: 4115835336619983155
       type: {class: CharacterDirectionHandler, ns: , asm: Assembly-CSharp}
       data:
         renderer: {fileID: 0}
-        flipThreshhold: 0
-    - rid: 3407229752565563402
-      type: {class: CharacterEventHandler, ns: , asm: Assembly-CSharp}
-    - rid: 3407229752565563403
+        flipThreshhold: 0.2
+    - rid: 4115835336619983157
       type: {class: CharacterClimbStatusProvider, ns: , asm: Assembly-CSharp}
-    - rid: 3407229752565563407
+    - rid: 4115835336619983158
+      type: {class: CheckForRay, ns: , asm: Assembly-CSharp}
+    - rid: 4115835336619983161
       type: {class: CharacterWallState, ns: , asm: Assembly-CSharp}
-    - rid: 3407229752565563409
+    - rid: 4115835336619983163
       type: {class: CharacterClimbState, ns: , asm: Assembly-CSharp}
-    - rid: 3407229752565563410
+    - rid: 4115835336619983164
       type: {class: CharacterStatsHandler, ns: , asm: Assembly-CSharp}
       data:
         stats:
         - name: Hop Speed
-          startValue: 1
-        - name: Speed
-          startValue: 10
+          startValue: 0.5
         - name: Jump Height
           startValue: 10
-        - name: Acceleration Speed
-          startValue: 100
-    - rid: 3407229752565563413
-      type: {class: SlimeInputHandler, ns: , asm: Assembly-CSharp}
-      data:
-        playerSeekDistance: 10
-    - rid: 3407229752565563414
-      type: {class: SlimeGroundState, ns: , asm: Assembly-CSharp}
-    - rid: 3407229752565563415
-      type: {class: EmptyAirborneState, ns: , asm: Assembly-CSharp}
-    - rid: 3407229752565563416
+        - name: Speed
+          startValue: 5
+    - rid: 4115835336619983165
       type: {class: CharacterPhysicsHandlerWithoutAcceleration, ns: , asm: Assembly-CSharp}
       data:
         rigidbody: {fileID: 0}
-    - rid: 3407229752565563417
-      type: {class: CheckForRay, ns: , asm: Assembly-CSharp}
-    - rid: 3407229752565563418
+    - rid: 4115835336619983166
+      type: {class: SlimeInputHandler, ns: , asm: Assembly-CSharp}
+      data:
+        playerSeekDistance: 20
+    - rid: 4115835336619983167
+      type: {class: SlimeGroundState, ns: , asm: Assembly-CSharp}
+    - rid: 4115835336619983168
+      type: {class: EmptyAirborneState, ns: , asm: Assembly-CSharp}
+    - rid: 4115835336619983170
       type: {class: DestroyOnDamaged, ns: , asm: Assembly-CSharp}

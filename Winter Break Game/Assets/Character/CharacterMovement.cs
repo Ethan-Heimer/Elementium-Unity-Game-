@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class CharacterMovement
 {
-    public CharacterConfig config;
-    Character character;
-
-    public ICharacterInputHandler input;
-    public ICharacterGroundStatusProvider groundStatus;
-    public IChararacterWallStatusProvider wallStatus;
-    public ICharacterDirectionHandler directionHandler;
-    public ICharacterPhysicsHandler physicsHandler;
-    public ICharacterClimbStatusProvider climbStatus;
+    CharacterConfig config;
+    Character character; 
 
     public CharacterStateMachiene characterStateMachine;
 
@@ -21,24 +14,6 @@ public class CharacterMovement
     {
         character = _character;
         config = character.config;
-    }
-
-   
-    public void SetUp()
-    {
-        input = config.GetInputHandler();
-        groundStatus = config.GetGroundHandler();
-        wallStatus = config.GetWallProvider();
-        directionHandler = config.GetDirectionHandler();
-        physicsHandler = config.GetPhysicsHandler();
-        climbStatus = config.GetClimbHandler();
-
-        input.Constructer(character);
-        groundStatus.Constructer(character);
-        wallStatus.Constructer(character);
-        directionHandler.Constructer(character);
-        physicsHandler.Constructer(character);
-        climbStatus.Constructer(character);
 
         characterStateMachine = new CharacterStateMachiene(
             config.GetGroundState(),
@@ -46,6 +21,57 @@ public class CharacterMovement
             config.GetWallState(),
             config.GetClimbState(), character);
     }
+
+    bool _isWalking; 
+    public void Move(float direction, float speed)
+    {
+        character.directionHandler.FlipCharacter(direction);
+        character.physicsHandler.Accelerate(direction, speed);
+
+        if (character.groundStatus.IsOnGround())
+        {
+            if (direction is not 0 && !_isWalking)
+            {
+                _isWalking = true;
+                character.eventManager.OnStartMove.Invoke();
+            }
+            else if (direction is 0 && _isWalking)
+            {
+                _isWalking = false;
+                character.eventManager.OnEndMove.Invoke();
+            }
+        }
+        else
+        {
+            _isWalking = false; 
+        }
+
+    }
+
+    bool _isClimbing; 
+    public void Climb(Vector2 direction, float speed)
+    {
+        character.physicsHandler.AddForce(direction * speed);
+
+        if (direction == Vector2.zero && _isClimbing)
+        {
+            _isClimbing = false;
+            character.eventManager.OnEndClimb.Invoke();
+        }
+        else if (direction != Vector2.zero && !_isClimbing)
+        {
+            _isClimbing = true;
+            character.eventManager.OnClimb.Invoke();
+        }
+    }
+
+    public void Jump(float jumpHeight)
+    {
+        character.physicsHandler.AddForce(Vector2.up * jumpHeight);
+
+        character.eventManager.OnJump.Invoke();
+    }
+
 
     public void Tick()
     {
@@ -56,5 +82,7 @@ public class CharacterMovement
     {
         characterStateMachine.InvokeFixedState();
     }
+
+   
 }
 

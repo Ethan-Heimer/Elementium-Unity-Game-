@@ -12,7 +12,6 @@ public class CameraVolume : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player")) return;
-        Debug.Log("In Volume");
         switch (stateWhenInVolume)
         {
             case CameraState.Follow:

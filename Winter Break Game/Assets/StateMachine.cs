@@ -51,6 +51,8 @@ public class StateMachine
 
 public class CharacterStateMachiene : StateMachine
 {
+    Character character;
+
     IGroundState groundState;
     IAirState airState;
     IWallState wallState;
@@ -69,17 +71,31 @@ public class CharacterStateMachiene : StateMachine
         climbState.Constructer(_character);
 
         currentState = groundState;
+
+        character = _character; 
     }
 
     public override void SwitchState(string name)
     {
         ICharacterState newState = null; 
 
+        if(currentState == groundState)
+        {
+            character.eventManager.OnEndMove.Invoke();
+        }
+        else if(currentState == wallState)
+        {
+            character.eventManager.OffWall.Invoke();
+        }
+
         switch (name)
         {
             case "Ground":
                 if (groundState is not null)
+                {
                     newState = groundState;
+                    character.eventManager.OnGround.Invoke();
+                }
                 else
                 {
                     Debug.LogError("Ground State Not Provided");
@@ -89,7 +105,10 @@ public class CharacterStateMachiene : StateMachine
 
             case "Air":
                 if (airState is not null)
+                {
+                    character.eventManager.InAir.Invoke();
                     newState = airState;
+                }
                 else
                 {
                     Debug.Log("Air State Not Provided");
@@ -99,7 +118,10 @@ public class CharacterStateMachiene : StateMachine
 
             case "Wall":
                 if (wallState is not null)
+                {
                     newState = wallState;
+                    character.eventManager.OnWall.Invoke();
+                }
                 else
                 {
                     Debug.Log("Wall State Not Provided");
@@ -109,7 +131,10 @@ public class CharacterStateMachiene : StateMachine
 
             case "Climb":
                 if (climbState is not null)
+                {
                     newState = climbState;
+                    character.eventManager.OnStartClimb.Invoke();
+                }
                 else
                 {
                     Debug.Log("Climb State Not Provided");
@@ -123,7 +148,7 @@ public class CharacterStateMachiene : StateMachine
         }
 
         currentState?.OnExit();
-        currentState = newState as ICharacterState; 
+        currentState = newState; 
         currentState?.OnEnter();
     }
 

@@ -10,7 +10,7 @@ public class PlayerParticleHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        eventHandler = GetComponent<Character>().config.eventHandler;
+      
 
         foreach (ParticleEvent o in particleEvents)
         {

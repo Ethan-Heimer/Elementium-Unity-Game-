@@ -6,25 +6,50 @@ public class Character : MonoBehaviour
 {
     public CharacterConfig config;
 
+    public ICharacterInputHandler input;
+    public ICharacterGroundStatusProvider groundStatus;
+    public IChararacterWallStatusProvider wallStatus;
+    public ICharacterDirectionHandler directionHandler;
+    public ICharacterPhysicsHandler physicsHandler;
+    public ICharacterClimbStatusProvider climbStatus;
+
+    public ICharacterDamageChecker damageChecker;
+    public ICharacterDamageHandler damageHandler;
+
+    public ICharacterStatsHandler statsHandler;
+
+
     public CharacterMovement movement;
     public CharacterDamageManager damageManager;
     public CharacterEventManager eventManager;
 
-    public ICharacterStatsHandler statsHandler; 
-
-    [SerializeField] public CharacterEventData eventData; 
-
     public void Awake()
     {
-        movement = new CharacterMovement(this);
-        damageManager = new CharacterDamageManager(this);
-        eventManager = new CharacterEventManager(this, eventData);
+        input = config.GetInputHandler();
+        groundStatus = config.GetGroundHandler();
+        wallStatus = config.GetWallProvider();
+        directionHandler = config.GetDirectionHandler();
+        physicsHandler = config.GetPhysicsHandler();
+        climbStatus = config.GetClimbHandler();
+
+        damageChecker = config.GetDamageChecker();
+        damageHandler = config.GetDamageHandler();
 
         statsHandler = config.GetStatsHandler();
+       
 
-        movement.SetUp();
-        damageManager.SetUp();
-        eventManager.SetUp();
+        input.Constructer(this);
+        groundStatus.Constructer(this);
+        wallStatus.Constructer(this);
+        directionHandler.Constructer(this);
+        physicsHandler.Constructer(this);
+        climbStatus.Constructer(this);
+
+        damageChecker.Constructer(this);
+        damageHandler.Constructer(this);
+
+        movement = new CharacterMovement(this);
+        damageManager = new CharacterDamageManager(this);
     }
 
     public void Update()

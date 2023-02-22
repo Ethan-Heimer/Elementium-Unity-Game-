@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterPhysicsHandlerWithoutAcceleration : CharacterClass, ICharacterPhysicsHandler
 {
     [SerializeField] Rigidbody2D rigidbody;
-    
+
 
     public override void Constructer(Character character)
     {
@@ -15,32 +15,18 @@ public class CharacterPhysicsHandlerWithoutAcceleration : CharacterClass, IChara
         rigidbody = character.GetComponent<Rigidbody2D>();
     }
 
-    public void Move(float direction, float speed)
+    public void Accelerate(float direction, float speed)
     {
-        character.movement.directionHandler.FlipCharacter((int)direction);
         rigidbody.velocity = new Vector2(speed * direction, rigidbody.velocity.y);
+        Debug.Log(rigidbody.velocity);
     }
 
-    public void Move(Vector2 direction, float speed)
-    {
-        float mult = speed;
-        rigidbody.velocity = new Vector2(direction.x * mult / 2, direction.y * mult);
-    }
+    public void AddForce(Vector2 force) => rigidbody.velocity += force;
 
-    public void Jump(bool jump, float jumpHeight)
-    {
-        rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y + (jump ? jumpHeight : 0)); 
-    }
-
-    public float GetAcceleration() => 0;
-
-    public void SetAccelerationStepCap(float val) { }
-
-    public void SetVelocity(Vector2 velocity) => rigidbody.velocity = velocity;
-    public Vector2 GetVelocity() => rigidbody.velocity;
-
-    public void SetAccelerationStep(float val) {}
-
+    public void SetMaxAcceleration(float max) { }
+    public void SetAcceleration(float value){}
     public void FreezeGravity(bool freeze) => rigidbody.gravityScale = freeze ? 0 : 3;
+    public Vector2 GetVelocity() => rigidbody.velocity;
+    public void SetVelocity(Vector2 velocity) => rigidbody.velocity = velocity;
 }
 

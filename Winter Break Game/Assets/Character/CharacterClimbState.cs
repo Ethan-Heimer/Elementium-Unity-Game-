@@ -4,50 +4,34 @@ using UnityEngine;
 
 public class CharacterClimbState : CharacterClass, IClimbState
 {
-    bool isClimbing;
-
     public void OnEnter() 
     {
-        character.movement.physicsHandler.FreezeGravity(true);
-        character.movement.physicsHandler.SetAccelerationStep(0);
+        character.physicsHandler.FreezeGravity(true);
+        character.physicsHandler.SetMaxAcceleration(0); 
     }
 
     public void WhileInState()
     {
-        character.movement.physicsHandler.Jump(character.movement.input.GetJumpInput() && character.movement.input.GetVerticalInput() > .1f, character.statsHandler.GetStat("Jump Force")); 
+        if(character.input.GetJumpInput() && character.input.GetVerticalInput() > .1f)
+            character.movement.Jump(character.statsHandler.GetStat("Jump Force")); 
     }
 
     public void FixedWhileInState()
     {
-        Vector2 moveVector = new Vector2(character.movement.input.GetHorizontalInput(), character.movement.input.GetVerticalInput());
-        InvokeEvents(moveVector);
-        character.movement.physicsHandler.Move(new Vector2(character.movement.input.GetHorizontalInput(), character.movement.input.GetVerticalInput()), character.statsHandler.GetStat("Climb Speed"));
+        Vector2 moveVector = new Vector2(character.input.GetHorizontalInput(), character.input.GetVerticalInput());
+        character.movement.Climb(new Vector2(character.input.GetHorizontalInput(), character.input.GetVerticalInput()), character.statsHandler.GetStat("Climb Speed"));
     }
 
     public void OnExit()
     {
-        character.movement.physicsHandler.FreezeGravity(false);
-        isClimbing = false; 
+        character.physicsHandler.FreezeGravity(false);
     }
 
     public void Transition(StateMachine owner)
     {
-        if (!character.movement.climbStatus.CanClimb() || character.movement.input.GetJumpInput())
+        if (!character.climbStatus.CanClimb() || character.input.GetJumpInput())
         {
             owner.SwitchState("Air"); 
-        }
-    }
-    private void InvokeEvents(Vector2 moveVector)
-    {
-        if (moveVector == Vector2.zero && isClimbing)
-        {
-            isClimbing = false;
-            character.eventManager.InvokeEvent("OnClimbIdle");
-        }
-        else if (moveVector != Vector2.zero && !isClimbing)
-        {
-            isClimbing = true;
-            character.eventManager.InvokeEvent("OnClimbing");
         }
     }
 }

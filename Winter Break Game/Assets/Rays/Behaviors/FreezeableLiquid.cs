@@ -15,7 +15,5 @@ public class FreezeableLiquid : RayAffectable
             obj.transform.position = intercect;
             obj.name = LiquidSolidForm.name; 
         }
-
-        Debug.Log(hit.gameObject.name == LiquidSolidForm.name);
     }
 }

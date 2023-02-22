@@ -18,7 +18,6 @@ public class CharacterConfig : ScriptableObject
     [SerializeField] List<PossableUseableComponent> wallStatuses = new List<PossableUseableComponent>();
     [SerializeField] List<PossableUseableComponent> directionHandlers = new List<PossableUseableComponent>();
     [SerializeField] List<PossableUseableComponent> physicsHandlers = new List<PossableUseableComponent>();
-    [SerializeField] List<PossableUseableComponent> eventHandlers = new List<PossableUseableComponent>();
     [SerializeField] List<PossableUseableComponent> climbStatuses = new List<PossableUseableComponent>();
 
     [Header("Damage")]
@@ -39,7 +38,6 @@ public class CharacterConfig : ScriptableObject
     [SerializeReference] public IChararacterWallStatusProvider wallStatus;
     [SerializeReference] public ICharacterDirectionHandler directionHandler;
     [SerializeReference] public ICharacterPhysicsHandler physicsHandler;
-    [SerializeReference] public ICharacterEventHandler eventHandler;
     [SerializeReference] public ICharacterClimbStatusProvider climbStatus;
 
     [Header("Damage")]
@@ -57,14 +55,15 @@ public class CharacterConfig : ScriptableObject
         UpdateLists();
         UpdateInspector();
 
-        statsHandler.InitAllValues();
+        statsHandler?.InitAllValues();
     }
 
     public void OnValidate()
     {
+        //UpdateLists(); 
         UpdateInspector();
 
-        statsHandler.InitAllValues();
+        statsHandler?.InitAllValues();
     }
 
     [ContextMenu("Reload Lists")]
@@ -76,7 +75,6 @@ public class CharacterConfig : ScriptableObject
         UpdateList(GetPossableClases<IChararacterWallStatusProvider>(), wallStatuses);
         UpdateList(GetPossableClases<ICharacterDirectionHandler>(), directionHandlers);
         UpdateList(GetPossableClases<ICharacterPhysicsHandler>(), physicsHandlers);
-        UpdateList(GetPossableClases<ICharacterEventHandler>(), eventHandlers);
         UpdateList(GetPossableClases<ICharacterClimbStatusProvider>(), climbStatuses);
         UpdateList(GetPossableClases<ICharacterDamageChecker>(), damageCheckers);
         UpdateList(GetPossableClases<ICharacterDamageHandler>(), damageHandlers);
@@ -95,7 +93,6 @@ public class CharacterConfig : ScriptableObject
         UpdateRefrences<IChararacterWallStatusProvider>(ref wallStatus, wallStatuses);
         UpdateRefrences<ICharacterDirectionHandler>(ref directionHandler, directionHandlers);
         UpdateRefrences<ICharacterPhysicsHandler>(ref physicsHandler, physicsHandlers);
-        UpdateRefrences<ICharacterEventHandler>(ref eventHandler, eventHandlers);
         UpdateRefrences<ICharacterClimbStatusProvider>(ref climbStatus, climbStatuses);
         UpdateRefrences<ICharacterDamageChecker>(ref damageChecker, damageCheckers);
         UpdateRefrences<ICharacterDamageHandler>(ref damageHandler, damageHandlers);
@@ -111,7 +108,6 @@ public class CharacterConfig : ScriptableObject
     public IChararacterWallStatusProvider GetWallProvider() => wallStatus.Clone() as IChararacterWallStatusProvider;     
     public ICharacterDirectionHandler GetDirectionHandler() => directionHandler.Clone() as ICharacterDirectionHandler;
     public ICharacterPhysicsHandler GetPhysicsHandler() => physicsHandler.Clone() as ICharacterPhysicsHandler;
-    public ICharacterEventHandler GetEventHandler() => eventHandler.Clone() as ICharacterEventHandler;
     public ICharacterClimbStatusProvider GetClimbHandler() => climbStatus.Clone() as ICharacterClimbStatusProvider;
     public ICharacterDamageChecker GetDamageChecker() => damageChecker.Clone() as ICharacterDamageChecker;
     public ICharacterDamageHandler GetDamageHandler() => damageHandler.Clone() as ICharacterDamageHandler;

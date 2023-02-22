@@ -5,10 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class CharacterPhysicsHandler : CharacterClass, ICharacterPhysicsHandler
 {
-    public AnimationCurve accelerationCurve;
-
     [SerializeField] Rigidbody2D rigidbody;
-    ICharacterDirectionHandler directionHandler;
     float accelerationStepCap = 1;
     float accelerationSpeed;
 
@@ -31,15 +28,14 @@ public class CharacterPhysicsHandler : CharacterClass, ICharacterPhysicsHandler
         base.Constructer(character);
 
         rigidbody = character.GetComponent<Rigidbody2D>();
-        directionHandler = character.movement.directionHandler;
 
         accelerationSpeed = character.statsHandler.GetStat("Acceleration Speed");
     }
 
-    public void Move(float direction, float speed)
+
+    public void Accelerate(float direction, float speed)
     {
-        directionHandler?.FlipCharacter(direction);
-        if (direction != 0)
+        if (direction > .2f || direction < -.2f)
         {
             accelerationStep += accelerationSpeed * Time.deltaTime * direction;
         }
@@ -48,31 +44,17 @@ public class CharacterPhysicsHandler : CharacterClass, ICharacterPhysicsHandler
             accelerationStep = accelerationStep > 0 ? accelerationStep - accelerationSpeed * Time.deltaTime : accelerationStep + accelerationSpeed * Time.deltaTime;
         }
 
-        rigidbody.velocity = new Vector2(GetAcceleration() * speed, rigidbody.velocity.y);
-        // rigidbody.velocity.y + (jump ? jumpForce : 0)
+        rigidbody.velocity = new Vector2(accelerationStep * speed, rigidbody.velocity.y);
     }
 
-    public void Move(Vector2 direction, float speed)
-    {
-        float mult = speed;
-        rigidbody.velocity = new Vector2(direction.x * mult/2, direction.y * mult);
-    }
+    public void AddForce(Vector2 force) => rigidbody.velocity += force;
 
-    public void Jump(bool jump, float jumpHeight)
-    {
-        rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y + (jump ? jumpHeight : 0));
-        
-    }
-
-    public float GetAcceleration() => accelerationCurve.Evaluate(accelerationStep);
-
-    public void SetAccelerationStepCap(float val) => accelerationStepCap = val;
-
-    public void SetVelocity(Vector2 velocity) => rigidbody.velocity = velocity;
-    public Vector2 GetVelocity() => rigidbody.velocity;
-
-    public void SetAccelerationStep(float val) => accelerationStep = val;
-
+    public void SetMaxAcceleration(float max) => accelerationStepCap = max;
+    public void SetAcceleration(float value) => accelerationStep = value; 
     public void FreezeGravity(bool freeze) => rigidbody.gravityScale = freeze ? 0 : 3;
+
+    public Vector2 GetVelocity() => rigidbody.velocity;
+    public void SetVelocity(Vector2 velocity) => rigidbody.velocity = velocity;
+
 }
 

@@ -5,7 +5,7 @@ using System.Linq;
 
 public class CharacterStatsHandler : CharacterClass, ICharacterStatsHandler
 {
-    [SerializeField] Stat[] stats;
+    public Stat[] stats = new Stat[0];
 
     public float GetStat(string name) => GetTargetStat(name).GetValue();
     public void SetStat(string name, float value) => GetTargetStat(name).SetValue(value);

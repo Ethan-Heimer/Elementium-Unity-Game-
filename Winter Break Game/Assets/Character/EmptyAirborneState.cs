@@ -26,15 +26,15 @@ public class EmptyAirborneState : CharacterClass, IAirState
 
     public void Transition(StateMachine owner)
     {
-        if (character.movement.groundStatus.IsOnGround())
+        if (character.groundStatus.IsOnGround())
         {
             owner.SwitchState("Ground");
         }
-        else if (character.movement.wallStatus.IsOnWall())
+        else if (character.wallStatus.IsOnWall())
         {
             owner.SwitchState("Wall");
         }
-        else if (character.movement.climbStatus.CanClimb() && (character.movement.input.GetVerticalInput() > .5f || character.movement.input.GetVerticalInput() < -.5f))
+        else if (character.climbStatus.CanClimb() && (character.input.GetVerticalInput() > .5f || character.input.GetVerticalInput() < -.5f))
         {
             owner.SwitchState("Climb");
         }

@@ -10,31 +10,27 @@ public class CharacterGroundedState : CharacterClass, IGroundState
 
     public void OnEnter()
     {
-        character.movement.physicsHandler.SetAccelerationStepCap(1);
-        character.eventManager.InvokeEvent("OnGround");
+        character.physicsHandler.SetMaxAcceleration(1);
     }
     public void WhileInState()
     {
-        character.movement.physicsHandler.Jump(CanJump(), character.statsHandler.GetStat("Jump Force")); 
+        if(character.input.GetJumpInput())
+            character.movement.Jump(character.statsHandler.GetStat("Jump Force")); 
     }
 
     public void FixedWhileInState()
     {
-        xInput = character.movement.input.GetHorizontalInput();
-        CheckWalking(xInput);
-        character.movement.physicsHandler.Move(xInput, character.statsHandler.GetStat("Speed"));
+        xInput = character.input.GetHorizontalInput();
+        character.movement.Move(xInput, character.statsHandler.GetStat("Speed"));
     }
 
-    public void OnExit()
-    {
-        CheckWalking(0);
-    }
+    public void OnExit() { }
 
     public void Transition(StateMachine owner)
     {
-        if (!character.movement.groundStatus.IsOnGround())
+        if (!character.groundStatus.IsOnGround())
         {
-            if (character.movement.wallStatus.IsOnWall())
+            if (character.wallStatus.IsOnWall())
             {
                 owner.SwitchState("Wall");
             }
@@ -44,35 +40,9 @@ public class CharacterGroundedState : CharacterClass, IGroundState
                 owner.SwitchState("Air");
             }
         }
-        else if (character.movement.climbStatus.CanClimb() && (character.movement.input.GetVerticalInput() > .5f || character.movement.input.GetVerticalInput() < -.5f))
+        else if (character.climbStatus.CanClimb() && (character.input.GetVerticalInput() > .5f || character.input.GetVerticalInput() < -.5f))
         {
             owner.SwitchState("Climb"); 
-        }
-    }
-
-    bool CanJump()
-    {
-
-        if (character.movement.input.GetJumpInput())
-        {
-            character.eventManager.InvokeEvent("OnJump");
-        }
-
-        return character.movement.input.GetJumpInput();
-    }
-
-    bool isWalking; 
-    void CheckWalking(float input)
-    {
-        if(input is not 0 && !isWalking)
-        {
-            isWalking = true;
-            character.eventManager.InvokeEvent("OnStartWalk");
-        }
-        else if(input is 0 && isWalking)
-        {
-            isWalking = false;
-            character.eventManager.InvokeEvent("OnEndWalk");
         }
     }
 }

@@ -8,6 +8,7 @@ public class CharacterEventHandlerWithEventSystemAsset : CharacterClass, ICharac
 {
     public EventSystem eventSystem;
 
+    /*
     public void SetData(CharacterEventData data)
     {
         foreach(CharacterEvent o in data.events)
@@ -15,6 +16,7 @@ public class CharacterEventHandlerWithEventSystemAsset : CharacterClass, ICharac
             eventSystem.SubscribeToEvent(o.name, (EventData) => o.action.Invoke());
         }
     }
+    */
     public void InvokeEvent(string name) => eventSystem.InvokeEvent(name, new EventData());
 
     public void SubscribeToEvent(string name, UnityAction action) => eventSystem.SubscribeToEvent(name, (EventData data) => action.Invoke());

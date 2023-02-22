@@ -4929,25 +4929,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 210641d830846434289352031c4e66f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  config: {fileID: 11400000, guid: c0742dba3ab98934fa7897f1fcad466d, type: 2}
-  eventData:
-    events:
-    - name: On Death
-      action:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 11400000, guid: 9a44992f3c979bb4c9eda0dc84ad072c, type: 2}
-            m_TargetAssemblyTypeName: CameraEffectManager, Assembly-CSharp
-            m_MethodName: ExecuteShake
-            m_Mode: 5
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: On Player Die
-              m_BoolArgument: 0
-            m_CallState: 2
+  config: {fileID: 11400000, guid: f87d6888cab259a44932ca4bceb974ad, type: 2}
+  eventManager:
+    OnGround:
+      m_PersistentCalls:
+        m_Calls: []
+    InAir:
+      m_PersistentCalls:
+        m_Calls: []
+    OnWall:
+      m_PersistentCalls:
+        m_Calls: []
+    OffWall:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStartMove:
+      m_PersistentCalls:
+        m_Calls: []
+    OnEndMove:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStartClimb:
+      m_PersistentCalls:
+        m_Calls: []
+    OnClimb:
+      m_PersistentCalls:
+        m_Calls: []
+    OnEndClimb:
+      m_PersistentCalls:
+        m_Calls: []
+    OnJump:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDeath:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!50 &1545553732963511355
 Rigidbody2D:
   serializedVersion: 4

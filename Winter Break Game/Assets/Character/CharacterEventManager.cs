@@ -3,52 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events; 
 
+[System.Serializable]
 public class CharacterEventManager
 {
-    Character character;
-    ICharacterEventHandler eventHandler;
+    public UnityEvent OnGround;
+    public UnityEvent InAir;
+    public UnityEvent OnWall;
+    public UnityEvent OffWall; 
+    public UnityEvent OnStartMove;
+    public UnityEvent OnEndMove;
+    public UnityEvent OnStartClimb; 
+    public UnityEvent OnClimb;
+    public UnityEvent OnEndClimb; 
+    public UnityEvent OnJump;
 
-    CharacterEventData data; 
-
-    public CharacterEventManager(Character _character, CharacterEventData _data)
-    {
-        character = _character;
-        data = _data; 
-    }
-
-    public void SetUp()
-    {
-        eventHandler = character.config.GetEventHandler();
-        eventHandler.SetData(data);
-    }
-
-    public void InvokeEvent(string name)
-    {
-        eventHandler.InvokeEvent(name);
-    }
-
-    public void SubscribeToEvent(string name, UnityAction action)
-    {
-        eventHandler.SubscribeToEvent(name, action);
-    }
-
-    public void UnsubscribeFromEvent(string name, UnityAction action)
-    {
-        eventHandler.UnsubscribeToEvent(name, action); 
-    }
-}
-
-[System.Serializable]
-public class CharacterEventData
-{
-    public CharacterEvent[] events; 
-
-}
-
-[System.Serializable]
-    public struct CharacterEvent
-{
-    public string name;
-    public UnityEvent action;
+    public UnityEvent OnDeath;
+    public static UnityEvent OnCharacterDeath; 
 }
 

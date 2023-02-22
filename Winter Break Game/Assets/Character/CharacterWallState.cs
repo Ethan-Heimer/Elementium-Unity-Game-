@@ -8,47 +8,45 @@ public class CharacterWallState : CharacterClass, IWallState
     float inputDir; 
     public void OnEnter()
     {
-        character.movement.physicsHandler.SetAccelerationStepCap(1);
-        character.eventManager.InvokeEvent("OnWall");
-        character.movement.physicsHandler.SetAccelerationStep(0);
+        character.physicsHandler.SetMaxAcceleration(1);
+        character.physicsHandler.SetAcceleration(0);
     }
 
     public void WhileInState()
     {
-        dirFacing = character.movement.directionHandler.GetCurrentDirection();
-        inputDir = character.movement.input.GetHorizontalInput();
+        dirFacing = character.directionHandler.GetCurrentDirection();
+        inputDir = character.input.GetHorizontalInput();
 
-        if (character.movement.input.GetJumpInput())
+        if (character.input.GetJumpInput())
         {
-            character.movement.physicsHandler.SetAccelerationStep(-dirFacing);
-            character.eventManager.InvokeEvent("OnJump");
-            character.movement.physicsHandler.Move(-dirFacing, character.statsHandler.GetStat("Speed"));
-            character.movement.physicsHandler.Jump(true, character.statsHandler.GetStat("Jump Force"));
+            character.physicsHandler.SetAcceleration(-dirFacing);
+            character.movement.Move(-dirFacing, character.statsHandler.GetStat("Speed"));
+            character.movement.Jump(character.statsHandler.GetStat("Jump Force"));
         }
        
     }
 
     public void FixedWhileInState()
     {
-        if (inputDir == dirFacing && character.movement.physicsHandler.GetVelocity().y < 0)
+        if (inputDir == dirFacing && character.physicsHandler.GetVelocity().y < 0)
         {
-            character.movement.physicsHandler.SetVelocity(new Vector2(character.statsHandler.GetStat("Speed") * dirFacing, -character.statsHandler.GetStat("Speed") / 1.5f));
+            character.movement.Climb(new Vector2(dirFacing, -.75f), character.statsHandler.GetStat("Speed"));
         }
         else if (inputDir == -dirFacing)
         {
-            character.movement.directionHandler.FlipCharacter(-dirFacing);
-            character.movement.physicsHandler.SetAccelerationStep(-dirFacing/2);
+            character.directionHandler.FlipCharacter(-dirFacing);
+            character.physicsHandler.SetAcceleration(-dirFacing/2);
         }
     }
 
-    public void OnExit() => character.eventManager.InvokeEvent("OffWall");
+    public void OnExit() { }
     public void Transition(StateMachine owner)
     {
-        if (character.movement.groundStatus.IsOnGround())
+        if (character.groundStatus.IsOnGround())
         {
             owner.SwitchState("Ground");
         }
-        else if(!character.movement.groundStatus.IsOnGround() && !character.movement.wallStatus.IsOnWall())
+        else if(!character.groundStatus.IsOnGround() && !character.wallStatus.IsOnWall())
         {
             owner.SwitchState("Air");
         }

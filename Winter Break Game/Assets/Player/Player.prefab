@@ -5016,200 +5016,193 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 69dccfdb742cf664282ff881b927d316, type: 2}
-  eventData:
-    events:
-    - name: OnGround
-      action:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 2641231686574370768}
-            m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-            m_MethodName: Play
-            m_Mode: 5
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: Player_Idle
-              m_BoolArgument: 0
-            m_CallState: 2
-          - m_Target: {fileID: 2641231686287007103}
-            m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-            m_MethodName: Emit
-            m_Mode: 3
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 10
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-    - name: InAir
-      action:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 2641231686574370768}
-            m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-            m_MethodName: Play
-            m_Mode: 5
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: Player_Jump
-              m_BoolArgument: 0
-            m_CallState: 2
-    - name: OnWall
-      action:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 2641231686574370768}
-            m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-            m_MethodName: Play
-            m_Mode: 5
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: Player_WallSlide
-              m_BoolArgument: 0
-            m_CallState: 2
-          - m_Target: {fileID: 2641231687076537281}
-            m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-            m_MethodName: Play
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-    - name: OffWall
-      action:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 2641231687076537281}
-            m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-            m_MethodName: Stop
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-    - name: OnStartWalk
-      action:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 2641231686574370768}
-            m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-            m_MethodName: Play
-            m_Mode: 5
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: Player_Walk
-              m_BoolArgument: 0
-            m_CallState: 2
-          - m_Target: {fileID: 2641231688062127969}
-            m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-            m_MethodName: Play
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-    - name: OnEndWalk
-      action:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 2641231686574370768}
-            m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-            m_MethodName: Play
-            m_Mode: 5
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: Player_Idle
-              m_BoolArgument: 0
-            m_CallState: 2
-          - m_Target: {fileID: 2641231688062127969}
-            m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-            m_MethodName: Stop
-            m_Mode: 1
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-    - name: OnClimbing
-      action:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 2641231686574370768}
-            m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-            m_MethodName: Play
-            m_Mode: 5
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: Player_Climb
-              m_BoolArgument: 0
-            m_CallState: 2
-    - name: OnClimbIdle
-      action:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 2641231686574370768}
-            m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-            m_MethodName: Play
-            m_Mode: 5
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: Player_Climb_Idle
-              m_BoolArgument: 0
-            m_CallState: 2
-    - name: OnJump
-      action:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 2641231686287007103}
-            m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-            m_MethodName: Emit
-            m_Mode: 3
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 10
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
+  eventManager:
+    OnGround:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2641231686574370768}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Player_Idle
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 2641231686287007103}
+          m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+          m_MethodName: Emit
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 10
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    InAir:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2641231686574370768}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Player_Jump
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnWall:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2641231686574370768}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Player_WallSlide
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 2641231687076537281}
+          m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Play_WallSlide
+            m_BoolArgument: 0
+          m_CallState: 2
+    OffWall:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2641231687076537281}
+          m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnStartMove:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2641231686574370768}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Player_Walk
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 2641231688062127969}
+          m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Player_Walk
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnEndMove:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2641231686574370768}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Player_Idle
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 2641231688062127969}
+          m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+          m_MethodName: Stop
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnClimb:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2641231686574370768}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Player_Climb
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnEndClimb:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2641231686574370768}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Player_Climb_Idle
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnJump:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2641231686287007103}
+          m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+          m_MethodName: Emit
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 10
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnDeath:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &2641231686581459799
 GameObject:
   m_ObjectHideFlags: 0
