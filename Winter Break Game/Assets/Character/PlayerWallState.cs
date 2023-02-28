@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterWallState : CharacterClass, IWallState
+public class PlayerWallState : CharacterClass, IWallState
 {
     int dirFacing;
     float inputDir; 
     public void OnEnter()
     {
-        character.physicsHandler.SetMaxAcceleration(1);
+        character.physicsHandler.SetMaxAcceleration(1f);
         character.physicsHandler.SetAcceleration(0);
     }
 
@@ -30,16 +30,16 @@ public class CharacterWallState : CharacterClass, IWallState
     {
         if (inputDir == dirFacing && character.physicsHandler.GetVelocity().y < 0)
         {
-            character.movement.Climb(new Vector2(dirFacing, -.75f), character.statsHandler.GetStat("Speed"));
+            character.movement.Climb(new Vector2(dirFacing, -1f), character.statsHandler.GetStat("Wall Slip Speed"), false);
         }
         else if (inputDir == -dirFacing)
         {
             character.directionHandler.FlipCharacter(-dirFacing);
-            character.physicsHandler.SetAcceleration(-dirFacing/2);
+            character.physicsHandler.SetAcceleration(-dirFacing / 2);
         }
     }
 
-    public void OnExit() { }
+    public void OnExit() {}
     public void Transition(StateMachine owner)
     {
         if (character.groundStatus.IsOnGround())

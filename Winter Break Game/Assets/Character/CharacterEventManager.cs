@@ -18,6 +18,7 @@ public class CharacterEventManager
     public UnityEvent OnJump;
 
     public UnityEvent OnDeath;
+    public UnityEvent OnDamaged;
     public static UnityEvent OnCharacterDeath; 
 }
 

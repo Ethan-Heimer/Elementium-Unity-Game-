@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System; 
 
-public class CharacterGroundedState : CharacterClass, IGroundState
+public class PlayerGroundedState : CharacterClass, IGroundState
 {
-    bool jump;
     float xInput; 
 
     public void OnEnter()
@@ -21,6 +20,9 @@ public class CharacterGroundedState : CharacterClass, IGroundState
     public void FixedWhileInState()
     {
         xInput = character.input.GetHorizontalInput();
+
+        if(character.wallStatus.IsOnWall()) character.physicsHandler.SetAcceleration(0);
+
         character.movement.Move(xInput, character.statsHandler.GetStat("Speed"));
     }
 

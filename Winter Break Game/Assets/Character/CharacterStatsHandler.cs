@@ -75,14 +75,31 @@ public class CharacterStatsHandler : CharacterClass, ICharacterStatsHandler
        
     }
 
+    public override object Clone()
+    {
+        CharacterStatsHandler obj = (CharacterStatsHandler)this.MemberwiseClone();
+        obj.stats = new Stat[stats.Length];
+
+        for(int i = 0; i < stats.Length; i++)
+        {
+            obj.stats[i] = new Stat();
+
+            obj.stats[i].name = stats[i].name;
+            obj.stats[i].startValue = stats[i].startValue;
+
+            obj.stats[i].ResetStatValue();
+        }
+
+        return obj as object;
+    }
 
 }
 
 [System.Serializable]
 public class Stat
 {
-    [SerializeField] string name;
-    [SerializeField] float startValue;
+    public string name;
+    public float startValue;
 
     float value;
     bool initiated = false;

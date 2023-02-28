@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterAirborneState : CharacterClass, IAirState
+public class PlayerAirborneState : CharacterClass, IAirState
 {
     Timer climbTimer = new Timer(.5f);
+    Timer backcheckCooldown = new Timer(.1f); 
 
     public void OnEnter() 
     {
@@ -12,6 +13,7 @@ public class CharacterAirborneState : CharacterClass, IAirState
 
         character.statsHandler.ResetStatValue("Double Jump Amount");
         climbTimer.ResetTimer();
+        backcheckCooldown.ResetTimer();
     }
 
     public void WhileInState()
@@ -22,6 +24,8 @@ public class CharacterAirborneState : CharacterClass, IAirState
     public void FixedWhileInState()
     {
         character.movement.Move(character.input.GetHorizontalInput(), character.statsHandler.GetStat("Speed"));
+
+        if (character.wallStatus.IsBackTowordsWall() && backcheckCooldown.IsTimerUp()) character.physicsHandler.SetAcceleration(0);
     }
 
     public void OnExit() { }

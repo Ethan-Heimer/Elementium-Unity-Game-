@@ -189,7 +189,9 @@ public class PositionRecorder
 public class ElemiteDirectionManager
 {
     ICharacterDirectionHandler directionHandler;
-    IElementRayInputProvider inputProvider; 
+    ICharacterInputHandler characterInputHandler; 
+
+    IElementRayInputProvider rayInputHandler; 
 
     Elemite elemite; 
 
@@ -197,16 +199,18 @@ public class ElemiteDirectionManager
     {
         elemite = _elemite;
 
-        inputProvider = GameObject.FindGameObjectWithTag("Ray").GetComponent<ElementRay>().input; 
-        directionHandler = _character.directionHandler; 
+        rayInputHandler = GameObject.FindGameObjectWithTag("Ray").GetComponent<ElementRay>().input; 
+
+        directionHandler = _character.directionHandler;
+        characterInputHandler = _character.input; 
 
     }
 
     public int GetDirection()
     {
-        if (elemite.selected && inputProvider.ShootRayIsPressed())
+        if (elemite.selected && characterInputHandler.GetActionInput())
         {
-            if(inputProvider.GetAimVector().x > 0)
+            if(rayInputHandler.GetAimVector().x > 0)
             {
                 return 1; 
             }

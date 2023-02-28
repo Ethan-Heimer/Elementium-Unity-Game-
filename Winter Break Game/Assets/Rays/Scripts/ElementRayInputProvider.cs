@@ -10,7 +10,7 @@ public class ElementRayInputProvider : MonoBehaviour, IElementRayInputProvider
     {
         cam = Camera.main; 
     }
-    public bool ShootRayIsPressed() => Input.GetButton("Fire1") || (Input.GetAxisRaw("Fire1") > 0 && (Input.GetAxis("AimY") != 0 || Input.GetAxis("AimX") != 0)); 
+   
 
     public Vector3 GetAimVector()
     {

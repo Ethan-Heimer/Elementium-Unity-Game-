@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterClimbState : CharacterClass, IClimbState
+public class PlayerClimbState : CharacterClass, IClimbState
 {
     public void OnEnter() 
     {
         character.physicsHandler.FreezeGravity(true);
-        character.physicsHandler.SetMaxAcceleration(0); 
+        character.physicsHandler.SetMaxAcceleration(0);
+        character.physicsHandler.SetAcceleration(0);
     }
 
     public void WhileInState()
@@ -19,7 +20,7 @@ public class CharacterClimbState : CharacterClass, IClimbState
     public void FixedWhileInState()
     {
         Vector2 moveVector = new Vector2(character.input.GetHorizontalInput(), character.input.GetVerticalInput());
-        character.movement.Climb(new Vector2(character.input.GetHorizontalInput(), character.input.GetVerticalInput()), character.statsHandler.GetStat("Climb Speed"));
+        character.movement.Climb(new Vector2(character.input.GetHorizontalInput(), character.input.GetVerticalInput()), character.statsHandler.GetStat("Climb Speed"), true);
     }
 
     public void OnExit()

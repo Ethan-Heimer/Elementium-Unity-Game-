@@ -18,10 +18,15 @@ public class Character : MonoBehaviour
 
     public ICharacterStatsHandler statsHandler;
 
+    ICharacterActionHandler actionHandler;
+    ICharacterMovementHandler movementHandler; 
 
     public CharacterMovement movement;
     public CharacterDamageManager damageManager;
     public CharacterEventManager eventManager;
+
+    bool pauseExecution; 
+    public void PauseExecution(bool pause) => pauseExecution = pause; 
 
     public void Awake()
     {
@@ -36,7 +41,9 @@ public class Character : MonoBehaviour
         damageHandler = config.GetDamageHandler();
 
         statsHandler = config.GetStatsHandler();
-       
+        actionHandler = config.GetActionHandler();
+
+        movementHandler = config.GetMovementHandler();
 
         input.Constructer(this);
         groundStatus.Constructer(this);
@@ -48,18 +55,28 @@ public class Character : MonoBehaviour
         damageChecker.Constructer(this);
         damageHandler.Constructer(this);
 
+        actionHandler.Constructer(this);
+        movementHandler.Constructer(this);
+
         movement = new CharacterMovement(this);
         damageManager = new CharacterDamageManager(this);
+
+        actionHandler.Start();
+        movementHandler.Start();
     }
 
     public void Update()
     {
-        movement.Tick();
+        if (pauseExecution) return;
+
         damageManager.Tick();
+        actionHandler.Update();
+        movementHandler.Update();
     }
 
     public void FixedUpdate()
     {
-        movement.FixedTick();
+        if (pauseExecution) return;
+        movementHandler.FixedUpdate();
     }
 }

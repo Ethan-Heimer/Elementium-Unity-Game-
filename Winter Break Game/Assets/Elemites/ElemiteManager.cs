@@ -10,7 +10,7 @@ public class ElemiteManager : MonoBehaviour
     [SerializeField] int DelayMultiplyer; 
 
     ElementRayData[] rays = new ElementRayData[0];
-    List<Elemite> elemites = new List<Elemite>();
+    [SerializeField] List<Elemite> elemites = new List<Elemite>();
 
     Elemite selectedMite;
 
@@ -62,5 +62,12 @@ public class ElemiteManager : MonoBehaviour
         if (selectedMite is not null) selectedMite.Select(false);
         selectedMite = elemites[id];
         selectedMite.Select(true);
+    }
+
+    public static void CreateElemiteObject(RayCollectable elemite, ElementRayData rayData, Vector3 position)
+    {
+        var obj = Instantiate(elemite.gameObject);
+        obj.transform.position = position;
+        obj.GetComponent<RayCollectable>().rayData = rayData; 
     }
 }

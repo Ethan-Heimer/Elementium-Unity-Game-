@@ -4,22 +4,11 @@ using UnityEngine;
 
 public class CharacterMovement
 {
-    CharacterConfig config;
     Character character; 
-
-    public CharacterStateMachiene characterStateMachine;
-
 
     public CharacterMovement(Character _character)
     {
         character = _character;
-        config = character.config;
-
-        characterStateMachine = new CharacterStateMachiene(
-            config.GetGroundState(),
-            config.GetAirState(),
-            config.GetWallState(),
-            config.GetClimbState(), character);
     }
 
     bool _isWalking; 
@@ -49,9 +38,11 @@ public class CharacterMovement
     }
 
     bool _isClimbing; 
-    public void Climb(Vector2 direction, float speed)
+    public void Climb(Vector2 direction, float speed, bool invokeClimbEvents)
     {
-        character.physicsHandler.AddForce(direction * speed);
+        character.physicsHandler.SetVelocity(direction * speed);
+
+        if (!invokeClimbEvents) return;
 
         if (direction == Vector2.zero && _isClimbing)
         {
@@ -71,18 +62,5 @@ public class CharacterMovement
 
         character.eventManager.OnJump.Invoke();
     }
-
-
-    public void Tick()
-    {
-        characterStateMachine.InvokeCurrentState();
-    }
-
-    public void FixedTick()
-    {
-        characterStateMachine.InvokeFixedState();
-    }
-
-   
 }
 

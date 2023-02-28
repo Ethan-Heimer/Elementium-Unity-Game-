@@ -11,5 +11,10 @@ public class RayDamageReciever : RayAffectable, IRayDamageReciever
         damage = true;
     }
 
-    public bool IsCorrectRayTouching() => damage; 
+    public bool IsCorrectRayTouching()
+    {
+        bool d = damage;
+        damage = false;
+        return d; 
+    }
 }

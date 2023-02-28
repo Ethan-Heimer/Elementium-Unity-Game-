@@ -10,5 +10,5 @@ public class CharacterClass{
         character = _character;
     }
 
-    public object Clone() => MemberwiseClone();
+    public virtual object Clone() => MemberwiseClone();
 }

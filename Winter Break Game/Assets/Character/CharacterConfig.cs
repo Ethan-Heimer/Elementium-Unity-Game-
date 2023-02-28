@@ -9,8 +9,6 @@ using UnityEngine.Events;
 [CreateAssetMenu]
 public class CharacterConfig : ScriptableObject
 {
-    public bool reload;
-
     [Header("Movement")]
     [SerializeField] List<PossableUseableComponent> statHandlers = new List<PossableUseableComponent>();
     [SerializeField] List<PossableUseableComponent> inputs = new List<PossableUseableComponent>();
@@ -19,16 +17,14 @@ public class CharacterConfig : ScriptableObject
     [SerializeField] List<PossableUseableComponent> directionHandlers = new List<PossableUseableComponent>();
     [SerializeField] List<PossableUseableComponent> physicsHandlers = new List<PossableUseableComponent>();
     [SerializeField] List<PossableUseableComponent> climbStatuses = new List<PossableUseableComponent>();
+    [SerializeField] List<PossableUseableComponent> movementHandlers = new List<PossableUseableComponent>();
 
     [Header("Damage")]
     [SerializeField] List<PossableUseableComponent> damageCheckers = new List<PossableUseableComponent>(); 
     [SerializeField] List<PossableUseableComponent> damageHandlers = new List<PossableUseableComponent>();
 
-    [Header("States")]
-    [SerializeField] List<PossableUseableComponent> groundStates = new List<PossableUseableComponent>();
-    [SerializeField] List<PossableUseableComponent> airStates = new List<PossableUseableComponent>();
-    [SerializeField] List<PossableUseableComponent> wallStates = new List<PossableUseableComponent>();
-    [SerializeField] List<PossableUseableComponent> climbStates = new List<PossableUseableComponent>();
+    [Header("Action Handler")]
+    [SerializeField] List<PossableUseableComponent> actionHandlers = new List<PossableUseableComponent>();
 
 
     [Header("Movement")]
@@ -39,16 +35,14 @@ public class CharacterConfig : ScriptableObject
     [SerializeReference] public ICharacterDirectionHandler directionHandler;
     [SerializeReference] public ICharacterPhysicsHandler physicsHandler;
     [SerializeReference] public ICharacterClimbStatusProvider climbStatus;
+    [SerializeReference] public ICharacterMovementHandler movementHandler; 
 
     [Header("Damage")]
     [SerializeReference] public ICharacterDamageChecker damageChecker;
     [SerializeReference] public ICharacterDamageHandler damageHandler;
 
-    [Header("States")]
-    [SerializeReference] IGroundState groundState;
-    [SerializeReference] IWallState wallState;
-    [SerializeReference] IAirState airState;
-    [SerializeReference] IClimbState climbState;
+    [Header("Action Handler")]
+    [SerializeReference] ICharacterActionHandler actionHandler; 
 
     public void Awake()
     {
@@ -79,10 +73,8 @@ public class CharacterConfig : ScriptableObject
         UpdateList(GetPossableClases<ICharacterDamageChecker>(), damageCheckers);
         UpdateList(GetPossableClases<ICharacterDamageHandler>(), damageHandlers);
 
-        UpdateList(GetPossableClases<IGroundState>(), groundStates);
-        UpdateList(GetPossableClases<IAirState>(), airStates);
-        UpdateList(GetPossableClases<IWallState>(), wallStates);
-        UpdateList(GetPossableClases<IClimbState>(), climbStates);
+        UpdateList(GetPossableClases<ICharacterActionHandler>(), actionHandlers);
+        UpdateList(GetPossableClases<ICharacterMovementHandler>(), movementHandlers); 
     }
 
     private void UpdateInspector()
@@ -97,10 +89,8 @@ public class CharacterConfig : ScriptableObject
         UpdateRefrences<ICharacterDamageChecker>(ref damageChecker, damageCheckers);
         UpdateRefrences<ICharacterDamageHandler>(ref damageHandler, damageHandlers);
 
-        UpdateRefrences<IGroundState>(ref groundState, groundStates);
-        UpdateRefrences<IAirState>(ref airState, airStates);
-        UpdateRefrences<IWallState>(ref wallState, wallStates);
-        UpdateRefrences<IClimbState>(ref climbState, climbStates);
+        UpdateRefrences<ICharacterActionHandler>(ref actionHandler, actionHandlers);
+        UpdateRefrences<ICharacterMovementHandler>(ref movementHandler, movementHandlers); 
     }
     public ICharacterStatsHandler GetStatsHandler() => statsHandler.Clone() as ICharacterStatsHandler;
     public ICharacterInputHandler GetInputHandler() => input.Clone() as ICharacterInputHandler;
@@ -111,12 +101,8 @@ public class CharacterConfig : ScriptableObject
     public ICharacterClimbStatusProvider GetClimbHandler() => climbStatus.Clone() as ICharacterClimbStatusProvider;
     public ICharacterDamageChecker GetDamageChecker() => damageChecker.Clone() as ICharacterDamageChecker;
     public ICharacterDamageHandler GetDamageHandler() => damageHandler.Clone() as ICharacterDamageHandler;
-
-    public IGroundState GetGroundState() => groundState.Clone() as IGroundState;
-    public IAirState GetAirState() => airState.Clone() as IAirState;
-    public IWallState GetWallState() => wallState.Clone() as IWallState;
-    public IClimbState GetClimbState() => climbState.Clone() as IClimbState; 
-
+    public ICharacterActionHandler GetActionHandler() => actionHandler.Clone() as ICharacterActionHandler; 
+    public ICharacterMovementHandler GetMovementHandler() => movementHandler.Clone() as ICharacterMovementHandler; 
 
     string GetSelectedName(List<PossableUseableComponent> list) => list.First(x => x.use).name;
     List<string> GetPossableClases<T>() => AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()).Where(x => typeof(T).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).Select(x => x.Name).ToList();

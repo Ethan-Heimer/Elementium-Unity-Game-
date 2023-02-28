@@ -4,6 +4,5 @@ using UnityEngine;
 
 public interface IElementRayInputProvider
 {
-    bool ShootRayIsPressed();
     Vector3 GetAimVector(); 
 }

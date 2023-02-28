@@ -5,4 +5,5 @@ using System;
 public interface IChararacterWallStatusProvider : ICharacterInterface 
 {
     bool IsOnWall();
+    bool IsBackTowordsWall();
 }

@@ -12,6 +12,8 @@ public class CharacterStatProfileHandler : CharacterClass, ICharacterStatsHandle
 
     public void InitAllValues()
     {
+        if(statProfile is null) return;
+
         foreach(Stat o in statProfile.stats)
         {
             o.ResetStatValue();

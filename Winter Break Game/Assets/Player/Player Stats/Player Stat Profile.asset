@@ -25,3 +25,5 @@ MonoBehaviour:
     startValue: 5
   - name: Air Resistance
     startValue: 0.75
+  - name: Wall Slip Speed
+    startValue: 10
