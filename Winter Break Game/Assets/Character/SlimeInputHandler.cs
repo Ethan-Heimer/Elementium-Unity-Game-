@@ -14,7 +14,7 @@ public class SlimeInputHandler : CharacterClass, ICharacterInputHandler
         jumpTimer = new Timer(1/character.statsHandler.GetStat("Hop Speed"));
     }
 
-    public float GetHorizontalInput()
+    public virtual float GetHorizontalInput()
     {
         Collider2D player = Physics2D.OverlapCircle(character.transform.position, playerSeekDistance, LayerMask.GetMask("Player"));
 
@@ -26,9 +26,9 @@ public class SlimeInputHandler : CharacterClass, ICharacterInputHandler
         return Random.Range(-1, 2); 
     }
 
-    public float GetVerticalInput() => 0; 
+    public virtual float GetVerticalInput() => 0; 
 
-    public bool GetJumpInput()
+    public virtual bool GetJumpInput()
     {
         bool canJump = false;
         if(jumpTimer.IsTimerUp())
@@ -40,6 +40,6 @@ public class SlimeInputHandler : CharacterClass, ICharacterInputHandler
         return canJump; 
     }
 
-    public bool GetActionInput() => false; 
+    public virtual bool GetActionInput() => false; 
 
 }

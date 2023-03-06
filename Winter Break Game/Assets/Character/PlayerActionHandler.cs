@@ -10,11 +10,9 @@ public class PlayerActionHandler : CharacterClass, ICharacterActionHandler
         ray = character.GetComponentInChildren<ElementRay>(); 
     }
 
-    public void Update()
+    public void OnAction()
     {
-        if (character.input.GetActionInput())
-        {
-            ray.FireRay();
-        }
+       ray.FireRay();
+        
     }
 }

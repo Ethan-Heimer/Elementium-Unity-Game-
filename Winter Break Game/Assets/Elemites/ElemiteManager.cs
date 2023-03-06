@@ -46,7 +46,7 @@ public class ElemiteManager : MonoBehaviour
                 obj.GetComponent<SpriteRenderer>().color = o.Color.Evaluate(.5f); 
 
                 Elemite elemite = obj.GetComponent<Elemite>();
-                elemite.Init(GameObject.FindGameObjectWithTag("Player").GetComponent<Character>(), (elemites.Count+1) * DelayMultiplyer); 
+                elemite.Init(Character.GetPlayer(), (elemites.Count+1) * DelayMultiplyer); 
 
                 elemites.Add(elemite);
             }

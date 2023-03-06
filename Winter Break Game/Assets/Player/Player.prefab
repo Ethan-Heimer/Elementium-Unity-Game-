@@ -4844,7 +4844,7 @@ GameObject:
   - component: {fileID: 2641231686574370761}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5044,6 +5044,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 9a44992f3c979bb4c9eda0dc84ad072c, type: 2}
+          m_TargetAssemblyTypeName: CameraEffectManager, Assembly-CSharp
+          m_MethodName: ExecuteShake
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 10
+            m_FloatArgument: 0
+            m_StringArgument: On Player Ground
+            m_BoolArgument: 0
+          m_CallState: 2
     InAir:
       m_PersistentCalls:
         m_Calls:
@@ -5157,7 +5169,19 @@ MonoBehaviour:
           m_CallState: 2
     OnStartClimb:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 2641231686574370768}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Player_Climb_Idle
+            m_BoolArgument: 0
+          m_CallState: 2
     OnClimb:
       m_PersistentCalls:
         m_Calls:
@@ -5212,27 +5236,27 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 10
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: On Player Jump
             m_BoolArgument: 0
           m_CallState: 2
     OnDeath:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 0
+        m_Calls: []
     OnDamaged:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 9a44992f3c979bb4c9eda0dc84ad072c, type: 2}
+          m_TargetAssemblyTypeName: CameraEffectManager, Assembly-CSharp
+          m_MethodName: ExecuteShake
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: On Player Death
+            m_BoolArgument: 0
+          m_CallState: 0
 --- !u!1 &2641231686581459799
 GameObject:
   m_ObjectHideFlags: 0
@@ -5314,9 +5338,7 @@ LineRenderer:
   m_SortingLayerID: -431204407
   m_SortingLayer: -4
   m_SortingOrder: -5
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -15223,7 +15245,7 @@ TrailRenderer:
   m_SortingLayerID: 1303815981
   m_SortingLayer: -3
   m_SortingOrder: -1
-  m_Time: 0.1
+  m_Time: 0.2
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3

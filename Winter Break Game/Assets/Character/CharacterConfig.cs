@@ -9,6 +9,8 @@ using UnityEngine.Events;
 [CreateAssetMenu]
 public class CharacterConfig : ScriptableObject
 {
+    public bool IsPlayer; 
+
     [Header("Movement")]
     [SerializeField] List<PossableUseableComponent> statHandlers = new List<PossableUseableComponent>();
     [SerializeField] List<PossableUseableComponent> inputs = new List<PossableUseableComponent>();

@@ -25,7 +25,5 @@ public class DecreaseHealthHandler : CharacterClass, ICharacterDamageHandler
         }
 
         damageCooldown.ResetTimer();
-
-        Debug.Log(character.statsHandler.GetStat("Health"));
     }
 }

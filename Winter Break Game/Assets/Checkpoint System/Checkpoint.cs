@@ -14,7 +14,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (collected) return; 
 
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject == Character.GetPlayer().gameObject)
         {
             checkPointEventSystem.InvokeEvent("On Checkpoint Collected", new EventData(new EventInfo("Checkpoint", this.gameObject)));
             data.SetCurrentCheckpoint(this.gameObject);

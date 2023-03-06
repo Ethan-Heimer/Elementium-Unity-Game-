@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] Character character;
-    [SerializeField] Slider healthBar;
+    [SerializeField] protected Slider healthBar;
 
-    [SerializeField] Gradient healthBarColor;
+    [SerializeField] protected Gradient healthBarColor;
 
-    Image fill; 
+    protected Image fill; 
 
-    private void Start()
+    public virtual void Start()
     {
         character = character == null ? transform.root.GetComponent<Character>() : character; 
         healthBar = healthBar == null ? GetComponent<Slider>() : healthBar;
@@ -30,7 +30,7 @@ public class HealthBar : MonoBehaviour
         character.eventManager.OnDamaged.RemoveListener(UpdateHealthBar);
     }
 
-    void UpdateHealthBar()
+    protected void UpdateHealthBar()
     {
         float percent = getHealthPercent();
 
@@ -38,6 +38,6 @@ public class HealthBar : MonoBehaviour
         fill.color = healthBarColor.Evaluate(percent);
     }
 
-    float getHealthPercent() => character.statsHandler.GetStat("Health") / character.statsHandler.GetStat("Starting Health"); 
+    public virtual float getHealthPercent() => character.statsHandler.GetStat("Health") / character.statsHandler.GetStat("Starting Health"); 
 
 }

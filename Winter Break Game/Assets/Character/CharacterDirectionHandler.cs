@@ -26,5 +26,5 @@ public class CharacterDirectionHandler : CharacterClass, ICharacterDirectionHand
 
     }
 
-    public int GetCurrentDirection() => renderer.flipX?-1:1;
+    public int GetCurrentDirection() => renderer && renderer.flipX?-1:1;
 }

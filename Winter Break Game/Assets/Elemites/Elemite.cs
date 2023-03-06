@@ -42,6 +42,8 @@ public class Elemite : MonoBehaviour
 
         stateMachiene = new StateMachine(new FollowState(this), new SelectedState(this));
         stateMachiene.SwitchState("FollowState");
+
+        transform.SetParent(_target.transform);
     }
 
     void Update()

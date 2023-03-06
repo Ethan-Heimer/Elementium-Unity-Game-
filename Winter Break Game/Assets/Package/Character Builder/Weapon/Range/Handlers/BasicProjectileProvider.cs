@@ -13,7 +13,7 @@ public class BasicProjectileProvider : MonoBehaviour, IProjectileProvider
         obj.transform.position = transform.position;
         Projectile projectile = obj.GetComponent<Projectile>();
 
-        projectile.InitProjectile(angle, speed, damage, owner);
+        //projectile.InitProjectile(angle, speed, damage, owner);
 
         return projectile;
     }

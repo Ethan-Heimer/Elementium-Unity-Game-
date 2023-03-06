@@ -161,8 +161,12 @@ public class CameraShake : CameraEffect
 
     public void StopShake() => shake = false; 
 
-    float GetShakeBy(float x) => Mathf.Sin(x * ShakeSpeed) * ShakeIntensity; 
-    void ApplyShake(Camera cam, float offset) => cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, offset, cam.transform.localPosition.z);
+    float GetShakeBy(float x) => Mathf.Sin(x * ShakeSpeed) * ShakeIntensity;
+    void ApplyShake(Camera cam, float offset)
+    { 
+        if(cam is not null)
+        cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, offset, cam.transform.localPosition.z); 
+    }
 
     async void ReturnToOrigin(Camera cam, float speed)
     {

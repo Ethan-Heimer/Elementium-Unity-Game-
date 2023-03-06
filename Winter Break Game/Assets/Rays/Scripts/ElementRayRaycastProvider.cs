@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ElementRayRaycastProvider : MonoBehaviour, IRayProvider
 {
-    int MaxRayDistance = 25; 
+    int MaxRayDistance = 50; 
 
     public Ray2D GetRay(Vector2 angle) => new Ray2D(transform.position, angle);
     public int GetRayMaxDistance() => MaxRayDistance; 

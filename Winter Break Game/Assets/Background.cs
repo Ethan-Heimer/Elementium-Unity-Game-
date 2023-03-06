@@ -24,10 +24,7 @@ public class Background : MonoBehaviour
 
     void Start()
     {
-        float xScale = (float)_camera.scaledPixelWidth / 1920f;
-        float yScale = (float)_camera.scaledPixelHeight / 1080f;
-
-        transform.localScale = new Vector3(xScale, yScale, 1);
+       
     }
 
     void Update()

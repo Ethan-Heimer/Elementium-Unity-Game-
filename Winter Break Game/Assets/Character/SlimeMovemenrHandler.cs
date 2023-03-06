@@ -20,11 +20,8 @@ public class SlimeMovemenrHandler : CharacterClass, ICharacterMovementHandler
     {
         bool move = character.input.GetJumpInput();
 
-        Debug.Log(character.input.GetHorizontalInput());
-
         if (move)
         {
-            Debug.Log(character.statsHandler.GetStat("Speed"));
             character.movement.Move(character.input.GetHorizontalInput(), character.statsHandler.GetStat("Speed"));
             character.movement.Jump(character.statsHandler.GetStat("Jump Height"));
         }

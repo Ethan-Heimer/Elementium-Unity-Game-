@@ -45,4 +45,19 @@ public class CharacterDamageManager
 
         GameObject.Destroy(character.gameObject);
     }
+
+    public void SilentlyKillCharacter()
+    {
+        GameObject.Destroy(character.GetComponent<SpriteRenderer>());
+        GameObject.Destroy(character.GetComponent<Rigidbody2D>());
+        GameObject.Destroy(character.GetComponent<Collider2D>());
+
+        character.PauseExecution(true);
+        character.eventManager.OnDeath.Invoke();
+
+        for (int i = character.transform.childCount - 1; i >= 0; i--)
+        {
+            GameObject.Destroy(character.transform.GetChild(i).gameObject);
+        }
+    }
 }

@@ -1,0 +1,144 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d3bc02ff5097d440b18205c93bda3ee, type: 3}
+  m_Name: Water Twins Boss Config
+  m_EditorClassIdentifier: 
+  statHandlers:
+  - name: CharacterStatProfileHandler
+    use: 0
+  - name: CharacterStatsHandler
+    use: 1
+  inputs:
+  - name: PlayerInputHandler
+    use: 0
+  - name: SlimeInputHandler
+    use: 0
+  - name: TwinBossInput
+    use: 1
+  groundStatuses:
+  - name: CharacterGroundStatusProvider
+    use: 1
+  wallStatuses:
+  - name: CharacterWallStatusProvider
+    use: 1
+  directionHandlers:
+  - name: CharacterDirectionHandler
+    use: 1
+  physicsHandlers:
+  - name: CharacterPhysicsHandler
+    use: 0
+  - name: CharacterPhysicsHandlerWithoutAcceleration
+    use: 1
+  climbStatuses:
+  - name: CharacterClimbStatusProvider
+    use: 1
+  movementHandlers:
+  - name: EmptyMovementHandler
+    use: 0
+  - name: PlayerMovementHandler
+    use: 0
+  - name: SlimeMovemenrHandler
+    use: 1
+  damageCheckers:
+  - name: CheckForRay
+    use: 1
+  - name: PlayerDamageChecker
+    use: 0
+  damageHandlers:
+  - name: DecreaseHealthHandler
+    use: 1
+  - name: DestroyOnDamaged
+    use: 0
+  - name: PlayerDamageHandler
+    use: 0
+  actionHandlers:
+  - name: NullActionHandler
+    use: 0
+  - name: PlayerActionHandler
+    use: 0
+  - name: FireTwinAction
+    use: 1
+  statsHandler:
+    rid: 4115835401462349846
+  input:
+    rid: 8697858295655563264
+  groundStatus:
+    rid: 4115835401462349837
+  wallStatus:
+    rid: 4115835401462349838
+  directionHandler:
+    rid: 4115835401462349839
+  physicsHandler:
+    rid: 4115835401462349848
+  climbStatus:
+    rid: 4115835401462349841
+  movementHandler:
+    rid: 4115835401462349851
+  damageChecker:
+    rid: 4115835401462349843
+  damageHandler:
+    rid: 4115835401462349850
+  actionHandler:
+    rid: 8697858295655563265
+  references:
+    version: 2
+    RefIds:
+    - rid: 4115835401462349837
+      type: {class: CharacterGroundStatusProvider, ns: , asm: Assembly-CSharp}
+      data:
+        checkBoxSize: {x: 1, y: 0.5}
+        checkBoxOffset: {x: 0, y: -0.5, z: 0}
+    - rid: 4115835401462349838
+      type: {class: CharacterWallStatusProvider, ns: , asm: Assembly-CSharp}
+      data:
+        checkDistance: 0
+    - rid: 4115835401462349839
+      type: {class: CharacterDirectionHandler, ns: , asm: Assembly-CSharp}
+      data:
+        renderer: {fileID: 0}
+        flipThreshhold: 0
+    - rid: 4115835401462349841
+      type: {class: CharacterClimbStatusProvider, ns: , asm: Assembly-CSharp}
+    - rid: 4115835401462349843
+      type: {class: CheckForRay, ns: , asm: Assembly-CSharp}
+    - rid: 4115835401462349846
+      type: {class: CharacterStatsHandler, ns: , asm: Assembly-CSharp}
+      data:
+        stats:
+        - name: Starting Health
+          startValue: 50
+        - name: Health
+          startValue: 50
+        - name: Hop Speed
+          startValue: 1
+        - name: Speed
+          startValue: 15
+        - name: Jump Height
+          startValue: 30
+        - name: Action Time
+          startValue: 3
+    - rid: 4115835401462349848
+      type: {class: CharacterPhysicsHandlerWithoutAcceleration, ns: , asm: Assembly-CSharp}
+      data:
+        rigidbody: {fileID: 0}
+    - rid: 4115835401462349850
+      type: {class: DecreaseHealthHandler, ns: , asm: Assembly-CSharp}
+    - rid: 4115835401462349851
+      type: {class: SlimeMovemenrHandler, ns: , asm: Assembly-CSharp}
+    - rid: 8697858295655563264
+      type: {class: TwinBossInput, ns: , asm: Assembly-CSharp}
+      data:
+        playerSeekDistance: 0
+    - rid: 8697858295655563265
+      type: {class: FireTwinAction, ns: , asm: Assembly-CSharp}
+      data:
+        fireBall: {fileID: 8939528143646525217, guid: 55f3fbee3fb5549439c129124ef1474b, type: 3}

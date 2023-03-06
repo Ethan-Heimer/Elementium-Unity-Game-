@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerDamageHandler : CharacterClass, ICharacterDamageHandler
 {
@@ -27,11 +28,19 @@ public class PlayerDamageHandler : CharacterClass, ICharacterDamageHandler
         transform = character.transform;
 
         startingPos = transform.position;
+
+        character.eventManager.OnDeath.AddListener(() => SceneSwicher.SwitchScene(SceneManager.GetActiveScene().buildIndex)); 
     }
 
     public void OnDamaged()
     {
         transform.position = checkPointPos;
-        character.eventManager.OnDeath.Invoke(); 
+        character.statsHandler.SubtractStatValue("Hearts", 1);
+        character.eventManager.OnDamaged.Invoke();
+
+        if(character.statsHandler.GetStat("Hearts") <= 0)
+        {
+            character.damageManager.SilentlyKillCharacter();
+        }
     }
 }

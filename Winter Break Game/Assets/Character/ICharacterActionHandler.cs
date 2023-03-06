@@ -5,5 +5,5 @@ using UnityEngine;
 public interface ICharacterActionHandler : ICharacterInterface
 {
     void Start();
-    void Update();
+    void OnAction();
 }

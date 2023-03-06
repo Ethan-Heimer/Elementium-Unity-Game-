@@ -18,7 +18,6 @@ public class CharacterPhysicsHandlerWithoutAcceleration : CharacterClass, IChara
     public void Accelerate(float direction, float speed)
     {
         rigidbody.velocity = new Vector2(speed * direction, rigidbody.velocity.y);
-        Debug.Log(rigidbody.velocity);
     }
 
     public void AddForce(Vector2 force) => rigidbody.velocity += force;

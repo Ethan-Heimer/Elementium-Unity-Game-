@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    public static Character GetPlayer() => _player;
+    private static Character _player;
+
     public CharacterConfig config;
 
     public ICharacterInputHandler input;
@@ -26,7 +29,8 @@ public class Character : MonoBehaviour
     public CharacterEventManager eventManager;
 
     bool pauseExecution; 
-    public void PauseExecution(bool pause) => pauseExecution = pause; 
+    public void PauseExecution(bool pause) => pauseExecution = pause;
+
 
     public void Awake()
     {
@@ -61,6 +65,11 @@ public class Character : MonoBehaviour
         movement = new CharacterMovement(this);
         damageManager = new CharacterDamageManager(this);
 
+        if (config.IsPlayer) _player = this; 
+    }
+
+    public void Start()
+    {
         actionHandler.Start();
         movementHandler.Start();
     }
@@ -70,8 +79,10 @@ public class Character : MonoBehaviour
         if (pauseExecution) return;
 
         damageManager.Tick();
-        actionHandler.Update();
         movementHandler.Update();
+
+        if (input.GetActionInput())
+            actionHandler.OnAction();
     }
 
     public void FixedUpdate()
