@@ -15,31 +15,30 @@ public class RayUIManager : MonoBehaviour
 
     ElementRayData[] rays = new ElementRayData[0]; 
 
-    void Awake()
+    void Start()
     {
-        ElementRayManager.OnElementRayInit += InitUI;
-        ElementRayManager.OnElementRaySelected += SelectUI;
-        ElementRayManager.OnUsableRayListChanged += UpdateUI; 
+        ElementRayCollectionsManager.OnUsableRayListChanged += UpdateUI;
+        ElementRaySelectionManager.OnElementRaySelected += SelectUI;
+
+        InitUI();
+       
     }
 
     private void OnDisable()
     {
-        ElementRayManager.OnElementRayInit -= InitUI;
-        ElementRayManager.OnElementRaySelected -= SelectUI;
-        ElementRayManager.OnUsableRayListChanged -= UpdateUI;
+        ElementRayCollectionsManager.OnUsableRayListChanged -= UpdateUI;
+        ElementRaySelectionManager.OnElementRaySelected -= SelectUI;
     }
 
-    public void InitUI(ElementRayData[] data)
+    public void InitUI()
     {
-        UpdateUI(data);
+        UpdateUI();
         SelectUI(rays[0]);
     }
 
-    void UpdateUI(ElementRayData[] data)
+    void UpdateUI()
     {
-        ElementRayData[] newRays = data;
-
-        foreach (ElementRayData o in newRays)
+        foreach (ElementRayData o in ElementRayCollectionsManager.SelectableElementRays)
         {
             if (!rays.Contains(o))
             {
@@ -47,7 +46,7 @@ public class RayUIManager : MonoBehaviour
             }
         }
 
-        rays = newRays;
+        rays = ElementRayCollectionsManager.SelectableElementRays;
       
     }
 

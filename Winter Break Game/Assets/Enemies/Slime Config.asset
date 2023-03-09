@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d3bc02ff5097d440b18205c93bda3ee, type: 3}
   m_Name: Slime Config
   m_EditorClassIdentifier: 
-  reload: 0
+  IsPlayer: 0
   statHandlers:
   - name: CharacterStatProfileHandler
     use: 0
@@ -23,6 +23,8 @@ MonoBehaviour:
     use: 0
   - name: SlimeInputHandler
     use: 1
+  - name: TwinBossInput
+    use: 0
   groundStatuses:
   - name: CharacterGroundStatusProvider
     use: 1
@@ -57,10 +59,14 @@ MonoBehaviour:
     use: 1
   - name: PlayerDamageHandler
     use: 0
+  - name: DecreaseHealthHandler
+    use: 0
   actionHandlers:
   - name: NullActionHandler
     use: 1
   - name: PlayerActionHandler
+    use: 0
+  - name: FireTwinAction
     use: 0
   statsHandler:
     rid: 4115835377646829667
@@ -77,7 +83,7 @@ MonoBehaviour:
   climbStatus:
     rid: 4115835377646829659
   movementHandler:
-    rid: 4115835377646829664
+    rid: 8697858478564966403
   damageChecker:
     rid: 4115835377646829661
   damageHandler:
@@ -90,8 +96,8 @@ MonoBehaviour:
     - rid: 4115835377646829655
       type: {class: CharacterGroundStatusProvider, ns: , asm: Assembly-CSharp}
       data:
-        checkBoxSize: {x: 0, y: 0}
-        checkBoxOffset: {x: 0, y: 0, z: 0}
+        checkBoxSize: {x: 0.5, y: 0.25}
+        checkBoxOffset: {x: 0, y: 0.5, z: 0}
     - rid: 4115835377646829656
       type: {class: CharacterWallStatusProvider, ns: , asm: Assembly-CSharp}
       data:
@@ -109,8 +115,6 @@ MonoBehaviour:
       type: {class: DestroyOnDamaged, ns: , asm: Assembly-CSharp}
     - rid: 4115835377646829663
       type: {class: NullActionHandler, ns: , asm: Assembly-CSharp}
-    - rid: 4115835377646829664
-      type: {class: SlimeMovemenrHandler, ns: , asm: Assembly-CSharp}
     - rid: 4115835377646829665
       type: {class: CharacterPhysicsHandlerWithoutAcceleration, ns: , asm: Assembly-CSharp}
       data:
@@ -118,14 +122,16 @@ MonoBehaviour:
     - rid: 4115835377646829666
       type: {class: SlimeInputHandler, ns: , asm: Assembly-CSharp}
       data:
-        playerSeekDistance: 0
+        playerSeekDistance: 10
     - rid: 4115835377646829667
       type: {class: CharacterStatsHandler, ns: , asm: Assembly-CSharp}
       data:
         stats:
         - name: Hop Speed
-          startValue: 0.5
+          startValue: 0.75
         - name: Speed
           startValue: 10
         - name: Jump Height
-          startValue: 10
+          startValue: 15
+    - rid: 8697858478564966403
+      type: {class: SlimeMovemenrHandler, ns: , asm: Assembly-CSharp}

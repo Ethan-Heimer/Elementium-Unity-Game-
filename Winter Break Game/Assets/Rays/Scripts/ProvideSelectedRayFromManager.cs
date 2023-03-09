@@ -7,11 +7,11 @@ public class ProvideSelectedRayFromManager : MonoBehaviour, IElementRayDataProvi
     ElementRayData selectedRay;
     public void Awake()
     {
-        ElementRayManager.OnElementRaySelected += SetRay;
+        ElementRaySelectionManager.OnElementRaySelected += SetRay;
     }
     public void OnDisable()
     {
-        ElementRayManager.OnElementRaySelected -= SetRay;
+        ElementRaySelectionManager.OnElementRaySelected -= SetRay;
     }
     public void SetRay(ElementRayData data) => selectedRay = data; 
 

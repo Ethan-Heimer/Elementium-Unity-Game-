@@ -5267,7 +5267,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: On Player Death
+            m_StringArgument: On Player Die
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 615590198267303318}
@@ -5444,7 +5444,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dea28936b9b48f54ca887d594b814b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayEventSystem: {fileID: 11400000, guid: c84845a84cb6394418828ed1f99b0e7f, type: 2}
+  OnRayShot:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2641231686581459789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5539,7 +5541,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e3ff1d204869d74da612328005a57c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayEvent: {fileID: 11400000, guid: c84845a84cb6394418828ed1f99b0e7f, type: 2}
 --- !u!1 &2641231687076537286
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SlimeMovemenrHandler : CharacterClass, ICharacterMovementHandler
 {
+    
     // Start is called before the first frame update
     public void Start()
     {
@@ -16,6 +17,7 @@ public class SlimeMovemenrHandler : CharacterClass, ICharacterMovementHandler
         
     }
 
+    bool grounded = false;
     public void FixedUpdate()
     {
         bool move = character.input.GetJumpInput();
@@ -24,6 +26,15 @@ public class SlimeMovemenrHandler : CharacterClass, ICharacterMovementHandler
         {
             character.movement.Move(character.input.GetHorizontalInput(), character.statsHandler.GetStat("Speed"));
             character.movement.Jump(character.statsHandler.GetStat("Jump Height"));
+
+            grounded = false;
+        }
+        else if(character.groundStatus.IsOnGround() && grounded == false)
+        {
+            character.eventManager.OnGround?.Invoke();
+            grounded = true;
+            Debug.Log(character.groundStatus.IsOnGround());
+            
         }
     }
 }

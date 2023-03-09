@@ -13,29 +13,29 @@ public class ElemiteManager : MonoBehaviour
 
     Elemite selectedMite;
 
-    void Awake()
+    void Start()
     {
-        ElementRayManager.OnElementRayInit += InitElemites;
-        ElementRayManager.OnElementRaySelected += OnSelected;
-        ElementRayManager.OnUsableRayListChanged+= UpdateElemites;
+        ElementRaySelectionManager.OnElementRaySelected += SelectElemite;
+        ElementRayCollectionsManager.OnUsableRayListChanged += UpdateElemites;
+
+        InitElemites();
     }
 
     private void OnDisable()
     {
-        ElementRayManager.OnElementRayInit -= InitElemites;
-        ElementRayManager.OnElementRaySelected -= OnSelected;
-        ElementRayManager.OnUsableRayListChanged -= UpdateElemites;
+        ElementRaySelectionManager.OnElementRaySelected += SelectElemite;
+        ElementRayCollectionsManager.OnUsableRayListChanged += UpdateElemites;
     }
 
-    public void InitElemites(ElementRayData[] data)
+    public void InitElemites()
     {
-        UpdateElemites(data);
-        SelectElemite(rays[0]);
+        UpdateElemites();
+        SelectElemite(ElementRayCollectionsManager.SelectableElementRays[0]);
     }
 
-    public void UpdateElemites(ElementRayData[] data)
+    public void UpdateElemites()
     {
-        foreach (ElementRayData o in data)
+        foreach (ElementRayData o in ElementRayCollectionsManager.SelectableElementRays)
         {
             if (!rays.Contains(o))
             {
@@ -49,22 +49,14 @@ public class ElemiteManager : MonoBehaviour
             }
         }
 
-        rays = data;
+        rays = ElementRayCollectionsManager.SelectableElementRays;
     }
 
-    void OnSelected(ElementRayData rayData) => SelectElemite(rayData);
 
     void SelectElemite(ElementRayData data)
     {
         if (selectedMite is not null) selectedMite.Select(false);
         selectedMite = elemites.First(x => x.representedRay == data); 
         selectedMite.Select(true);
-    }
-
-    public static void CreateElemiteObject(RayCollectable elemite, ElementRayData rayData, Vector3 position)
-    {
-        var obj = Instantiate(elemite.gameObject);
-        obj.transform.position = position;
-        obj.GetComponent<RayCollectable>().rayData = rayData; 
     }
 }

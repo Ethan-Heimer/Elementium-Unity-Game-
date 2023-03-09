@@ -7,7 +7,8 @@ using UnityEngine.Events;
 public class ElementRay : MonoBehaviour
 {
     public static event Action OnRayFired;
-    [SerializeField] UnityEvent OnRayShot; 
+    [SerializeField] UnityEvent OnRayShot;
+    [SerializeField] UnityEvent OnRayStop; 
 
     IElementRayRenderer renderer;
     public IElementRayInputProvider input;
@@ -53,6 +54,7 @@ public class ElementRay : MonoBehaviour
         else
         {
             renderer.DisableRay(distance, aimVector);
+            OnRayStop?.Invoke();
         }
 
         rayIsFireing = false;

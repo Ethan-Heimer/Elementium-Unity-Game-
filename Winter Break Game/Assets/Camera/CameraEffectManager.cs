@@ -78,9 +78,13 @@ public class CameraShakeManager
     {
         try
         {
-            cameraShakes.Find(x => x.name == name).OnFlag(mainCamera);
-            isShakeFlagged = true;
-            flaggedName = name; 
+            if(!isShakeFlagged)
+            {
+                CameraShake shake = cameraShakes.Find(x => x.name == name);
+                shake.OnFlag(mainCamera);
+                isShakeFlagged = true;
+                flaggedName = name;
+            }
         }
         catch (NullReferenceException)
         {

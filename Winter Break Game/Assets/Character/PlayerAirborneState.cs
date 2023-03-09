@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerAirborneState : CharacterClass, IState, IFixedState
 {
     Timer climbTimer = new Timer(.5f);
-    Timer backcheckCooldown = new Timer(.1f); 
+    Timer backcheckCooldown = new Timer(.1f);
+    Timer cyoteTime = new Timer(.25f);
 
     public void OnEnter() 
     {
@@ -14,6 +15,7 @@ public class PlayerAirborneState : CharacterClass, IState, IFixedState
         character.statsHandler.ResetStatValue("Double Jump Amount");
         climbTimer.ResetTimer();
         backcheckCooldown.ResetTimer();
+        cyoteTime.ResetTimer();
 
         character.eventManager.InAir.Invoke();
     }
@@ -56,7 +58,9 @@ public class PlayerAirborneState : CharacterClass, IState, IFixedState
         {
             character.physicsHandler.SetVelocity(new Vector2(character.physicsHandler.GetVelocity().x, 0));
             character.movement.Jump(character.statsHandler.GetStat("Jump Force"));
-            character.statsHandler.SubtractStatValue("Double Jump Amount", 1);
+
+            if(cyoteTime.IsTimerUp())
+                character.statsHandler.SubtractStatValue("Double Jump Amount", 1);
         }
     }
 }

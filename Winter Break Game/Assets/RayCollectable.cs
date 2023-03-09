@@ -22,4 +22,11 @@ public class RayCollectable : MonoBehaviour
             UiManager.UiPopup(rayData.icon, "New Element!", "New Element Unlocked: " + rayData.name); 
         }
     }
+
+    public static void CreateCollectableObject(RayCollectable elemite, ElementRayData rayData, Vector3 position)
+    {
+        var obj = Instantiate(elemite.gameObject);
+        obj.transform.position = position;
+        obj.GetComponent<RayCollectable>().rayData = rayData;
+    }
 }

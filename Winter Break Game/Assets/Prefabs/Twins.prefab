@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3850753594674912090}
   - component: {fileID: 3661735582172021534}
   - component: {fileID: 3850753594674912165}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: Fire Twin
   m_TagString: Killable
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3850753594674912094}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.44, y: -3.01, z: 0}
+  m_LocalPosition: {x: -15.72, y: -3.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -196,7 +196,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5390110c0167d04429bb2fbf42ef027f, type: 2}
   UseUI: 1
   uiOffset: {x: 0, y: 0.75}
-  iconSize: {x: 0.75, y: 0.75}
+  iconSize: {x: 1, y: 1}
 --- !u!60 &3850753594674912165
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -5190,7 +5190,7 @@ Transform:
   - {fileID: 3850753594674912089}
   - {fileID: 8684488374102534977}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &8684488372549382653
 LineRenderer:
@@ -10812,7 +10812,7 @@ GameObject:
   - component: {fileID: 8684488374102534980}
   - component: {fileID: 8684488374102534981}
   - component: {fileID: 8684488374102535034}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: Water Twin
   m_TagString: Killable
   m_Icon: {fileID: 0}
@@ -10827,7 +10827,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8684488374102535035}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.9, y: 0, z: 0}
+  m_LocalPosition: {x: 1.61, y: -0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
