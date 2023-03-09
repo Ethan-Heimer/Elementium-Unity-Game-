@@ -13,8 +13,6 @@ public class CameraDirector : MonoBehaviour
     [SerializeField] Vector3 offset;
 
     StateMachine stateMachine;
-    [SerializeField] EventSystem cameraEventSystem;
-    
 
     Transform target;
     public Transform GetTarget() => target;
@@ -23,12 +21,12 @@ public class CameraDirector : MonoBehaviour
     {
         stateMachine = new StateMachine(new CameraFollowState(transform, this, smoothSpeed, offset), new CameraStationaryState(transform, this));
 
-        cameraEventSystem.SubscribeToEvent("On Volume Entered", (data) => ChangeCameraFocus((Transform)data.GetData("Target"), (CameraState)data.GetData("Camera State"))); 
+        CameraVolume.OnVolumeChanged += (transform, state) => ChangeCameraFocus(transform, state); 
     }
 
     public void OnDisable()
     {
-        cameraEventSystem.UnsubscribeToEvent("On Volume Entered", (data) => ChangeCameraFocus((Transform)data.GetData("Target"), (CameraState)data.GetData("Camera State")));
+        CameraVolume.OnVolumeChanged -= (transform, state) => ChangeCameraFocus(transform, state);
     }
 
     private void FixedUpdate()

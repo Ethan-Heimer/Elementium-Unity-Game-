@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAirborneState : CharacterClass, IAirState
+public class PlayerAirborneState : CharacterClass, IState, IFixedState
 {
     Timer climbTimer = new Timer(.5f);
     Timer backcheckCooldown = new Timer(.1f); 
@@ -14,6 +14,8 @@ public class PlayerAirborneState : CharacterClass, IAirState
         character.statsHandler.ResetStatValue("Double Jump Amount");
         climbTimer.ResetTimer();
         backcheckCooldown.ResetTimer();
+
+        character.eventManager.InAir.Invoke();
     }
 
     public void WhileInState()
@@ -34,15 +36,15 @@ public class PlayerAirborneState : CharacterClass, IAirState
     {
         if (character.groundStatus.IsOnGround())
         {
-            owner.SwitchState("Ground");
+            owner.SwitchState("PlayerGroundedState");
         }
         else if (character.wallStatus.IsOnWall())
         {
-            owner.SwitchState("Wall");
+            owner.SwitchState("PlayerWallState");
         }
         else if (character.climbStatus.CanClimb() && (character.input.GetVerticalInput() > .5f || character.input.GetVerticalInput() < -.5f) && climbTimer.IsTimerUp())
         {
-            owner.SwitchState("Climb");
+            owner.SwitchState("PlayerClimbState");
         }
     }
 

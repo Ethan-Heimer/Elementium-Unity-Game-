@@ -4,24 +4,32 @@ using UnityEngine;
 
 public class PlayerMovementHandler : CharacterClass, ICharacterMovementHandler
 {
-    public CharacterStateMachiene characterStateMachine;
+    public StateMachine stateMachine; 
 
     public void Start()
     {
-        characterStateMachine = new CharacterStateMachiene(
-            new PlayerGroundedState(),
-            new PlayerAirborneState(),
-            new PlayerWallState(),
-            new PlayerClimbState(), character);
+        PlayerGroundedState groundState = new PlayerGroundedState();
+        PlayerAirborneState airborneState = new PlayerAirborneState();
+        PlayerWallState wallState = new PlayerWallState();
+        PlayerClimbState climbState = new PlayerClimbState();
+
+        groundState.Constructer(character);
+        airborneState.Constructer(character);
+        wallState.Constructer(character);
+        climbState.Constructer(character);
+
+
+        stateMachine = new StateMachine(groundState, airborneState, wallState, climbState);
+        stateMachine.SwitchState("PlayerGroundedState");
     }
 
     public void Update()
     {
-        characterStateMachine.InvokeCurrentState();
+        stateMachine.InvokeCurrentState();
     }
 
     public void FixedUpdate()
     {
-        characterStateMachine.InvokeFixedState();
+        stateMachine.InvokeFixedState();
     }
 }

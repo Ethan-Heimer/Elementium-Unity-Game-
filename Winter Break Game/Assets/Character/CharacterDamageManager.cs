@@ -22,24 +22,18 @@ public class CharacterDamageManager
 
         if (damaged)
         {
+            character.damageHandler.OnDamaged();
             character.eventManager.OnDamaged.Invoke();
-            character.damageHandler.OnDamaged(); 
+           
         }
     }
 
     public async void KillCharacter()
     {
-        GameObject.Destroy(character.GetComponent<SpriteRenderer>());
-        GameObject.Destroy(character.GetComponent<Rigidbody2D>());
-        GameObject.Destroy(character.GetComponent<Collider2D>());
+        character.DisableCharacter(true);
 
         character.PauseExecution(true);
         character.eventManager.OnDeath.Invoke();
-
-        for (int i = character.transform.childCount - 1; i >= 0; i--)
-        {
-            GameObject.Destroy(character.transform.GetChild(i).gameObject);
-        }
 
         await Task.Delay(2000);
 
@@ -48,16 +42,9 @@ public class CharacterDamageManager
 
     public void SilentlyKillCharacter()
     {
-        GameObject.Destroy(character.GetComponent<SpriteRenderer>());
-        GameObject.Destroy(character.GetComponent<Rigidbody2D>());
-        GameObject.Destroy(character.GetComponent<Collider2D>());
+        character.DisableCharacter(true);
 
         character.PauseExecution(true);
         character.eventManager.OnDeath.Invoke();
-
-        for (int i = character.transform.childCount - 1; i >= 0; i--)
-        {
-            GameObject.Destroy(character.transform.GetChild(i).gameObject);
-        }
     }
 }

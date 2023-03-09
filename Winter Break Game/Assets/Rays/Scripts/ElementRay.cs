@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using UnityEngine.Events;
 
 public class ElementRay : MonoBehaviour
 {
-    [SerializeField] EventSystem rayEventSystem;
+    public static event Action OnRayFired;
+    [SerializeField] UnityEvent OnRayShot; 
 
     IElementRayRenderer renderer;
     public IElementRayInputProvider input;
@@ -44,13 +47,12 @@ public class ElementRay : MonoBehaviour
     {
         if (rayIsFireing)
         {
-            rayEventSystem.FlagEvent("While Ray Shot", null);
+            OnRayFired?.Invoke();
+            OnRayShot?.Invoke();
         }
         else
         {
             renderer.DisableRay(distance, aimVector);
-
-            rayEventSystem.UnflagEvent("While Ray Shot");
         }
 
         rayIsFireing = false;

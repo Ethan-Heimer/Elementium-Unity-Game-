@@ -19,6 +19,5 @@ public class CharacterEventManager
 
     public UnityEvent OnDeath;
     public UnityEvent OnDamaged;
-    public static UnityEvent OnCharacterDeath; 
 }
 

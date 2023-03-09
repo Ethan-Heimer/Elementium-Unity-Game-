@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MeltObject : RayAffectable
 {
-    [SerializeField] EventSystem interactibleEventSystem; 
     SpriteRenderer renderer;
 
     [Header("Settings")]
@@ -36,7 +35,6 @@ public class MeltObject : RayAffectable
         if(renderer.color.a <= 0)
         {
             Destroy(gameObject);
-            interactibleEventSystem.InvokeEvent("On Destroy", new EventData(new EventInfo("GameObject", gameObject))); 
         }
 
         if (meltParticles is null) return; 

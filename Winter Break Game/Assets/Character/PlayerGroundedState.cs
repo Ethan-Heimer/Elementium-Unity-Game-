@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System; 
 
-public class PlayerGroundedState : CharacterClass, IGroundState
+public class PlayerGroundedState : CharacterClass, IState, IFixedState
 {
     float xInput; 
 
     public void OnEnter()
     {
         character.physicsHandler.SetMaxAcceleration(1);
+        character.eventManager.OnGround.Invoke();
     }
     public void WhileInState()
     {
@@ -34,17 +35,20 @@ public class PlayerGroundedState : CharacterClass, IGroundState
         {
             if (character.wallStatus.IsOnWall())
             {
-                owner.SwitchState("Wall");
+                owner.SwitchState("PlayerWallState");
+                //character.eventManager.OnEndMove.Invoke();
             }
 
             else
             {
-                owner.SwitchState("Air");
+                owner.SwitchState("PlayerAirborneState");
+//character.eventManager.OnEndMove.Invoke();
             }
         }
         else if (character.climbStatus.CanClimb() && (character.input.GetVerticalInput() > .5f || character.input.GetVerticalInput() < -.5f))
         {
-            owner.SwitchState("Climb"); 
+            owner.SwitchState("PlayerClimbState");
+            //character.eventManager.OnEndMove.Invoke();
         }
     }
 }

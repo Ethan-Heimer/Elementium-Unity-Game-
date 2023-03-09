@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 public class RayUIManager : MonoBehaviour
 {
-    [SerializeField] EventSystem rayEventSystem;
     [SerializeField] GameObject rayUIElement;
     [SerializeField] Transform uiParent;
 
@@ -17,39 +17,33 @@ public class RayUIManager : MonoBehaviour
 
     void Awake()
     {
-        rayEventSystem.SubscribeToEvent("On Ray Init", InitUI);
-        rayEventSystem.SubscribeToEvent("On Ray Changed", OnSelected);
-        rayEventSystem.SubscribeToEvent("On Ray List Changed", UpdateUI);
+        ElementRayManager.OnElementRayInit += InitUI;
+        ElementRayManager.OnElementRaySelected += SelectUI;
+        ElementRayManager.OnUsableRayListChanged += UpdateUI; 
     }
 
     private void OnDisable()
     {
-        rayEventSystem.UnsubscribeToEvent("On Ray Init", InitUI);
-        rayEventSystem.UnsubscribeToEvent("On Ray Changed", OnSelected);
-        rayEventSystem.UnsubscribeToEvent("On Ray List Changed", UpdateUI);
+        ElementRayManager.OnElementRayInit -= InitUI;
+        ElementRayManager.OnElementRaySelected -= SelectUI;
+        ElementRayManager.OnUsableRayListChanged -= UpdateUI;
     }
 
-    public void InitUI(EventData data)
+    public void InitUI(ElementRayData[] data)
     {
         UpdateUI(data);
-        SelectUI(0);
+        SelectUI(rays[0]);
     }
 
-    void UpdateUI(EventData data)
+    void UpdateUI(ElementRayData[] data)
     {
-        ElementRayData[] newRays = (ElementRayData[])data.GetData("Selectable Rays");
+        ElementRayData[] newRays = data;
 
         foreach (ElementRayData o in newRays)
         {
             if (!rays.Contains(o))
             {
-                GameObject obj = Instantiate(rayUIElement);
-                obj.transform.SetParent(uiParent);
-
-                obj.GetComponent<Image>().sprite = o.icon;
-
-                UiManager.UnhighlightElement(obj);
-                uiElements.Add(obj);
+                CreateNewUI(o);
             }
         }
 
@@ -57,13 +51,23 @@ public class RayUIManager : MonoBehaviour
       
     }
 
-    void OnSelected(EventData data) => SelectUI((int)data.GetData("Id Selected"));
-
-    void SelectUI(int id)
+    void SelectUI(ElementRayData selectedRay)
     {
         if (selectedElement is not null) UiManager.UnhighlightElement(selectedElement);
-        selectedElement = uiElements[id];
+
+        selectedElement = uiElements[Array.FindIndex(rays, x => x == selectedRay)];
         UiManager.HighlightElement(selectedElement); 
+    }
+
+    void CreateNewUI(ElementRayData o)
+    {
+        GameObject obj = Instantiate(rayUIElement);
+        obj.transform.SetParent(uiParent);
+
+        obj.GetComponent<Image>().sprite = o.icon;
+
+        UiManager.UnhighlightElement(obj);
+        uiElements.Add(obj);
     }
 }
 

@@ -5,7 +5,6 @@ using System.Linq;
 
 public class ElemiteManager : MonoBehaviour
 {
-    [SerializeField] EventSystem rayEventSystem;
     [SerializeField] GameObject elemiteBase;
     [SerializeField] int DelayMultiplyer; 
 
@@ -16,29 +15,27 @@ public class ElemiteManager : MonoBehaviour
 
     void Awake()
     {
-        rayEventSystem.SubscribeToEvent("On Ray Init", InitElemites);
-        rayEventSystem.SubscribeToEvent("On Ray Changed", OnSelected);
-        rayEventSystem.SubscribeToEvent("On Ray List Changed", UpdateElemites);
+        ElementRayManager.OnElementRayInit += InitElemites;
+        ElementRayManager.OnElementRaySelected += OnSelected;
+        ElementRayManager.OnUsableRayListChanged+= UpdateElemites;
     }
 
     private void OnDisable()
     {
-        rayEventSystem.UnsubscribeToEvent("On Ray Init", InitElemites);
-        rayEventSystem.UnsubscribeToEvent("On Ray Changed", OnSelected);
-        rayEventSystem.UnsubscribeToEvent("On Ray List Changed", UpdateElemites);
+        ElementRayManager.OnElementRayInit -= InitElemites;
+        ElementRayManager.OnElementRaySelected -= OnSelected;
+        ElementRayManager.OnUsableRayListChanged -= UpdateElemites;
     }
 
-    public void InitElemites(EventData data)
+    public void InitElemites(ElementRayData[] data)
     {
         UpdateElemites(data);
-        SelectElemite(0);
+        SelectElemite(rays[0]);
     }
 
-    public void UpdateElemites(EventData data)
+    public void UpdateElemites(ElementRayData[] data)
     {
-        ElementRayData[] newRays = (ElementRayData[])data.GetData("Selectable Rays"); 
-
-        foreach (ElementRayData o in newRays)
+        foreach (ElementRayData o in data)
         {
             if (!rays.Contains(o))
             {
@@ -46,21 +43,21 @@ public class ElemiteManager : MonoBehaviour
                 obj.GetComponent<SpriteRenderer>().color = o.Color.Evaluate(.5f); 
 
                 Elemite elemite = obj.GetComponent<Elemite>();
-                elemite.Init(Character.GetPlayer(), (elemites.Count+1) * DelayMultiplyer); 
+                elemite.Init(Character.GetPlayer(), (elemites.Count+1) * DelayMultiplyer, o); 
 
                 elemites.Add(elemite);
             }
         }
 
-        rays = newRays;
+        rays = data;
     }
 
-    void OnSelected(EventData data) => SelectElemite((int)data.GetData("Id Selected"));
+    void OnSelected(ElementRayData rayData) => SelectElemite(rayData);
 
-    void SelectElemite(int id)
+    void SelectElemite(ElementRayData data)
     {
         if (selectedMite is not null) selectedMite.Select(false);
-        selectedMite = elemites[id];
+        selectedMite = elemites.First(x => x.representedRay == data); 
         selectedMite.Select(true);
     }
 

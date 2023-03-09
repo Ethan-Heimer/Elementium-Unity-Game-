@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class ProvideSelectedRayFromManager : MonoBehaviour, IElementRayDataProvider
 {
-    [SerializeField] EventSystem rayEvent;
     ElementRayData selectedRay;
     public void Awake()
     {
-        rayEvent.SubscribeToEvent("On Ray Changed", SetRay);
+        ElementRayManager.OnElementRaySelected += SetRay;
     }
-    public void SetRay(EventData edata) => selectedRay = (ElementRayData)edata.GetData("Ray Selected"); 
+    public void OnDisable()
+    {
+        ElementRayManager.OnElementRaySelected -= SetRay;
+    }
+    public void SetRay(ElementRayData data) => selectedRay = data; 
 
     public ElementRayData GetRayData() => selectedRay;
 

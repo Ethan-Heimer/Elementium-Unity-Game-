@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWallState : CharacterClass, IWallState
+public class PlayerWallState : CharacterClass, IState, IFixedState
 {
     int dirFacing;
     float inputDir; 
@@ -10,6 +10,8 @@ public class PlayerWallState : CharacterClass, IWallState
     {
         character.physicsHandler.SetMaxAcceleration(1f);
         character.physicsHandler.SetAcceleration(0);
+
+        character.eventManager.OnWall.Invoke();
     }
 
     public void WhileInState()
@@ -44,11 +46,13 @@ public class PlayerWallState : CharacterClass, IWallState
     {
         if (character.groundStatus.IsOnGround())
         {
-            owner.SwitchState("Ground");
+            owner.SwitchState("PlayerGroundedState");
+            character.eventManager.OffWall.Invoke();
         }
         else if(!character.groundStatus.IsOnGround() && !character.wallStatus.IsOnWall())
         {
-            owner.SwitchState("Air");
+            owner.SwitchState("PlayerAirborneState");
+            character.eventManager.OffWall.Invoke();
         }
     }
 }

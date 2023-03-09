@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 public class Elemite : MonoBehaviour
 {
     StateMachine stateMachiene = new StateMachine();
+
+    public ElementRayData representedRay; 
+
     public ElemitePositionHandler PositionHandler; 
     public ElemiteDirectionManager DirectionManager;
     public ElemiteVisualsHandler VisualsHandler;
@@ -33,7 +36,7 @@ public class Elemite : MonoBehaviour
         }
     }
 
-    public void Init(Character _target, int _delay)
+    public void Init(Character _target, int _delay, ElementRayData _elementRayData)
     {
         PositionHandler = new ElemitePositionHandler(this, _target.transform, _delay);
 
@@ -44,6 +47,8 @@ public class Elemite : MonoBehaviour
         stateMachiene.SwitchState("FollowState");
 
         transform.SetParent(_target.transform);
+
+        representedRay = _elementRayData; 
     }
 
     void Update()

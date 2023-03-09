@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events; 
+using UnityEngine.Events;
+using System;
 
 public class CameraVolume : MonoBehaviour
 {
+    public static event Action<Transform, CameraState> OnVolumeChanged; 
+
     [SerializeField] CameraState stateWhenInVolume;
-    [SerializeField] EventSystem cameraEventSystem;
 
     [SerializeField] UnityEvent OnVolumeEntered;
     [SerializeField] UnityEvent OnVolumeExit; 
@@ -19,11 +21,11 @@ public class CameraVolume : MonoBehaviour
         switch (stateWhenInVolume)
         {
             case CameraState.Follow:
-                cameraEventSystem.InvokeEvent("On Volume Entered", new EventData(new EventInfo("Target", collision.transform), new EventInfo("Camera State", stateWhenInVolume))); 
+                OnVolumeChanged.Invoke(collision.transform, stateWhenInVolume); 
                 break;
 
             case CameraState.Stationary:
-                cameraEventSystem.InvokeEvent("On Volume Entered", new EventData(new EventInfo("Target", transform), new EventInfo("Camera State", stateWhenInVolume)));
+                OnVolumeChanged.Invoke(transform, stateWhenInVolume); 
                 break;
         }
     }

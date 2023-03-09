@@ -1,28 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq; 
+using System.Linq;
+using System;
 
 public class ElementRayManager : MonoBehaviour
 {
+    public static event Action<ElementRayData[]> OnElementRayInit;
+    public static event Action<ElementRayData> OnElementRaySelected;
+    public static event Action<ElementRayData[]> OnUsableRayListChanged;
+
     public ElementRayData selectedRay;
     [SerializeField] List<ElementRayData> selectableRays = new List<ElementRayData>();
-    [SerializeField] EventSystem rayEventSystem;
 
     int selectedID;
     
     void Start()
     {
-        rayEventSystem.SubscribeToEvent("On Ray Collected", AddElement);
+        RayCollectable.OnRayCollected += AddElement;
 
-        rayEventSystem.InvokeEvent("On Ray Init", new EventData(new EventInfo("Selectable Rays", selectableRays.ToArray())));
+        OnElementRayInit?.Invoke(selectableRays.ToArray()); 
 
         SelectRay(0);
     }
 
     private void OnDestroy()
     {
-        rayEventSystem.UnsubscribeToEvent("On Ray Collected", AddElement); 
+        RayCollectable.OnRayCollected -= AddElement;
     }
 
     void Update()
@@ -52,15 +56,17 @@ public class ElementRayManager : MonoBehaviour
 
         selectedID = _id; 
         selectedRay = selectableRays[selectedID];
-        rayEventSystem.InvokeEvent("On Ray Changed", new EventData(new EventInfo("Ray Selected", selectedRay), new EventInfo("Id Selected", selectedID)));
+       
+        OnElementRaySelected?.Invoke(selectedRay);
     }
 
-    void AddElement(EventData data)
+    void AddElement(ElementRayData data)
     {
-        ElementRayData ray = (ElementRayData)data.GetData("Ray"); 
+        ElementRayData ray = data;
 
         selectableRays.Add(ray);
-        rayEventSystem.InvokeEvent("On Ray List Changed", new EventData(new EventInfo("Selectable Rays", selectableRays.ToArray())));
+       
+        OnUsableRayListChanged?.Invoke(selectableRays.ToArray()); 
 
         SelectRay(selectableRays.Count - 1);
     }

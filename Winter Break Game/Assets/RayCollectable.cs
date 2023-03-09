@@ -1,21 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using UnityEngine.Events;
 
 public class RayCollectable : MonoBehaviour
 {
-    public ElementRayData rayData
-    {
-        private get;
-        set;
-    }
-
-    [SerializeField] EventSystem rayEventSystem; 
+    public static event Action<ElementRayData> OnRayCollected;
+    public ElementRayData rayData;
+    [SerializeField] UnityEvent OnCollected;
+   
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.gameObject == Character.GetPlayer().gameObject) 
         {
-            rayEventSystem.InvokeEvent("On Ray Collected", new EventData(new EventInfo("Ray", rayData)));
+            OnRayCollected?.Invoke(rayData);
+            OnCollected?.Invoke();
 
             Destroy(gameObject);
 

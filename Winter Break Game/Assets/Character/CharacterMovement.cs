@@ -32,7 +32,7 @@ public class CharacterMovement
         }
         else
         {
-            _isWalking = false; 
+            _isWalking = false;
         }
 
     }

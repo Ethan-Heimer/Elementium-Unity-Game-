@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerClimbState : CharacterClass, IClimbState
+public class PlayerClimbState : CharacterClass, IState, IFixedState
 {
     public void OnEnter() 
     {
         character.physicsHandler.FreezeGravity(true);
         character.physicsHandler.SetMaxAcceleration(0);
         character.physicsHandler.SetAcceleration(0);
+
+        character.eventManager.OnStartClimb.Invoke();
     }
 
     public void WhileInState()
@@ -32,7 +34,7 @@ public class PlayerClimbState : CharacterClass, IClimbState
     {
         if (!character.climbStatus.CanClimb() || character.input.GetJumpInput())
         {
-            owner.SwitchState("Air"); 
+            owner.SwitchState("PlayerAirborneState");
         }
     }
 }

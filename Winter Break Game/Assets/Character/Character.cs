@@ -65,6 +65,10 @@ public class Character : MonoBehaviour
         movement = new CharacterMovement(this);
         damageManager = new CharacterDamageManager(this);
 
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        rigidbody2D = GetComponent<Rigidbody2D>();
+        collider2D = GetComponent<Collider2D>();
+
         if (config.IsPlayer) _player = this; 
     }
 
@@ -89,5 +93,44 @@ public class Character : MonoBehaviour
     {
         if (pauseExecution) return;
         movementHandler.FixedUpdate();
+    }
+
+
+    SpriteRenderer spriteRenderer;
+    Rigidbody2D rigidbody2D;
+    Collider2D collider2D; 
+    public void DisableCharacter(bool active)
+    {
+        spriteRenderer.enabled = !active;
+        rigidbody2D.isKinematic = active;
+        collider2D.enabled = !active;
+
+        PauseExecution(active);
+
+        foreach(Transform o in transform)
+        {
+            o.gameObject.SetActive(!active);
+        }
+    }
+
+    public void DisableCharacter(bool active, bool ignoreParticles)
+    {
+        spriteRenderer.enabled = !active;
+        rigidbody2D.isKinematic = active;
+        collider2D.enabled = !active;
+
+        PauseExecution(active);
+
+        foreach (Transform o in transform)
+        {
+            if(o.GetComponent<ParticleSystem>() == null)
+            {
+                o.gameObject.SetActive(!active);
+            }
+            else
+            {
+                Debug.Log(o.gameObject.name);
+            }
+        }
     }
 }

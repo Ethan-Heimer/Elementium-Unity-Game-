@@ -2,45 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 public class PlayerDamageHandler : CharacterClass, ICharacterDamageHandler
 {
-    public CheckPointData checkPointData;
-  
-    Transform transform; 
-    Vector2 startingPos;
-    Vector2 checkPointPos
-    {
-        get
-        {
-            if (checkPointData.GetCurrentCheckpoint() is null)
-            {
-                return startingPos;
-            }
-
-            return checkPointData.GetCurrentCheckpointPosition(); 
-        }
-    }
     public override void Constructer(Character _character) 
     {
         base.Constructer(_character);
 
-        transform = character.transform;
-
-        startingPos = transform.position;
-
-        character.eventManager.OnDeath.AddListener(() => SceneSwicher.SwitchScene(SceneManager.GetActiveScene().buildIndex)); 
+        character.eventManager.OnDeath.AddListener(() => SceneSwicher.SwitchScene(SceneManager.GetActiveScene().buildIndex));
     }
 
-    public void OnDamaged()
+    public async void OnDamaged()
     {
-        transform.position = checkPointPos;
+        character.DisableCharacter(true, true);
         character.statsHandler.SubtractStatValue("Hearts", 1);
-        character.eventManager.OnDamaged.Invoke();
 
-        if(character.statsHandler.GetStat("Hearts") <= 0)
+        await Task.Delay(500);
+
+        character.DisableCharacter(false);
+        character.transform.position = CheckpointManager.currentCheckpoint != null ? CheckpointManager.currentCheckpoint.transform.position : character.transform.position; 
+
+        if (character.statsHandler.GetStat("Hearts") <= 0)
         {
             character.damageManager.SilentlyKillCharacter();
+            return;
         }
     }
+
+  
 }
