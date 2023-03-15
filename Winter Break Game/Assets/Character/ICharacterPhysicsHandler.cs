@@ -13,6 +13,7 @@ public interface ICharacterPhysicsHandler : ICharacterInterface
     public void FreezeGravity(bool freeze);
     public void SetAcceleration(float value);
     public Vector2 GetVelocity();
+    public float GetAcceleration();
     public void SetVelocity(Vector2 velocity);
     /*
     public void Move(float direction, float speed);

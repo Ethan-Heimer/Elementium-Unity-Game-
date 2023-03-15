@@ -9,4 +9,5 @@ public class PlayerInputHandler : CharacterClass, ICharacterInputHandler
     public float GetVerticalInput() => Input.GetAxisRaw("Vertical");
     public bool GetJumpInput() => Input.GetButtonDown("Jump");
     public bool GetActionInput() =>  Input.GetButton("Fire1") || (Input.GetAxisRaw("Fire1") > 0 && (Input.GetAxis("AimY") != 0 || Input.GetAxis("AimX") != 0));
+    public bool GetClimbInput() => GetVerticalInput() > .25f && character.climbStatus.CanClimb(); 
 }

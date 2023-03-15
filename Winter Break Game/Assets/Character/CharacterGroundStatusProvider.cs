@@ -1,23 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [System.Serializable]
-public class CharacterGroundStatusProvider : CharacterClass, ICharacterGroundStatusProvider
+public class CharacterGroundStatusProvider : GroundStatusProvider
 {
    [SerializeField] Vector2 checkBoxSize;
    [SerializeField] Vector3 checkBoxOffset;
 
-    Transform transform; 
-   public override void Constructer(Character character)
-    {
-        base.Constructer(character);
-        transform = character.transform; 
-    }
 
-   public bool IsOnGround()
+   public override bool IsOnGround()
    {
-        RaycastHit2D[] hit = Physics2D.BoxCastAll(transform.position-checkBoxOffset, checkBoxSize, 0f, Vector2.down, 0, LayerMask.GetMask("Enviorment"));
+        RaycastHit2D[] hit = Physics2D.BoxCastAll(character.transform.position-checkBoxOffset, checkBoxSize, 0f, Vector2.down, 0, LayerMask.GetMask("Enviorment"));
 
         foreach(RaycastHit2D o in hit)
         {
@@ -28,9 +23,8 @@ public class CharacterGroundStatusProvider : CharacterClass, ICharacterGroundSta
         return false; 
    }
 
-    public void OnDrawGizmos()
+    public override void DrawGizmos()
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position-checkBoxOffset, checkBoxSize); 
+        Gizmos.DrawWireCube(character.transform.position - checkBoxOffset, checkBoxSize);
     }
 }

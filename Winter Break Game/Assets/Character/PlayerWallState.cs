@@ -5,13 +5,15 @@ using UnityEngine;
 public class PlayerWallState : CharacterClass, IState, IFixedState
 {
     int dirFacing;
-    float inputDir; 
+    float inputDir;
+
+    bool jumped; 
     public void OnEnter()
     {
         character.physicsHandler.SetMaxAcceleration(1f);
         character.physicsHandler.SetAcceleration(0);
 
-        character.eventManager.OnWall.Invoke();
+        character.physicsHandler.SetVelocity(Vector2.up * character.physicsHandler.GetVelocity());
     }
 
     public void WhileInState()
@@ -24,35 +26,33 @@ public class PlayerWallState : CharacterClass, IState, IFixedState
             character.physicsHandler.SetAcceleration(-dirFacing);
             character.movement.Move(-dirFacing, character.statsHandler.GetStat("Speed"));
             character.movement.Jump(character.statsHandler.GetStat("Jump Force"));
+
+            jumped = true;
         }
-       
     }
 
     public void FixedWhileInState()
     {
-        if (inputDir == dirFacing && character.physicsHandler.GetVelocity().y < 0)
+        if (jumped) return;
+
+        if (Mathf.RoundToInt(inputDir) == dirFacing && character.physicsHandler.GetVelocity().y < 0)
         {
-            character.movement.Climb(new Vector2(dirFacing, -1f), character.statsHandler.GetStat("Wall Slip Speed"), false);
+            character.movement.AxisMove(new Vector2(0, -1f), character.statsHandler.GetStat("Wall Slip Speed"), false);
         }
-        else if (inputDir == -dirFacing)
+        else if (Mathf.RoundToInt(inputDir) == -dirFacing)
         {
-            character.directionHandler.FlipCharacter(-dirFacing);
-            character.physicsHandler.SetAcceleration(-dirFacing / 2);
+            character.directionHandler.FlipCharacter(inputDir);
+            character.physicsHandler.SetAcceleration(inputDir/2);
+            character.movement.Move(inputDir, character.statsHandler.GetStat("Speed"));
         }
     }
 
-    public void OnExit() {}
+    public void OnExit() 
+    { 
+        jumped = false; 
+    }
     public void Transition(StateMachine owner)
     {
-        if (character.groundStatus.IsOnGround())
-        {
-            owner.SwitchState("PlayerGroundedState");
-            character.eventManager.OffWall.Invoke();
-        }
-        else if(!character.groundStatus.IsOnGround() && !character.wallStatus.IsOnWall())
-        {
-            owner.SwitchState("PlayerAirborneState");
-            character.eventManager.OffWall.Invoke();
-        }
+      
     }
 }

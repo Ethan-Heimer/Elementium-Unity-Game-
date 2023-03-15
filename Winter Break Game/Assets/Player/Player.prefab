@@ -4982,7 +4982,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.8, y: 1}
+  m_Size: {x: 0.48, y: 1}
   m_Direction: 0
 --- !u!95 &2641231686574370768
 Animator:
@@ -5180,6 +5180,36 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    OnAxisMove:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2641231686574370768}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Player_Climb
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnAxisMoveEnd:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2641231686574370768}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Player_Climb_Idle
+            m_BoolArgument: 0
+          m_CallState: 2
     OnStartClimb:
       m_PersistentCalls:
         m_Calls:
@@ -5195,21 +5225,6 @@ MonoBehaviour:
             m_StringArgument: Player_Climb_Idle
             m_BoolArgument: 0
           m_CallState: 2
-    OnClimb:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2641231686574370768}
-          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-          m_MethodName: Play
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Player_Climb
-            m_BoolArgument: 0
-          m_CallState: 2
     OnEndClimb:
       m_PersistentCalls:
         m_Calls:
@@ -5222,7 +5237,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Player_Climb_Idle
+            m_StringArgument: Player_Jump
             m_BoolArgument: 0
           m_CallState: 2
     OnJump:
@@ -5250,6 +5265,18 @@ MonoBehaviour:
             m_IntArgument: 10
             m_FloatArgument: 0
             m_StringArgument: On Player Jump
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 2641231686574370768}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: Play
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 10
+            m_FloatArgument: 0
+            m_StringArgument: Player_Jump
             m_BoolArgument: 0
           m_CallState: 2
     OnDeath:
@@ -5445,6 +5472,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OnRayShot:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRayStop:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &2641231686581459789

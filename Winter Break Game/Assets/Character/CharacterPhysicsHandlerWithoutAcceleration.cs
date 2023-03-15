@@ -27,5 +27,6 @@ public class CharacterPhysicsHandlerWithoutAcceleration : CharacterClass, IChara
     public void FreezeGravity(bool freeze) => rigidbody.gravityScale = freeze ? 0 : 3;
     public Vector2 GetVelocity() => rigidbody.velocity;
     public void SetVelocity(Vector2 velocity) => rigidbody.velocity = velocity;
+    public float GetAcceleration() => 1;
 }
 

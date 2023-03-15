@@ -17,9 +17,10 @@ public class MultiCharacterHealthBar : HealthBar
         foreach(Character o in characters)
         {
             startingHealth += o.statsHandler.GetStat("Starting Health");
-            o.eventManager.OnDamaged.AddListener(UpdateHealthBar);
-            o.eventManager.OnDeath.AddListener(removeCharacterFromList); 
-            o.eventManager.OnDeath.AddListener(checkDisableHealthBar); 
+
+            o.damageManager.OnDamaged += UpdateHealthBar;
+            o.damageManager.OnDeath += removeCharacterFromList;
+            o.damageManager.OnDeath += checkDisableHealthBar;
         }
 
         currentHealth = startingHealth; 

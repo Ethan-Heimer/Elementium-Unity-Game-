@@ -21,13 +21,13 @@ public class HealthBar : MonoBehaviour
 
         UpdateHealthBar();
 
-        character.eventManager.OnDamaged.AddListener(UpdateHealthBar);
+        character.damageManager.OnDamaged += UpdateHealthBar;
         
     }
 
     private void OnDisable()
     {
-        character.eventManager.OnDamaged.RemoveListener(UpdateHealthBar);
+        character.damageManager.OnDamaged -= UpdateHealthBar;
     }
 
     protected void UpdateHealthBar()

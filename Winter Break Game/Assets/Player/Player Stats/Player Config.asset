@@ -98,12 +98,10 @@ MonoBehaviour:
     - rid: 3407229556790132753
       type: {class: CharacterGroundStatusProvider, ns: , asm: Assembly-CSharp}
       data:
-        checkBoxSize: {x: 0.65, y: 0.21}
+        checkBoxSize: {x: 0.4, y: 0.05}
         checkBoxOffset: {x: 0, y: 0.52, z: 0}
     - rid: 3407229556790132754
       type: {class: CharacterWallStatusProvider, ns: , asm: Assembly-CSharp}
-      data:
-        checkDistance: 0.5
     - rid: 3407229556790132755
       type: {class: CharacterDirectionHandler, ns: , asm: Assembly-CSharp}
       data:
@@ -119,8 +117,6 @@ MonoBehaviour:
       type: {class: PlayerDamageChecker, ns: , asm: Assembly-CSharp}
     - rid: 3407229572157538305
       type: {class: PlayerDamageHandler, ns: , asm: Assembly-CSharp}
-      data:
-        checkPointData: {fileID: 11400000, guid: 19f72d18326cc0c41bf86fc0adf2c8e8, type: 2}
     - rid: 4115835377646829569
       type: {class: PlayerActionHandler, ns: , asm: Assembly-CSharp}
     - rid: 4115835377646829571
@@ -142,7 +138,7 @@ MonoBehaviour:
         - name: Air Resistance
           startValue: 0.75
         - name: Wall Slip Speed
-          startValue: 10
+          startValue: 5
         - name: Max Hearts
           startValue: 3
         - name: Hearts

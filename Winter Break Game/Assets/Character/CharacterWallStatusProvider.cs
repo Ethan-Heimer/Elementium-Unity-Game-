@@ -3,43 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class CharacterWallStatusProvider : CharacterClass, IChararacterWallStatusProvider
+public class CharacterWallStatusProvider : WallStatusProvider
 {
-    
-    [SerializeField] float checkDistance;
-
-    Transform transform;
-    
-    public  override void Constructer(Character character)
+    public override bool IsOnWall()
     {
-        base.Constructer(character);
-        
-        transform = character.transform;
-    }
-
-
-    public bool IsOnWall()
-    {
-        //RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * directionHandler.GetCurrentDirection(), checkDistance, LayerMask.GetMask("Enviorment"));
-        RaycastHit2D hit = Physics2D.BoxCast(new Vector2(transform.position.x+.5f*character.directionHandler.GetCurrentDirection(), transform.position.y), new Vector2(.2f, .8f), 0, Vector2.left, 0f, LayerMask.GetMask("Enviorment")); 
+        RaycastHit2D hit = Physics2D.BoxCast(new Vector2(character.transform.position.x + .3f * character.directionHandler.GetCurrentDirection(), character.transform.position.y), new Vector2(.1f, .8f), 0, Vector2.left, 0f, LayerMask.GetMask("Enviorment")); 
         Collider2D collider = hit.collider;
         if (collider is null) return false;
         return !collider.isTrigger;
     }
 
-    public bool IsBackTowordsWall()
+    public override bool IsBackTowordsWall()
     {
-        RaycastHit2D hit = Physics2D.BoxCast(new Vector2(transform.position.x + .5f * -character.directionHandler.GetCurrentDirection(), transform.position.y), new Vector2(.2f, .8f), 0, Vector2.left, 0f, LayerMask.GetMask("Enviorment"));
+        RaycastHit2D hit = Physics2D.BoxCast(new Vector2(character.transform.position.x + .3f * -character.directionHandler.GetCurrentDirection(), character.transform.position.y), new Vector2(.1f, .8f), 0, Vector2.left, 0f, LayerMask.GetMask("Enviorment"));
         Collider2D collider = hit.collider;
         if (collider is null) return false;
         return !collider.isTrigger;
     }
 
-    public void OnDrawGizmos()
+    public override void DrawGizmos()
     {
-        if (character.directionHandler is null) return;
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + (checkDistance * character.directionHandler.GetCurrentDirection()), transform.position.y, 0));
+        Gizmos.DrawWireCube(new Vector2(character.transform.position.x + .3f * character.directionHandler.GetCurrentDirection(), character.transform.position.y), new Vector2(.1f, .8f));
     }
 }

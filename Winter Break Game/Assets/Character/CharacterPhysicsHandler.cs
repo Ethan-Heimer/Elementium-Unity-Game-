@@ -56,5 +56,7 @@ public class CharacterPhysicsHandler : CharacterClass, ICharacterPhysicsHandler
     public Vector2 GetVelocity() => rigidbody.velocity;
     public void SetVelocity(Vector2 velocity) => rigidbody.velocity = velocity;
 
+    public float GetAcceleration() => accelerationStep;
+
 }
 

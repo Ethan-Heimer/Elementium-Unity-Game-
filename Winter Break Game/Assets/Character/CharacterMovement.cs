@@ -1,17 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Threading.Tasks;
 
 public class CharacterMovement
 {
+    public event Action OnStartMove;
+    public event Action OnEndMove;
+   
+    public event Action OnAxisMove;
+    public event Action OnAxisMoveEnd;
+    public event Action OnJump; 
+
+
     Character character; 
 
     public CharacterMovement(Character _character)
     {
         character = _character;
+
+        character.groundStatus.OnHitGround += checkForWalkEvent;
     }
 
-    bool _isWalking; 
+    bool _isMoveing; 
     public void Move(float direction, float speed)
     {
         character.directionHandler.FlipCharacter(direction);
@@ -19,40 +31,38 @@ public class CharacterMovement
 
         if (character.groundStatus.IsOnGround())
         {
-            if (direction is not 0 && !_isWalking)
+            if (direction is not 0 && !_isMoveing)
             {
-                _isWalking = true;
-                character.eventManager.OnStartMove.Invoke();
+                _isMoveing = true;
+                OnStartMove?.Invoke();
             }
-            else if (direction is 0 && _isWalking)
+            else if (direction is 0 && _isMoveing)
             {
-                _isWalking = false;
-                character.eventManager.OnEndMove.Invoke();
+                _isMoveing = false;
+                OnEndMove?.Invoke();
             }
         }
         else
         {
-            _isWalking = false;
+            _isMoveing = false;
         }
-
     }
 
-    bool _isClimbing; 
-    public void Climb(Vector2 direction, float speed, bool invokeClimbEvents)
+    public void AxisMove(Vector2 direction, float speed, bool invokeEvents)
     {
         character.physicsHandler.SetVelocity(direction * speed);
 
-        if (!invokeClimbEvents) return;
+        if (!invokeEvents) return;
 
-        if (direction == Vector2.zero && _isClimbing)
+        if (direction == Vector2.zero && _isMoveing)
         {
-            _isClimbing = false;
-            character.eventManager.OnEndClimb.Invoke();
+            _isMoveing = false;
+            OnAxisMoveEnd?.Invoke();
         }
-        else if (direction != Vector2.zero && !_isClimbing)
+        else if (direction != Vector2.zero && !_isMoveing)
         {
-            _isClimbing = true;
-            character.eventManager.OnClimb.Invoke();
+            _isMoveing = true;
+            OnAxisMove?.Invoke();
         }
     }
 
@@ -60,7 +70,13 @@ public class CharacterMovement
     {
         character.physicsHandler.AddForce(Vector2.up * jumpHeight);
 
-        character.eventManager.OnJump.Invoke();
+        OnJump?.Invoke();
+    }
+
+    async void checkForWalkEvent()
+    {
+        await Task.Yield();
+        if (_isMoveing) OnStartMove?.Invoke();
     }
 }
 

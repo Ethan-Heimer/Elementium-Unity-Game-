@@ -10,11 +10,11 @@ public class Character : MonoBehaviour
     public CharacterConfig config;
 
     public ICharacterInputHandler input;
-    public ICharacterGroundStatusProvider groundStatus;
-    public IChararacterWallStatusProvider wallStatus;
+    public GroundStatusProvider groundStatus;
+    public WallStatusProvider wallStatus;
     public ICharacterDirectionHandler directionHandler;
     public ICharacterPhysicsHandler physicsHandler;
-    public ICharacterClimbStatusProvider climbStatus;
+    public ClimbStatusProvider climbStatus;
 
     public ICharacterDamageChecker damageChecker;
     public ICharacterDamageHandler damageHandler;
@@ -31,9 +31,10 @@ public class Character : MonoBehaviour
     bool pauseExecution; 
     public void PauseExecution(bool pause) => pauseExecution = pause;
 
-
     public void Awake()
     {
+        
+
         input = config.GetInputHandler();
         groundStatus = config.GetGroundHandler();
         wallStatus = config.GetWallProvider();
@@ -49,6 +50,9 @@ public class Character : MonoBehaviour
 
         movementHandler = config.GetMovementHandler();
 
+        movement = new CharacterMovement(this);
+        damageManager = new CharacterDamageManager(this);
+
         input.Constructer(this);
         groundStatus.Constructer(this);
         wallStatus.Constructer(this);
@@ -62,8 +66,7 @@ public class Character : MonoBehaviour
         actionHandler.Constructer(this);
         movementHandler.Constructer(this);
 
-        movement = new CharacterMovement(this);
-        damageManager = new CharacterDamageManager(this);
+        eventManager.Constructer(this);
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -87,12 +90,18 @@ public class Character : MonoBehaviour
 
         if (input.GetActionInput())
             actionHandler.OnAction();
+
+        climbStatus.Tick();
     }
 
     public void FixedUpdate()
     {
         if (pauseExecution) return;
         movementHandler.FixedUpdate();
+        groundStatus.Tick();
+        
+        wallStatus.Tick();
+
     }
 
 
@@ -132,5 +141,16 @@ public class Character : MonoBehaviour
                 Debug.Log(o.gameObject.name);
             }
         }
+    }
+
+    public void OnDrawGizmos()
+    {
+        try
+        {
+            wallStatus.DrawGizmos();
+            groundStatus.DrawGizmos();
+        }
+        catch { }
+      
     }
 }

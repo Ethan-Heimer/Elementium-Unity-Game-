@@ -8,8 +8,6 @@ public interface IState
     void OnEnter();
     void WhileInState();
     void OnExit();
-    
-    void Transition(StateMachine owner); 
 }
 
 public interface IFixedState

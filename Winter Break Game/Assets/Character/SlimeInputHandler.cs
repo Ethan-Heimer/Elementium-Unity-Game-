@@ -40,6 +40,8 @@ public class SlimeInputHandler : CharacterClass, ICharacterInputHandler
         return canJump; 
     }
 
-    public virtual bool GetActionInput() => false; 
+    public virtual bool GetActionInput() => false;
+
+    public bool GetClimbInput() => false;
 
 }

@@ -4,20 +4,50 @@ using UnityEngine;
 using UnityEngine.Events; 
 
 [System.Serializable]
-public class CharacterEventManager
+public class CharacterEventManager : CharacterClass
 {
-    public UnityEvent OnGround;
-    public UnityEvent InAir;
-    public UnityEvent OnWall;
-    public UnityEvent OffWall; 
-    public UnityEvent OnStartMove;
-    public UnityEvent OnEndMove;
-    public UnityEvent OnStartClimb; 
-    public UnityEvent OnClimb;
-    public UnityEvent OnEndClimb; 
-    public UnityEvent OnJump;
+    [SerializeField] UnityEvent OnGround; //
+    [SerializeField] UnityEvent InAir; //
+    [SerializeField] UnityEvent OnWall; //
+    [SerializeField] UnityEvent OffWall; //
+    [SerializeField] UnityEvent OnStartMove;
+    [SerializeField] UnityEvent OnEndMove;
+    
+    [SerializeField] UnityEvent OnAxisMove; //
+    [SerializeField] UnityEvent OnAxisMoveEnd;
 
-    public UnityEvent OnDeath;
-    public UnityEvent OnDamaged;
+    [SerializeField] UnityEvent OnStartClimb;
+    [SerializeField] UnityEvent OnEndClimb; // 
+
+    [SerializeField] UnityEvent OnJump; //
+     
+    [SerializeField] UnityEvent OnDeath; //
+    [SerializeField] UnityEvent OnDamaged; //
+
+    public override void Constructer(Character _character)
+    {
+        base.Constructer(_character);
+
+        character.groundStatus.OnHitGround += OnGround.Invoke;
+        character.groundStatus.OnEnterAir += InAir.Invoke;
+
+        character.damageManager.OnDamaged += OnDamaged.Invoke;
+        character.damageManager.OnDeath += OnDamaged.Invoke;
+
+        character.wallStatus.OnWallEntered += OnWall.Invoke;
+        character.wallStatus.OnWallExited += OffWall.Invoke;
+
+        character.movement.OnStartMove += OnStartMove.Invoke;
+        character.movement.OnEndMove += OnEndMove.Invoke;
+
+        character.movement.OnAxisMove += OnAxisMove.Invoke;
+        character.movement.OnAxisMoveEnd += OnAxisMoveEnd.Invoke;
+
+        character.movement.OnJump += OnJump.Invoke;
+
+        character.climbStatus.OnClimbEnter += OnStartClimb.Invoke;
+        character.climbStatus.OnClimbExit += OnEndClimb.Invoke;
+        
+    }
 }
 

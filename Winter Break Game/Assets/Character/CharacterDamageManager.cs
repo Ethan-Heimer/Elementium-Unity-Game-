@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
+using System;
 
 public class CharacterDamageManager
 {
+    public event Action OnDamaged;
+    public event Action OnDeath;
+
     CharacterConfig config;
     Character character; 
 
@@ -23,7 +27,7 @@ public class CharacterDamageManager
         if (damaged)
         {
             character.damageHandler.OnDamaged();
-            character.eventManager.OnDamaged.Invoke();
+            OnDamaged?.Invoke();
            
         }
     }
@@ -33,7 +37,7 @@ public class CharacterDamageManager
         character.DisableCharacter(true);
 
         character.PauseExecution(true);
-        character.eventManager.OnDeath.Invoke();
+        OnDeath?.Invoke();
 
         await Task.Delay(2000);
 
@@ -45,6 +49,6 @@ public class CharacterDamageManager
         character.DisableCharacter(true);
 
         character.PauseExecution(true);
-        character.eventManager.OnDeath.Invoke();
+        OnDeath?.Invoke();
     }
 }

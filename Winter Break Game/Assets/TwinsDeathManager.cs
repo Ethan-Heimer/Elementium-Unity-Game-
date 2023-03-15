@@ -15,13 +15,13 @@ public class TwinsDeathManager : MonoBehaviour
 
     public void Start()
     {
-        waterTwin.eventManager.OnDeath.AddListener(() => RayCollectable.CreateCollectableObject(rayCollectable, waterTwinDrop, waterTwin.transform.position));    
-        fireTwin.eventManager.OnDeath.AddListener(() => RayCollectable.CreateCollectableObject(rayCollectable, fireTwinDrop, fireTwin.transform.position));    
+        waterTwin.damageManager.OnDeath += () => RayCollectable.CreateCollectableObject(rayCollectable, waterTwinDrop, waterTwin.transform.position);
+        fireTwin.damageManager.OnDeath += () => RayCollectable.CreateCollectableObject(rayCollectable, waterTwinDrop, waterTwin.transform.position);
     }
 
     public void OnDisable()
     {
-        waterTwin?.eventManager.OnDeath.RemoveListener(() => RayCollectable.CreateCollectableObject(rayCollectable, waterTwinDrop, waterTwin.transform.position));
-        fireTwin?.eventManager.OnDeath.RemoveListener(() => RayCollectable.CreateCollectableObject(rayCollectable, fireTwinDrop, fireTwin.transform.position));
+        waterTwin.damageManager.OnDeath -= () => RayCollectable.CreateCollectableObject(rayCollectable, waterTwinDrop, waterTwin.transform.position);
+        fireTwin.damageManager.OnDeath -= () => RayCollectable.CreateCollectableObject(rayCollectable, waterTwinDrop, waterTwin.transform.position);
     }
 }

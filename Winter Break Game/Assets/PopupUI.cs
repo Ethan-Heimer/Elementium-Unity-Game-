@@ -34,7 +34,7 @@ public class PopupUI : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
 
         Origin = transform.position;
-        PopPos = new Vector2(transform.position.x - rectTransform.rect.width-rectTransform.rect.width/2, transform.position.y);
+        PopPos = new Vector2(transform.position.x, transform.position.y - rectTransform.rect.height);
     }
 
     public async Task Pop(PopupUiData data, float transitionSpeed, float displayTime)

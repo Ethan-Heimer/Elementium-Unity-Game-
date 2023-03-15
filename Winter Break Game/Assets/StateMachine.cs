@@ -47,7 +47,6 @@ public class StateMachine
     public void InvokeCurrentState()
     {
         currentState?.WhileInState();
-        currentState?.Transition(this);
     }
 
     public void InvokeFixedState()

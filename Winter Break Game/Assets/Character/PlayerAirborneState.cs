@@ -16,8 +16,6 @@ public class PlayerAirborneState : CharacterClass, IState, IFixedState
         climbTimer.ResetTimer();
         backcheckCooldown.ResetTimer();
         cyoteTime.ResetTimer();
-
-        character.eventManager.InAir.Invoke();
     }
 
     public void WhileInState()
@@ -36,18 +34,7 @@ public class PlayerAirborneState : CharacterClass, IState, IFixedState
 
     public void Transition(StateMachine owner)
     {
-        if (character.groundStatus.IsOnGround())
-        {
-            owner.SwitchState("PlayerGroundedState");
-        }
-        else if (character.wallStatus.IsOnWall())
-        {
-            owner.SwitchState("PlayerWallState");
-        }
-        else if (character.climbStatus.CanClimb() && (character.input.GetVerticalInput() > .5f || character.input.GetVerticalInput() < -.5f) && climbTimer.IsTimerUp())
-        {
-            owner.SwitchState("PlayerClimbState");
-        }
+    
     }
 
     void TryJump()

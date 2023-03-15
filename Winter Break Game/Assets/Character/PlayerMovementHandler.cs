@@ -20,7 +20,28 @@ public class PlayerMovementHandler : CharacterClass, ICharacterMovementHandler
 
 
         stateMachine = new StateMachine(groundState, airborneState, wallState, climbState);
-        stateMachine.SwitchState("PlayerGroundedState");
+        stateMachine.SwitchState("PlayerAirborneState");
+
+        character.groundStatus.OnHitGround += () => SwichState("PlayerGroundedState");
+
+        character.groundStatus.OnEnterAir += () => SwichState("PlayerAirborneState");
+
+        character.wallStatus.OnWallExited += () =>
+        {
+            if (character.groundStatus.IsOnGround())
+                SwichState("PlayerGroundedState");
+            else
+                SwichState("PlayerAirborneState");
+        };
+
+        character.wallStatus.OnWallEntered += () => SwichState("PlayerWallState");
+        character.climbStatus.OnClimbEnter += () => SwichState("PlayerClimbState");
+        character.climbStatus.OnClimbExit += () => {
+            if (character.groundStatus.IsOnGround())
+                SwichState("PlayerGroundedState");
+            else
+                SwichState("PlayerAirborneState");
+        };
     }
 
     public void Update()
@@ -31,5 +52,11 @@ public class PlayerMovementHandler : CharacterClass, ICharacterMovementHandler
     public void FixedUpdate()
     {
         stateMachine.InvokeFixedState();
+    }
+
+    void SwichState(string stateName) 
+    { 
+        stateMachine.SwitchState(stateName);
+        Debug.Log(stateName);
     }
 }

@@ -32,11 +32,11 @@ public class CharacterConfig : ScriptableObject
     [Header("Movement")]
     [SerializeReference] public ICharacterStatsHandler statsHandler; 
     [SerializeReference] public ICharacterInputHandler input;
-    [SerializeReference] public ICharacterGroundStatusProvider groundStatus;
-    [SerializeReference] public IChararacterWallStatusProvider wallStatus;
+    [SerializeReference] public GroundStatusProvider groundStatus;
+    [SerializeReference] public WallStatusProvider wallStatus;
     [SerializeReference] public ICharacterDirectionHandler directionHandler;
     [SerializeReference] public ICharacterPhysicsHandler physicsHandler;
-    [SerializeReference] public ICharacterClimbStatusProvider climbStatus;
+    [SerializeReference] public ClimbStatusProvider climbStatus;
     [SerializeReference] public ICharacterMovementHandler movementHandler; 
 
     [Header("Damage")]
@@ -67,11 +67,11 @@ public class CharacterConfig : ScriptableObject
     {
         UpdateList(GetPossableClases<ICharacterStatsHandler>(), statHandlers);
         UpdateList(GetPossableClases<ICharacterInputHandler>(), inputs);
-        UpdateList(GetPossableClases<ICharacterGroundStatusProvider>(), groundStatuses);
-        UpdateList(GetPossableClases<IChararacterWallStatusProvider>(), wallStatuses);
+        UpdateList(GetPossableClases<GroundStatusProvider>(), groundStatuses);
+        UpdateList(GetPossableClases<WallStatusProvider>(), wallStatuses);
         UpdateList(GetPossableClases<ICharacterDirectionHandler>(), directionHandlers);
         UpdateList(GetPossableClases<ICharacterPhysicsHandler>(), physicsHandlers);
-        UpdateList(GetPossableClases<ICharacterClimbStatusProvider>(), climbStatuses);
+        UpdateList(GetPossableClases<ClimbStatusProvider>(), climbStatuses);
         UpdateList(GetPossableClases<ICharacterDamageChecker>(), damageCheckers);
         UpdateList(GetPossableClases<ICharacterDamageHandler>(), damageHandlers);
 
@@ -83,11 +83,11 @@ public class CharacterConfig : ScriptableObject
     {
         UpdateRefrences<ICharacterStatsHandler>(ref statsHandler, statHandlers);
         UpdateRefrences<ICharacterInputHandler>(ref input, inputs);
-        UpdateRefrences<ICharacterGroundStatusProvider>(ref groundStatus, groundStatuses);
-        UpdateRefrences<IChararacterWallStatusProvider>(ref wallStatus, wallStatuses);
+        UpdateRefrences<GroundStatusProvider>(ref groundStatus, groundStatuses);
+        UpdateRefrences<WallStatusProvider>(ref wallStatus, wallStatuses);
         UpdateRefrences<ICharacterDirectionHandler>(ref directionHandler, directionHandlers);
         UpdateRefrences<ICharacterPhysicsHandler>(ref physicsHandler, physicsHandlers);
-        UpdateRefrences<ICharacterClimbStatusProvider>(ref climbStatus, climbStatuses);
+        UpdateRefrences<ClimbStatusProvider>(ref climbStatus, climbStatuses);
         UpdateRefrences<ICharacterDamageChecker>(ref damageChecker, damageCheckers);
         UpdateRefrences<ICharacterDamageHandler>(ref damageHandler, damageHandlers);
 
@@ -96,11 +96,11 @@ public class CharacterConfig : ScriptableObject
     }
     public ICharacterStatsHandler GetStatsHandler() => statsHandler.Clone() as ICharacterStatsHandler;
     public ICharacterInputHandler GetInputHandler() => input.Clone() as ICharacterInputHandler;
-    public ICharacterGroundStatusProvider GetGroundHandler() => groundStatus.Clone() as ICharacterGroundStatusProvider;
-    public IChararacterWallStatusProvider GetWallProvider() => wallStatus.Clone() as IChararacterWallStatusProvider;     
+    public GroundStatusProvider GetGroundHandler() => groundStatus.Clone() as GroundStatusProvider;
+    public WallStatusProvider GetWallProvider() => wallStatus.Clone() as WallStatusProvider;     
     public ICharacterDirectionHandler GetDirectionHandler() => directionHandler.Clone() as ICharacterDirectionHandler;
     public ICharacterPhysicsHandler GetPhysicsHandler() => physicsHandler.Clone() as ICharacterPhysicsHandler;
-    public ICharacterClimbStatusProvider GetClimbHandler() => climbStatus.Clone() as ICharacterClimbStatusProvider;
+    public ClimbStatusProvider GetClimbHandler() => climbStatus.Clone() as ClimbStatusProvider;
     public ICharacterDamageChecker GetDamageChecker() => damageChecker.Clone() as ICharacterDamageChecker;
     public ICharacterDamageHandler GetDamageHandler() => damageHandler.Clone() as ICharacterDamageHandler;
     public ICharacterActionHandler GetActionHandler() => actionHandler.Clone() as ICharacterActionHandler; 

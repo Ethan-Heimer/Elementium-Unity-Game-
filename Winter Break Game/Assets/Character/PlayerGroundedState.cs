@@ -10,7 +10,6 @@ public class PlayerGroundedState : CharacterClass, IState, IFixedState
     public void OnEnter()
     {
         character.physicsHandler.SetMaxAcceleration(1);
-        character.eventManager.OnGround.Invoke();
     }
     public void WhileInState()
     {
@@ -31,24 +30,6 @@ public class PlayerGroundedState : CharacterClass, IState, IFixedState
 
     public void Transition(StateMachine owner)
     {
-        if (!character.groundStatus.IsOnGround())
-        {
-            if (character.wallStatus.IsOnWall())
-            {
-                owner.SwitchState("PlayerWallState");
-                //character.eventManager.OnEndMove.Invoke();
-            }
-
-            else
-            {
-                owner.SwitchState("PlayerAirborneState");
-//character.eventManager.OnEndMove.Invoke();
-            }
-        }
-        else if (character.climbStatus.CanClimb() && (character.input.GetVerticalInput() > .5f || character.input.GetVerticalInput() < -.5f))
-        {
-            owner.SwitchState("PlayerClimbState");
-            //character.eventManager.OnEndMove.Invoke();
-        }
+      
     }
 }

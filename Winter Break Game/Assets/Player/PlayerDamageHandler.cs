@@ -10,7 +10,7 @@ public class PlayerDamageHandler : CharacterClass, ICharacterDamageHandler
     {
         base.Constructer(_character);
 
-        character.eventManager.OnDeath.AddListener(() => SceneSwicher.SwitchScene(SceneManager.GetActiveScene().buildIndex));
+        character.damageManager.OnDeath += () => SceneSwicher.SwitchScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public async void OnDamaged()

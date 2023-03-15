@@ -6,7 +6,6 @@ using System.Linq;
 
 public class PlayerHeartUI : MonoBehaviour
 {
-    [SerializeField] float heartGap; 
     [SerializeField] Sprite Heart;
     [SerializeField] Sprite NoHeart;
 
@@ -22,12 +21,11 @@ public class PlayerHeartUI : MonoBehaviour
         {
             Image heart = UiManager.GetImage(Heart);
             heart.transform.SetParent(transform);
-            heart.transform.localPosition = new Vector3(i * heartGap, 0);
-
+            heart.transform.localScale = Vector3.one;
             hearts.Add(heart);
         }
 
-        player.eventManager.OnDamaged.AddListener(UpdateUI);
+        player.damageManager.OnDamaged += UpdateUI; 
     }
 
     void UpdateUI()

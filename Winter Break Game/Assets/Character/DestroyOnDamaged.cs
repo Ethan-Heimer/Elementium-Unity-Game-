@@ -6,7 +6,6 @@ public class DestroyOnDamaged : CharacterClass, ICharacterDamageHandler
 {
     public void OnDamaged()
     {
-        character.eventManager.OnDeath.Invoke();
         character.damageManager.KillCharacter();
     }
 }

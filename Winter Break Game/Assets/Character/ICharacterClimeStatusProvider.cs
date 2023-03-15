@@ -3,7 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using System; 
 
-public interface ICharacterClimbStatusProvider : ICharacterInterface
+public abstract class ClimbStatusProvider : CharacterClass
 {
-    bool CanClimb();
+    public abstract bool CanClimb();
+
+    public event Action OnClimbEnter;
+    public event Action OnClimbExit; 
+
+    bool isClimbing;
+    protected Timer climbCooldown = new Timer(.5f);  
+    public void Tick()
+    {
+        if (!climbCooldown.IsTimerUp()) return;
+
+        if(character.input.GetClimbInput() && !isClimbing)
+        {
+            OnClimbEnter?.Invoke();
+            isClimbing = true;
+        }
+        else if((!CanClimb() || character.input.GetJumpInput()) && isClimbing)
+        {
+            OnClimbExit?.Invoke();
+            isClimbing = false;
+
+            climbCooldown.ResetTimer();
+        }
+    }
+
+    public bool IsClimbing() => isClimbing;
 }
