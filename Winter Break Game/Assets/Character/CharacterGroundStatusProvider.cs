@@ -9,18 +9,14 @@ public class CharacterGroundStatusProvider : GroundStatusProvider
    [SerializeField] Vector2 checkBoxSize;
    [SerializeField] Vector3 checkBoxOffset;
 
-
-   public override bool IsOnGround()
+   protected override bool CheckForGround()
    {
-        RaycastHit2D[] hit = Physics2D.BoxCastAll(character.transform.position-checkBoxOffset, checkBoxSize, 0f, Vector2.down, 0, LayerMask.GetMask("Enviorment"));
+        RaycastHit2D hit = Physics2D.BoxCast(character.transform.position-checkBoxOffset, checkBoxSize, 0f, Vector2.down, 0, LayerMask.GetMask("Enviorment"));
 
-        foreach(RaycastHit2D o in hit)
-        {
-            if (o.collider.isTrigger) continue;
-            return true; 
-        }
+        if (hit.collider is null) return false;
+        if (hit.collider.isTrigger) return false;
 
-        return false; 
+        return true; 
    }
 
     public override void DrawGizmos()

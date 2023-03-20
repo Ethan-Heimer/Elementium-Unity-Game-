@@ -132,7 +132,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1, y: 1.1}
+  m_Size: {x: 1.2, y: 1.2}
   m_EdgeRadius: 0
 --- !u!114 &-2777788627713545352
 MonoBehaviour:
@@ -151,7 +151,6 @@ MonoBehaviour:
   UseUI: 0
   uiOffset: {x: 0, y: 0}
   iconSize: {x: 0, y: 0}
-  interactibleEventSystem: {fileID: 11400000, guid: a181486f27b5cba49b6fe4399c3938e0, type: 2}
   timeToMelt: 0.1
   meltParticles: {fileID: 4665825657132972510}
   glowWhileMelting: 1

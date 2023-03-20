@@ -5,23 +5,33 @@ using System;
 public abstract class WallStatusProvider : CharacterClass
 {
     public event Action OnWallEntered;
-    public event Action OnWallExited; 
-    public abstract bool IsOnWall();
-    public abstract bool IsBackTowordsWall();
+    public event Action OnWallExited;
+
+    protected abstract bool CheckForWall();
+    protected abstract bool CheckForBackTowordsWall();
+
     bool isOnWall;
+    bool isBackTowardsWall; 
     public void Tick()
     {
-        if(IsOnWall() && !character.groundStatus.IsOnGround() && !isOnWall)
+        bool onWall = CheckForWall();
+
+        if(onWall && !character.groundStatus.IsOnGround() && !isOnWall)
         {
             OnWallEntered?.Invoke();
             isOnWall = true;
         }
-        else if((!IsOnWall() || character.groundStatus.IsOnGround()) && isOnWall)
+        else if((!onWall || character.groundStatus.IsOnGround()) && isOnWall)
         {
             OnWallExited?.Invoke();
             isOnWall = false; 
         }
+
+        isBackTowardsWall = CheckForBackTowordsWall();
     }
+
+    public bool IsOnWall() => isOnWall;
+    public bool IsBackTowardsWall() => isBackTowardsWall;
 
     public virtual void DrawGizmos() { }
 }

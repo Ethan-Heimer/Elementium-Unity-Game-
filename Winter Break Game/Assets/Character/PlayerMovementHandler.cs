@@ -57,6 +57,5 @@ public class PlayerMovementHandler : CharacterClass, ICharacterMovementHandler
     void SwichState(string stateName) 
     { 
         stateMachine.SwitchState(stateName);
-        Debug.Log(stateName);
     }
 }

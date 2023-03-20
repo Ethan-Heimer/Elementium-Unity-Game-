@@ -32,7 +32,7 @@ public class CharacterEventManager : CharacterClass
         character.groundStatus.OnEnterAir += InAir.Invoke;
 
         character.damageManager.OnDamaged += OnDamaged.Invoke;
-        character.damageManager.OnDeath += OnDamaged.Invoke;
+        character.damageManager.OnDeath += OnDeath.Invoke;
 
         character.wallStatus.OnWallEntered += OnWall.Invoke;
         character.wallStatus.OnWallExited += OffWall.Invoke;

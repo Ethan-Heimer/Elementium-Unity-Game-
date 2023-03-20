@@ -91,54 +91,38 @@ public class Character : MonoBehaviour
         if (input.GetActionInput())
             actionHandler.OnAction();
 
-        climbStatus.Tick();
+        groundStatus.Tick();
     }
 
     public void FixedUpdate()
     {
+        //worst perforance
         if (pauseExecution) return;
         movementHandler.FixedUpdate();
-        groundStatus.Tick();
-        
-        wallStatus.Tick();
 
+        wallStatus.Tick();
+        climbStatus.Tick();
     }
 
 
     SpriteRenderer spriteRenderer;
     Rigidbody2D rigidbody2D;
     Collider2D collider2D; 
+
     public void DisableCharacter(bool active)
     {
         spriteRenderer.enabled = !active;
         rigidbody2D.isKinematic = active;
-        collider2D.enabled = !active;
-
-        PauseExecution(active);
-
-        foreach(Transform o in transform)
-        {
-            o.gameObject.SetActive(!active);
-        }
-    }
-
-    public void DisableCharacter(bool active, bool ignoreParticles)
-    {
-        spriteRenderer.enabled = !active;
-        rigidbody2D.isKinematic = active;
-        collider2D.enabled = !active;
+        physicsHandler.FreezeGravity(active);
+        collider2D.isTrigger = active;
 
         PauseExecution(active);
 
         foreach (Transform o in transform)
         {
-            if(o.GetComponent<ParticleSystem>() == null)
+            if(!o.CompareTag("Stay On Disable"))
             {
                 o.gameObject.SetActive(!active);
-            }
-            else
-            {
-                Debug.Log(o.gameObject.name);
             }
         }
     }

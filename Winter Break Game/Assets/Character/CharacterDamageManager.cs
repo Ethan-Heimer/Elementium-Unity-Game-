@@ -9,14 +9,12 @@ public class CharacterDamageManager
     public event Action OnDamaged;
     public event Action OnDeath;
 
-    CharacterConfig config;
     Character character; 
 
 
     public CharacterDamageManager(Character _character)
     {
         character = _character;
-        config = character.config; 
     }
 
     bool damaged;
@@ -39,9 +37,10 @@ public class CharacterDamageManager
         character.PauseExecution(true);
         OnDeath?.Invoke();
 
-        await Task.Delay(2000);
+        await Task.Delay(500);
 
         GameObject.Destroy(character.gameObject);
+        Debug.Log("Dead");
     }
 
     public void SilentlyKillCharacter()

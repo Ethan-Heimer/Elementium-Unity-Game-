@@ -15,7 +15,7 @@ public class PlayerDamageHandler : CharacterClass, ICharacterDamageHandler
 
     public async void OnDamaged()
     {
-        character.DisableCharacter(true, true);
+        character.DisableCharacter(true);
         character.statsHandler.SubtractStatValue("Hearts", 1);
 
         await Task.Delay(500);

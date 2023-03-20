@@ -130,7 +130,7 @@ MonoBehaviour:
         - name: Acceleration Speed
           startValue: 1
         - name: Jump Force
-          startValue: 15
+          startValue: 20
         - name: Double Jump Amount
           startValue: 1
         - name: Climb Speed
@@ -143,3 +143,5 @@ MonoBehaviour:
           startValue: 3
         - name: Hearts
           startValue: 3
+        - name: Wall Jump Force
+          startValue: 20

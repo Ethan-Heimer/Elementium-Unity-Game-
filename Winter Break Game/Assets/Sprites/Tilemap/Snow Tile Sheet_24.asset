@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Snow Tile Sheet_24
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -1872455451, guid: b557f1992804b904a944db3f61c201bc, type: 3}
+  m_Sprite: {fileID: -793216306, guid: c2473f5cbdb24784cbf8f6ccf2b2fd89, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

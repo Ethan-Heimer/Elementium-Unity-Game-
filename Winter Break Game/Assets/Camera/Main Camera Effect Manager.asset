@@ -28,7 +28,7 @@ MonoBehaviour:
       ShakeSpeed: 30
     - name: On Checkpoint Collected
       ShakeTime: 0.25
-      ShakeIntensity: 1
+      ShakeIntensity: 0.5
       ShakeSpeed: 20
     - name: On Player Ground
       ShakeTime: 0.15

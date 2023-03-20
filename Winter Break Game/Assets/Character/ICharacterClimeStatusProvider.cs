@@ -5,7 +5,7 @@ using System;
 
 public abstract class ClimbStatusProvider : CharacterClass
 {
-    public abstract bool CanClimb();
+    protected abstract bool CheckForClimb();
 
     public event Action OnClimbEnter;
     public event Action OnClimbExit; 
@@ -16,12 +16,14 @@ public abstract class ClimbStatusProvider : CharacterClass
     {
         if (!climbCooldown.IsTimerUp()) return;
 
-        if(character.input.GetClimbInput() && !isClimbing)
+        bool canClimb = CheckForClimb();
+
+        if(canClimb && character.input.GetClimbInput() && !isClimbing)
         {
             OnClimbEnter?.Invoke();
             isClimbing = true;
         }
-        else if((!CanClimb() || character.input.GetJumpInput()) && isClimbing)
+        else if((!canClimb || character.input.GetJumpInput()) && isClimbing)
         {
             OnClimbExit?.Invoke();
             isClimbing = false;

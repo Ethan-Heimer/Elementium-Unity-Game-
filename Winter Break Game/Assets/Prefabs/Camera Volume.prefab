@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &430214504207502540
 Transform:
@@ -46,7 +46,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateWhenInVolume: 0
-  cameraEventSystem: {fileID: 11400000, guid: ae28b75478633f145bb6aeac80da93a4, type: 2}
+  Fov: 0
+  OnVolumeEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  OnVolumeExit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &430214504207502539
 BoxCollider2D:
   m_ObjectHideFlags: 0

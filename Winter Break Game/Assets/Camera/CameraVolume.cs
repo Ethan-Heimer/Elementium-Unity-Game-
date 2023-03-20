@@ -6,12 +6,13 @@ using System;
 
 public class CameraVolume : MonoBehaviour
 {
-    public static event Action<Transform, CameraState> OnVolumeChanged; 
+    public static event Action<Transform, int, CameraState> OnVolumeChanged;
 
     [SerializeField] CameraState stateWhenInVolume;
+    [SerializeField] int Fov;
 
-    [SerializeField] UnityEvent OnVolumeEntered;
-    [SerializeField] UnityEvent OnVolumeExit; 
+    public UnityEvent OnVolumeEntered;
+    public UnityEvent OnVolumeExit;
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -21,11 +22,11 @@ public class CameraVolume : MonoBehaviour
         switch (stateWhenInVolume)
         {
             case CameraState.Follow:
-                OnVolumeChanged.Invoke(collision.transform, stateWhenInVolume); 
+                OnVolumeChanged.Invoke(collision.transform, Fov, stateWhenInVolume);
                 break;
 
             case CameraState.Stationary:
-                OnVolumeChanged.Invoke(transform, stateWhenInVolume); 
+                OnVolumeChanged.Invoke(transform, Fov, stateWhenInVolume);
                 break;
         }
     }
@@ -36,8 +37,5 @@ public class CameraVolume : MonoBehaviour
         OnVolumeExit?.Invoke();
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(transform.position, transform.localScale); 
-    }
+   
 }

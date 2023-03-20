@@ -5,7 +5,7 @@ using System;
 
 public abstract class GroundStatusProvider : CharacterClass
 {
-    public abstract bool IsOnGround();
+    protected abstract bool CheckForGround();
 
     public event Action OnHitGround;
     public event Action OnEnterAir;
@@ -14,19 +14,20 @@ public abstract class GroundStatusProvider : CharacterClass
     public void Tick()
     {
         if (character.climbStatus.IsClimbing()) return;
-        if (character.wallStatus.IsOnWall() && !IsOnGround()) return;
 
-        if(IsOnGround() && !isOnGround)
+        if(CheckForGround() && !isOnGround)
         {
             OnHitGround?.Invoke();
             isOnGround = true;
         }
-        else if(!IsOnGround() && isOnGround)
+        else if(!CheckForGround() && isOnGround)
         {
             OnEnterAir?.Invoke();
             isOnGround = false; 
         }
     }
+
+    public bool IsOnGround() => isOnGround;
 
     public virtual void DrawGizmos() { }
 }

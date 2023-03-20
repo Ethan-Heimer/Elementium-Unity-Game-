@@ -10,6 +10,8 @@ public class CharacterPhysicsHandler : CharacterClass, ICharacterPhysicsHandler
     float accelerationSpeed;
 
     float _step = 0;
+
+    float gravityScale; 
     float accelerationStep
     {
         get
@@ -30,6 +32,8 @@ public class CharacterPhysicsHandler : CharacterClass, ICharacterPhysicsHandler
         rigidbody = character.GetComponent<Rigidbody2D>();
 
         accelerationSpeed = character.statsHandler.GetStat("Acceleration Speed");
+
+        gravityScale = rigidbody.gravityScale;
     }
 
 
@@ -51,7 +55,7 @@ public class CharacterPhysicsHandler : CharacterClass, ICharacterPhysicsHandler
 
     public void SetMaxAcceleration(float max) => accelerationStepCap = max;
     public void SetAcceleration(float value) => accelerationStep = value; 
-    public void FreezeGravity(bool freeze) => rigidbody.gravityScale = freeze ? 0 : 3;
+    public void FreezeGravity(bool freeze) => rigidbody.gravityScale = freeze ? 0 : gravityScale;
 
     public Vector2 GetVelocity() => rigidbody.velocity;
     public void SetVelocity(Vector2 velocity) => rigidbody.velocity = velocity;

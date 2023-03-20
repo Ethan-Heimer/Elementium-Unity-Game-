@@ -25,7 +25,7 @@ public class PlayerWallState : CharacterClass, IState, IFixedState
         {
             character.physicsHandler.SetAcceleration(-dirFacing);
             character.movement.Move(-dirFacing, character.statsHandler.GetStat("Speed"));
-            character.movement.Jump(character.statsHandler.GetStat("Jump Force"));
+            character.movement.Jump(character.statsHandler.GetStat("Wall Jump Force"));
 
             jumped = true;
         }

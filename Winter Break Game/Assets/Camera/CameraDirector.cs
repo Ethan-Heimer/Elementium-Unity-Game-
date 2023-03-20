@@ -21,12 +21,12 @@ public class CameraDirector : MonoBehaviour
     {
         stateMachine = new StateMachine(new CameraFollowState(transform, this, smoothSpeed, offset), new CameraStationaryState(transform, this));
 
-        CameraVolume.OnVolumeChanged += (transform, state) => ChangeCameraFocus(transform, state); 
+        CameraVolume.OnVolumeChanged += (transform, fov, state) => ChangeCameraFocus(transform, fov, state); 
     }
 
     public void OnDisable()
     {
-        CameraVolume.OnVolumeChanged -= (transform, state) => ChangeCameraFocus(transform, state);
+        CameraVolume.OnVolumeChanged -= (transform, fov, state) => ChangeCameraFocus(transform, fov, state);
     }
 
     private void FixedUpdate()
@@ -34,7 +34,7 @@ public class CameraDirector : MonoBehaviour
         stateMachine.InvokeCurrentState(); 
     }
 
-    public void ChangeCameraFocus(Transform _target, CameraState state)
+    public void ChangeCameraFocus(Transform _target, int fov, CameraState state)
     {
         target = _target;
 
@@ -49,7 +49,7 @@ public class CameraDirector : MonoBehaviour
                 break;
         }
 
-        ChangeFov();
+        ChangeFov(fov);
     }
 
     public async void MoveToPos(float speed)
@@ -72,14 +72,9 @@ public class CameraDirector : MonoBehaviour
         }
     }
 
-    public void ChangeFov()
+    public void ChangeFov(int fov)
     {
-        pixelPerfectSettings.refResolutionX = (int)target.transform.localScale.x * 16;
-    }
-
-    public void ChangeFov(Vector2 fov)
-    {
-        pixelPerfectSettings.refResolutionX = (int)fov.x;
+        pixelPerfectSettings.refResolutionX = fov;
     }
     
 }
