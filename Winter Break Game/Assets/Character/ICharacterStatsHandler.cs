@@ -2,21 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ICharacterStatsHandler : ICharacterInterface
+public abstract class CharacterStatHandler : CharacterComponent
 {
-    public float GetStat(string name);
-    public void SetStat(string name, float value);
+    [SerializeField] Stat[] stats;
+    public Stat[] GetStats() => stats;
 
-    public void ResetStatValue(string name);
-    public void InitAllValues();
-
-    public void AddStatValue(string name, float amount);
-    public void SubtractStatValue(string name, float amount);
-    public void MultiplyStatValue(string name, float amount);
-    public void DivideStatValue(string name, float amount);
-
-    public void AddStatValueFromBase(string name, float amount);
-    public void SubtractStatValueFromBase(string name, float amount);
-    public void MultiplyStatValueFromBase(string name, float amount);
-    public void DivideStatValueFromBase(string name, float amount); 
+    public abstract float GetStat(Stat[] stats, string name);
+    public abstract void SetStat(Stat[] stats, string name, float value);
+          
+    public abstract void AddStatValue(Stat[] stats, string name, float amount);
+    public abstract void SubtractStatValue(Stat[] stats, string name, float amount);
+    public abstract void MultiplyStatValue(Stat[] stats, string name, float amount);
+    public abstract void DivideStatValue(Stat[] stats, string name, float amount);
 }

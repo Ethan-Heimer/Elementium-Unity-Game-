@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ICharacterMovementHandler : ICharacterInterface
+public abstract class CharacterMovementHandler : CharacterComponent
 {
-    void Start();
-    void Update();
-    void FixedUpdate(); 
+    public abstract void OnStart(Character character);
+    public abstract void OnUpdate(Character character);
+    public abstract void OnFixedUpdate(Character character); 
 }

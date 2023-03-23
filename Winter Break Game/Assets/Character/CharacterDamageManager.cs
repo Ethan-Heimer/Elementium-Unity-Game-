@@ -9,22 +9,27 @@ public class CharacterDamageManager
     public event Action OnDamaged;
     public event Action OnDeath;
 
-    Character character; 
+    Character character;
 
+    CharacterDamageCheckerInterfacer damageChecker;
+    CharacterDamageHandlerInterfacer damageHandler;
 
-    public CharacterDamageManager(Character _character)
+    public CharacterDamageManager(Character _character, CharacterDamageCheckerInterfacer _damageChecker, CharacterDamageHandlerInterfacer _damageHandler)
     {
         character = _character;
+
+        damageChecker = _damageChecker;
+        damageHandler = _damageHandler;
     }
 
     bool damaged;
     public void Tick()
     {
-        damaged = character.damageChecker.CheckDamage();
+        damaged = damageChecker.CheckDamage();
 
         if (damaged)
         {
-            character.damageHandler.OnDamaged();
+            damageHandler.OnDamaged();
             OnDamaged?.Invoke();
            
         }

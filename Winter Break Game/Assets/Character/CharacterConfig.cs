@@ -4,144 +4,139 @@ using UnityEngine;
 using System.Reflection;
 using System;
 using System.Linq;
-using UnityEngine.Events; 
+using UnityEngine.Events;
 
 [CreateAssetMenu]
 public class CharacterConfig : ScriptableObject
 {
     public bool IsPlayer;
 
-    [Header("Movement")]
-    [SerializeField] List<PossableUseableComponent> statHandlers = new List<PossableUseableComponent>();
-    [SerializeField] List<PossableUseableComponent> inputs = new List<PossableUseableComponent>();
-    [SerializeField] List<PossableUseableComponent> groundStatuses = new List<PossableUseableComponent>();
-    [SerializeField] List<PossableUseableComponent> wallStatuses = new List<PossableUseableComponent>();
-    [SerializeField] List<PossableUseableComponent> directionHandlers = new List<PossableUseableComponent>();
-    [SerializeField] List<PossableUseableComponent> physicsHandlers = new List<PossableUseableComponent>();
-    [SerializeField] List<PossableUseableComponent> climbStatuses = new List<PossableUseableComponent>();
-    [SerializeField] List<PossableUseableComponent> movementHandlers = new List<PossableUseableComponent>();
+    [RepresentType(typeof(CharacterInputHandler))] public event Action OnInputHandlerChanged;
+    [RepresentType(typeof(GroundStatusProvider))] public event Action OnGroundStatusProviderChanged;
+    [RepresentType(typeof(WallStatusProvider))] public event Action OnWallStatusProviderChanged;
+    [RepresentType(typeof(CharacterDirectionHandler))] public event Action OnDirectionHandlerChanged;
+    [RepresentType(typeof(CharacterPhysicsHandler))] public event Action OnPhysicsHandlerChanged;
+    [RepresentType(typeof(ClimbStatusProvider))] public event Action OnClimbStatusProviderChanged;
+    [RepresentType(typeof(CharacterMovementHandler))] public event Action OnMovementHandlerChanged;
+    [RepresentType(typeof(CharacterDamageChecker))] public event Action OnDamageCheckerChanged;
+    [RepresentType(typeof(CharacterDamageHandler))] public event Action OnDamageHandlerChanged;
+    [RepresentType(typeof(CharacterActionHandler))] public event Action OnActionHandlerChanged;
 
-    [Header("Damage")]
-    [SerializeField] List<PossableUseableComponent> damageCheckers = new List<PossableUseableComponent>(); 
-    [SerializeField] List<PossableUseableComponent> damageHandlers = new List<PossableUseableComponent>();
+    [SerializeReference] CharacterInputHandler input;
+    [SerializeReference] GroundStatusProvider groundStatus;
+    [SerializeReference] WallStatusProvider wallStatus;
+    [SerializeField] CharacterDirectionHandler directionHandler;
+    [SerializeReference] CharacterPhysicsHandler physicsHandler;
+    [SerializeReference] ClimbStatusProvider climbStatus;
+    [SerializeReference] CharacterMovementHandler movementHandler; 
 
-    [Header("Action Handler")]
-    [SerializeField] List<PossableUseableComponent> actionHandlers = new List<PossableUseableComponent>();
+    [SerializeReference] CharacterDamageChecker damageChecker;
+    [SerializeReference] CharacterDamageHandler damageHandler;
 
+    [SerializeReference] CharacterActionHandler actionHandler;
 
-    [Header("Movement")]
-    [SerializeReference] public ICharacterStatsHandler statsHandler; 
-    [SerializeReference] public ICharacterInputHandler input;
-    [SerializeReference] public GroundStatusProvider groundStatus;
-    [SerializeReference] public WallStatusProvider wallStatus;
-    [SerializeReference] public ICharacterDirectionHandler directionHandler;
-    [SerializeReference] public ICharacterPhysicsHandler physicsHandler;
-    [SerializeReference] public ClimbStatusProvider climbStatus;
-    [SerializeReference] public ICharacterMovementHandler movementHandler; 
+    CharacterInputHandler _input;
+    GroundStatusProvider _groundStatus;
+    WallStatusProvider _wallStatus;
+    CharacterDirectionHandler _directionHandler;
+    CharacterPhysicsHandler _physicsHandler;
+    ClimbStatusProvider _climbStatus;
+    CharacterMovementHandler _movementHandler;
 
-    [Header("Damage")]
-    [SerializeReference] public ICharacterDamageChecker damageChecker;
-    [SerializeReference] public ICharacterDamageHandler damageHandler;
+    CharacterDamageChecker _damageChecker;
+    CharacterDamageHandler _damageHandler;
 
-    [Header("Action Handler")]
-    [SerializeReference] ICharacterActionHandler actionHandler; 
+    CharacterActionHandler _actionHandler;
 
-    public void Awake()
+    public CharacterInputHandler GetInputHandler()
     {
-        UpdateLists();
-        UpdateInspector();
-
-        statsHandler?.InitAllValues();
-    }
-
-    public void OnValidate()
-    {
-        //UpdateLists(); 
-        UpdateInspector();
-
-        statsHandler?.InitAllValues();
-    }
-
-    [ContextMenu("Reload Lists")]
-    private void UpdateLists()
-    {
-        UpdateList(GetPossableClases<ICharacterStatsHandler>(), statHandlers);
-        UpdateList(GetPossableClases<ICharacterInputHandler>(), inputs);
-        UpdateList(GetPossableClases<GroundStatusProvider>(), groundStatuses);
-        UpdateList(GetPossableClases<WallStatusProvider>(), wallStatuses);
-        UpdateList(GetPossableClases<ICharacterDirectionHandler>(), directionHandlers);
-        UpdateList(GetPossableClases<ICharacterPhysicsHandler>(), physicsHandlers);
-        UpdateList(GetPossableClases<ClimbStatusProvider>(), climbStatuses);
-        UpdateList(GetPossableClases<ICharacterDamageChecker>(), damageCheckers);
-        UpdateList(GetPossableClases<ICharacterDamageHandler>(), damageHandlers);
-
-        UpdateList(GetPossableClases<ICharacterActionHandler>(), actionHandlers);
-        UpdateList(GetPossableClases<ICharacterMovementHandler>(), movementHandlers); 
-    }
-
-    private void UpdateInspector()
-    {
-        UpdateRefrences<ICharacterStatsHandler>(ref statsHandler, statHandlers);
-        UpdateRefrences<ICharacterInputHandler>(ref input, inputs);
-        UpdateRefrences<GroundStatusProvider>(ref groundStatus, groundStatuses);
-        UpdateRefrences<WallStatusProvider>(ref wallStatus, wallStatuses);
-        UpdateRefrences<ICharacterDirectionHandler>(ref directionHandler, directionHandlers);
-        UpdateRefrences<ICharacterPhysicsHandler>(ref physicsHandler, physicsHandlers);
-        UpdateRefrences<ClimbStatusProvider>(ref climbStatus, climbStatuses);
-        UpdateRefrences<ICharacterDamageChecker>(ref damageChecker, damageCheckers);
-        UpdateRefrences<ICharacterDamageHandler>(ref damageHandler, damageHandlers);
-
-        UpdateRefrences<ICharacterActionHandler>(ref actionHandler, actionHandlers);
-        UpdateRefrences<ICharacterMovementHandler>(ref movementHandler, movementHandlers); 
-    }
-    public ICharacterStatsHandler GetStatsHandler() => statsHandler.Clone() as ICharacterStatsHandler;
-    public ICharacterInputHandler GetInputHandler() => input.Clone() as ICharacterInputHandler;
-    public GroundStatusProvider GetGroundHandler() => groundStatus.Clone() as GroundStatusProvider;
-    public WallStatusProvider GetWallProvider() => wallStatus.Clone() as WallStatusProvider;     
-    public ICharacterDirectionHandler GetDirectionHandler() => directionHandler.Clone() as ICharacterDirectionHandler;
-    public ICharacterPhysicsHandler GetPhysicsHandler() => physicsHandler.Clone() as ICharacterPhysicsHandler;
-    public ClimbStatusProvider GetClimbHandler() => climbStatus.Clone() as ClimbStatusProvider;
-    public ICharacterDamageChecker GetDamageChecker() => damageChecker.Clone() as ICharacterDamageChecker;
-    public ICharacterDamageHandler GetDamageHandler() => damageHandler.Clone() as ICharacterDamageHandler;
-    public ICharacterActionHandler GetActionHandler() => actionHandler.Clone() as ICharacterActionHandler; 
-    public ICharacterMovementHandler GetMovementHandler() => movementHandler.Clone() as ICharacterMovementHandler; 
-
-    string GetSelectedName(List<PossableUseableComponent> list) => list.First(x => x.use).name;
-    List<string> GetPossableClases<T>() => AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()).Where(x => typeof(T).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).Select(x => x.Name).ToList();
-    void UpdateList(List<string> foundItems, List<PossableUseableComponent> list)
-    {
-        foreach (string o in foundItems)
+        if (_input != input)
         {
-            if (list.FindAll(x => x.name == o).Count == 0)
-            {
-                PossableUseableComponent item = new PossableUseableComponent
-                {
-                    name = o,
-                    use = list.Count == 0
-                };
-
-                list.Add(item);
-            }
+            _input = input;
+            OnInputHandlerChanged?.Invoke();
         }
+        return input;
     }
-    bool CompareClassNames(string classOne, string classTwo) => classOne == classTwo; 
-    object GetClassRefence(string name)
+    public GroundStatusProvider GetGroundStatusProvider()
     {
-        Type t = Type.GetType(name);
-        return Activator.CreateInstance(t, this); 
+        if (_groundStatus != groundStatus)
+        {
+            _groundStatus = groundStatus;
+            OnGroundStatusProviderChanged?.Invoke();
+        }
+        return groundStatus;
     }
-    void UpdateRefrences<T>(ref T refrence, List<PossableUseableComponent> list) where T : class
+    public WallStatusProvider GetWallStatusProvider()
     {
-        if (refrence is null || !CompareClassNames(refrence.GetType().Name, GetSelectedName(list)))
-        { 
-           refrence = GetClassRefence(list.Find(x => x.use).name) as T;
-        }     
+        if (_wallStatus != wallStatus)
+        {
+            _wallStatus = wallStatus;
+            OnWallStatusProviderChanged?.Invoke();
+        }
+        return wallStatus;
     }
-}
+    public CharacterDirectionHandler GetDirectionHandler()
+    {
+        if (_directionHandler != directionHandler)
+        {
+            _directionHandler = directionHandler;
+            OnDirectionHandlerChanged?.Invoke();
+        }
+        return directionHandler;
+    }
+    public CharacterPhysicsHandler GetPhysicsHandler()
+    {
+        if (_physicsHandler != physicsHandler)
+        {
+            _physicsHandler = physicsHandler;
+            OnPhysicsHandlerChanged?.Invoke();
+        }
+        return physicsHandler;
+    }
+    public ClimbStatusProvider GetClimbStatusProvider()
+    {
+        if (_climbStatus != climbStatus)
+        {
+            _climbStatus = climbStatus;
+            OnClimbStatusProviderChanged?.Invoke();
+        }
+        return climbStatus;
+    }
+    public CharacterMovementHandler GetMovementHandler()
+    {
+        if (_movementHandler != movementHandler)
+        {
+            _movementHandler = movementHandler;
+            OnMovementHandlerChanged?.Invoke();
+        }
+        return movementHandler;
+    }
+    public CharacterDamageChecker GetDamageChecker()
+    {
+        if (_damageChecker != damageChecker)
+        {
+            _damageChecker = damageChecker;
+            OnDamageCheckerChanged?.Invoke();
+        }
+        return damageChecker;
+    }
+    public CharacterDamageHandler GetDamageHandler()
+    {
+        if (_damageHandler != damageHandler)
+        {
+            _damageHandler = damageHandler;
+            OnDamageHandlerChanged?.Invoke();
+        }
+        return damageHandler;
+    }
+    public CharacterActionHandler GetActionHandler()
+    {
 
-[System.Serializable]
-internal struct PossableUseableComponent
-{
-    public string name;
-    public bool use; 
+        if (_actionHandler != actionHandler)
+        {
+            _actionHandler = actionHandler;
+            OnActionHandlerChanged?.Invoke();
+        }
+        return actionHandler;
+    }
 }

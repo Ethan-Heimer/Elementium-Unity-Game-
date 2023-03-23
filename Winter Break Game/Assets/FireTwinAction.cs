@@ -1,31 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
 
-public class FireTwinAction : CharacterClass, ICharacterActionHandler
+[CreateAssetMenu(fileName = "New Action Handler", menuName = "Character Components/Action Handlers/Twin Action Handler")]
+public class FireTwinAction : CharacterActionHandler
 {
     public Projectile fireBall;
-
-    Transform playerTransform; 
-    public void Start()
+    public override async void OnAction(Character character)
     {
-        playerTransform = Character.GetPlayer().transform;
-    }
-
-    public async void OnAction()
-    {
-        Vector2 dir = playerTransform.position - character.transform.position;
+        Vector2 dir = Character.GetPlayer().transform.position - character.transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x)*Mathf.Rad2Deg;
        
-        ShootFireball(angle);
+        ShootFireball(character, angle);
         await Task.Delay(500);
-        ShootFireball(angle);
+        ShootFireball(character, angle);
         await Task.Delay(500);
-        ShootFireball(angle);
+        ShootFireball(character, angle);
     }
 
-    void ShootFireball(float angle)
+    void ShootFireball(Character character, float angle)
     {
         GameObject obj = GameObject.Instantiate(fireBall.gameObject);
         try

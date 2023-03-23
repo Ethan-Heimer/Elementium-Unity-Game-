@@ -6,6 +6,7 @@ using System.Linq;
 
 public class PlayerHeartUI : MonoBehaviour
 {
+    /*
     [SerializeField] Sprite Heart;
     [SerializeField] Sprite NoHeart;
 
@@ -37,4 +38,5 @@ public class PlayerHeartUI : MonoBehaviour
             hearts[i].sprite = NoHeart; 
         }
     }
+    */
 }

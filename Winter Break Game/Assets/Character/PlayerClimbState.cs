@@ -2,38 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerClimbState : CharacterClass, IState, IFixedState
+public class PlayerClimbState : PlayerMovementState
 {
-    bool jumped; 
-    public void OnEnter() 
+    public PlayerClimbState(Character _character, PlayerMovementHandler _playerMovementHandler) : base(_character, _playerMovementHandler) { }
+
+    public override void OnEnter() 
     {
         character.physicsHandler.FreezeGravity(true);
         character.physicsHandler.SetMaxAcceleration(0);
         character.physicsHandler.SetAcceleration(0);
     }
 
-    public void WhileInState()
+    public override void WhileInState()
     {
         if(character.input.GetJumpInput() && character.input.GetVerticalInput() > .1f)
         {
-            character.movement.Jump(character.statsHandler.GetStat("Jump Force"));
+            character.movement.Jump(playerMovementHandler.JumpHeight);
         }  
     }
 
-    public void FixedWhileInState()
+    public override void FixedWhileInState()
     {
         Vector2 moveVector = new Vector2(character.input.GetHorizontalInput(), character.input.GetVerticalInput());
-        character.movement.AxisMove(new Vector2(character.input.GetHorizontalInput(), character.input.GetVerticalInput()), character.statsHandler.GetStat("Climb Speed"), true);
+        character.movement.AxisMove(new Vector2(character.input.GetHorizontalInput(), character.input.GetVerticalInput()), playerMovementHandler.ClimbSpeed, true);
     }
 
-    public void OnExit()
+    public override void OnExit()
     {
         character.physicsHandler.FreezeGravity(false);
-        jumped = false;
-    }
-
-    public void Transition(StateMachine owner)
-    {
-       
     }
 }

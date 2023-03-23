@@ -1,126 +1,97 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
 
 public class Character : MonoBehaviour
 {
     public static Character GetPlayer() => _player;
     private static Character _player;
 
-    public CharacterConfig config;
+    [SerializeField] CharacterConfig config;
 
-    public ICharacterInputHandler input;
-    public GroundStatusProvider groundStatus;
-    public WallStatusProvider wallStatus;
-    public ICharacterDirectionHandler directionHandler;
-    public ICharacterPhysicsHandler physicsHandler;
-    public ClimbStatusProvider climbStatus;
+    public CharacterGroundStatusInterfacer groundStatus;
+    public CharacterWallStatusInterfacer wallStatus;
+    public CharacterClimbStatusInterfacer climbStatus;
+    public CharacterInputInterfacer input;
+    public CharacterDirectionHandlerInterfacer directionHandler;
+    public CharacterPhysicsHandlerInterfacer physicsHandler;
 
-    public ICharacterDamageChecker damageChecker;
-    public ICharacterDamageHandler damageHandler;
-
-    public ICharacterStatsHandler statsHandler;
-
-    ICharacterActionHandler actionHandler;
-    ICharacterMovementHandler movementHandler; 
+    CharacterDamageCheckerInterfacer damageChecker;
+    CharacterDamageHandlerInterfacer damageHandler;
 
     public CharacterMovement movement;
     public CharacterDamageManager damageManager;
     public CharacterEventManager eventManager;
 
-    bool pauseExecution; 
-    public void PauseExecution(bool pause) => pauseExecution = pause;
-
-    public void Awake()
-    {
-        
-
-        input = config.GetInputHandler();
-        groundStatus = config.GetGroundHandler();
-        wallStatus = config.GetWallProvider();
-        directionHandler = config.GetDirectionHandler();
-        physicsHandler = config.GetPhysicsHandler();
-        climbStatus = config.GetClimbHandler();
-
-        damageChecker = config.GetDamageChecker();
-        damageHandler = config.GetDamageHandler();
-
-        statsHandler = config.GetStatsHandler();
-        actionHandler = config.GetActionHandler();
-
-        movementHandler = config.GetMovementHandler();
-
-        movement = new CharacterMovement(this);
-        damageManager = new CharacterDamageManager(this);
-
-        input.Constructer(this);
-        groundStatus.Constructer(this);
-        wallStatus.Constructer(this);
-        directionHandler.Constructer(this);
-        physicsHandler.Constructer(this);
-        climbStatus.Constructer(this);
-
-        damageChecker.Constructer(this);
-        damageHandler.Constructer(this);
-
-        actionHandler.Constructer(this);
-        movementHandler.Constructer(this);
-
-        eventManager.Constructer(this);
-
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        collider2D = GetComponent<Collider2D>();
-
-        if (config.IsPlayer) _player = this; 
-    }
+    CharacterMovementBehaviorInterfacer movementBehavior;
+    CharacterActionBehaviorInterfacer actionHandler;
 
     public void Start()
     {
-        actionHandler.Start();
-        movementHandler.Start();
+        if (config.IsPlayer) _player = this;
+
+        groundStatus = new CharacterGroundStatusInterfacer(this, config);
+        wallStatus = new CharacterWallStatusInterfacer(this, config);
+        climbStatus = new CharacterClimbStatusInterfacer(this, config);
+        input = new CharacterInputInterfacer(this, config);
+        directionHandler = new CharacterDirectionHandlerInterfacer(this, config);
+        physicsHandler = new CharacterPhysicsHandlerInterfacer(this, config);
+
+        damageChecker = new CharacterDamageCheckerInterfacer(this, config);
+        damageHandler = new CharacterDamageHandlerInterfacer(this, config);
+
+        movementBehavior = new CharacterMovementBehaviorInterfacer(this, config);
+        actionHandler = new CharacterActionBehaviorInterfacer(this, config);
+
+        movement = new CharacterMovement(this);
+        damageManager = new CharacterDamageManager(this, damageChecker, damageHandler);
+        eventManager.Init(this);
+
+        movementBehavior.Start();
     }
 
     public void Update()
     {
         if (pauseExecution) return;
 
-        damageManager.Tick();
-        movementHandler.Update();
+        groundStatus.Tick();
+        movementBehavior.Update();
 
         if (input.GetActionInput())
             actionHandler.OnAction();
 
-        groundStatus.Tick();
     }
 
     public void FixedUpdate()
     {
-        //worst perforance
         if (pauseExecution) return;
-        movementHandler.FixedUpdate();
 
         wallStatus.Tick();
         climbStatus.Tick();
+        movementBehavior.FixedUpdate();
     }
 
 
     SpriteRenderer spriteRenderer;
     Rigidbody2D rigidbody2D;
-    Collider2D collider2D; 
+    Collider2D collider2D;
+
+    bool pauseExecution;
+    public void PauseExecution(bool pause) => pauseExecution = pause;
 
     public void DisableCharacter(bool active)
     {
         spriteRenderer.enabled = !active;
         rigidbody2D.isKinematic = active;
-        physicsHandler.FreezeGravity(active);
+        //physicsHandler.FreezeGravity(active);
         collider2D.isTrigger = active;
 
         PauseExecution(active);
 
         foreach (Transform o in transform)
         {
-            if(!o.CompareTag("Stay On Disable"))
+            if (!o.CompareTag("Stay On Disable"))
             {
                 o.gameObject.SetActive(!active);
             }
@@ -135,6 +106,8 @@ public class Character : MonoBehaviour
             groundStatus.DrawGizmos();
         }
         catch { }
-      
+
     }
 }
+
+

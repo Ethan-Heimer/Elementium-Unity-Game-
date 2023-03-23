@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
+    /*
     [SerializeField] Character character;
     [SerializeField] protected Slider healthBar;
 
@@ -39,5 +40,6 @@ public class HealthBar : MonoBehaviour
     }
 
     public virtual float getHealthPercent() => character.statsHandler.GetStat("Health") / character.statsHandler.GetStat("Starting Health"); 
+    */
 
 }

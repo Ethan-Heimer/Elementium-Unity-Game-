@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events; 
+using UnityEngine.Events;
+using System;
 
 [System.Serializable]
-public class CharacterEventManager : CharacterClass
+public class CharacterEventManager
 {
     [SerializeField] UnityEvent OnGround; //
     [SerializeField] UnityEvent InAir; //
@@ -24,10 +25,8 @@ public class CharacterEventManager : CharacterClass
     [SerializeField] UnityEvent OnDeath; //
     [SerializeField] UnityEvent OnDamaged; //
 
-    public override void Constructer(Character _character)
+    public void Init(Character character)
     {
-        base.Constructer(_character);
-
         character.groundStatus.OnHitGround += OnGround.Invoke;
         character.groundStatus.OnEnterAir += InAir.Invoke;
 
@@ -44,10 +43,6 @@ public class CharacterEventManager : CharacterClass
         character.movement.OnAxisMoveEnd += OnAxisMoveEnd.Invoke;
 
         character.movement.OnJump += OnJump.Invoke;
-
-        character.climbStatus.OnClimbEnter += OnStartClimb.Invoke;
-        character.climbStatus.OnClimbExit += OnEndClimb.Invoke;
-        
     }
 }
 

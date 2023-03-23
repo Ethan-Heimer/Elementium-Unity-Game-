@@ -4985,8 +4985,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.48, y: 1}
+  m_Offset: {x: 0, y: -0.06}
+  m_Size: {x: 0.48, y: 0.9}
   m_Direction: 0
 --- !u!95 &2641231686574370768
 Animator:
@@ -5921,10 +5921,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnRayShot:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 9a44992f3c979bb4c9eda0dc84ad072c, type: 2}
+        m_TargetAssemblyTypeName: CameraEffectManager, Assembly-CSharp
+        m_MethodName: FlagShake
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Ray Shake
+          m_BoolArgument: 0
+        m_CallState: 2
   OnRayStop:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 9a44992f3c979bb4c9eda0dc84ad072c, type: 2}
+        m_TargetAssemblyTypeName: CameraEffectManager, Assembly-CSharp
+        m_MethodName: UnflagShake
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Ray Shake
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2641231686581459789
 MonoBehaviour:
   m_ObjectHideFlags: 0

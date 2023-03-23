@@ -8,7 +8,7 @@ using System.Reflection.Emit;
 using System.Threading.Tasks;
 
 
-
+/*
     [CreateAssetMenu]
     public class EventSystem : ScriptableObject
     {
@@ -167,3 +167,4 @@ using System.Threading.Tasks;
         }
     }
 
+*/

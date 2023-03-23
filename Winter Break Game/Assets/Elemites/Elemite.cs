@@ -38,6 +38,7 @@ public class Elemite : MonoBehaviour
 
     public void Init(Character _target, int _delay, ElementRayData _elementRayData)
     {
+        Debug.Log(_target);
         PositionHandler = new ElemitePositionHandler(this, _target.transform, _delay);
 
         DirectionManager = new ElemiteDirectionManager(this, _target);
@@ -195,27 +196,24 @@ public class PositionRecorder
 
 public class ElemiteDirectionManager
 {
-    ICharacterDirectionHandler directionHandler;
-    ICharacterInputHandler characterInputHandler; 
-
     IElementRayInputProvider rayInputHandler; 
 
-    Elemite elemite; 
+    Elemite elemite;
+
+    Character character;
 
     public ElemiteDirectionManager(Elemite _elemite, Character _character)
     {
         elemite = _elemite;
 
-        rayInputHandler = GameObject.FindGameObjectWithTag("Ray").GetComponent<ElementRay>().input; 
+        rayInputHandler = GameObject.FindGameObjectWithTag("Ray").GetComponent<ElementRay>().input;
 
-        directionHandler = _character.directionHandler;
-        characterInputHandler = _character.input; 
-
+        character = _character;
     }
 
     public int GetDirection()
     {
-        if (elemite.selected && characterInputHandler.GetActionInput())
+        if (elemite.selected && character.input.GetActionInput())
         {
             if(rayInputHandler.GetAimVector().x > 0)
             {
@@ -228,7 +226,7 @@ public class ElemiteDirectionManager
         }
         else
         {
-            return directionHandler.GetCurrentDirection(); 
+            return character.directionHandler.GetCurrentDirection(); 
         }
     }
     

@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ICharacterActionHandler : ICharacterInterface
+public abstract class CharacterActionHandler : CharacterComponent
 {
-    void Start();
-    void OnAction();
+    public abstract void OnAction(Character character);
 }

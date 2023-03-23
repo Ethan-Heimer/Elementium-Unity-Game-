@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ICharacterDamageChecker : ICharacterInterface
+public abstract class CharacterDamageChecker : CharacterComponent
 {
-    bool CheckDamage(); 
+    public abstract bool CheckDamage(Character character); 
 }

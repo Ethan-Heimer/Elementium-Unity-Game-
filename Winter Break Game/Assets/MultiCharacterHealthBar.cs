@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class MultiCharacterHealthBar : HealthBar
 {
+    /*
     public List<Character> characters = new List<Character>();
 
     float startingHealth;
@@ -60,4 +61,5 @@ public class MultiCharacterHealthBar : HealthBar
     {
         if (characters.Count <= 0) gameObject.SetActive(false);
     }
+    */
 }

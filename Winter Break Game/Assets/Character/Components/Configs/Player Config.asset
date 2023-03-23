@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d3bc02ff5097d440b18205c93bda3ee, type: 3}
+  m_Name: Player Config
+  m_EditorClassIdentifier: 
+  IsPlayer: 1
+  input: {fileID: 11400000, guid: 87668affc51dbf24e9a01090acc08f63, type: 2}
+  groundStatus: {fileID: 11400000, guid: 16832d6c9eb5d6845ab39a127741c3e6, type: 2}
+  wallStatus: {fileID: 11400000, guid: 9521d06da02a75a45a45eecf89cd2210, type: 2}
+  directionHandler: {fileID: 11400000, guid: 1eaa61765c7b3da4e807b9a0a09c2e04, type: 2}
+  physicsHandler: {fileID: 11400000, guid: 602d9ce4a43fcf64791a25cbf07a98aa, type: 2}
+  climbStatus: {fileID: 11400000, guid: a3ac2a888d5ff724299e991f790cc2e9, type: 2}
+  movementHandler: {fileID: 11400000, guid: f8bbfe64d85d04945a89a0c880b72f45, type: 2}
+  damageChecker: {fileID: 11400000, guid: e97d8a64cc7bc0649b2ca37b7b39ee8f, type: 2}
+  damageHandler: {fileID: 11400000, guid: 2254323dc3794fc4f84550dec6376327, type: 2}
+  actionHandler: {fileID: 11400000, guid: c0becb52d8fdff246957eabac816e727, type: 2}
