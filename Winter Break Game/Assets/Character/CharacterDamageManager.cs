@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 using System;
+using System.Reflection;
+using System.Linq;
 
 public class CharacterDamageManager
 {
-    public event Action OnDamaged;
-    public event Action OnDeath;
+    event Action<Character> OnDamaged;
+    event Action<Character> OnDeath;
 
     Character character;
 
     CharacterDamageCheckerInterfacer damageChecker;
     CharacterDamageHandlerInterfacer damageHandler;
+
+    public CharacterDamageManager() { }
 
     public CharacterDamageManager(Character _character, CharacterDamageCheckerInterfacer _damageChecker, CharacterDamageHandlerInterfacer _damageHandler)
     {
@@ -30,8 +34,7 @@ public class CharacterDamageManager
         if (damaged)
         {
             damageHandler.OnDamaged();
-            OnDamaged?.Invoke();
-           
+            OnDamaged?.Invoke(character);
         }
     }
 
@@ -40,12 +43,11 @@ public class CharacterDamageManager
         character.DisableCharacter(true);
 
         character.PauseExecution(true);
-        OnDeath?.Invoke();
+        OnDeath?.Invoke(character);
 
         await Task.Delay(500);
 
         GameObject.Destroy(character.gameObject);
-        Debug.Log("Dead");
     }
 
     public void SilentlyKillCharacter()
@@ -53,6 +55,26 @@ public class CharacterDamageManager
         character.DisableCharacter(true);
 
         character.PauseExecution(true);
-        OnDeath?.Invoke();
+        OnDeath?.Invoke(character);
+    }
+
+    public CharacterEvent[] GetEvents()
+    {
+        EventInfo[] events = this.GetType().GetEvents(BindingFlags.NonPublic | BindingFlags.Instance).Where(x => x.EventHandlerType == typeof(Action<Character>)).ToArray();
+        List<CharacterEvent> cEvents = new List<CharacterEvent>();
+
+        foreach (EventInfo e in events)
+        {
+            CharacterEvent cEvent = new CharacterEvent(e.Name);
+            cEvents.Add(cEvent);
+
+            MethodInfo invokeEvent = cEvent.GetType().GetMethod("Invoke", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+            Delegate eventInvoker = Delegate.CreateDelegate(e.EventHandlerType, cEvent, invokeEvent);
+
+            var addMethod = e.GetAddMethod(true);
+            addMethod.Invoke(this, new[] { eventInvoker });
+        }
+
+        return cEvents.ToArray();
     }
 }

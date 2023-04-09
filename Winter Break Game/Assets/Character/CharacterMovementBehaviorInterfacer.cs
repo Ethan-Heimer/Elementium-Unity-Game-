@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class CharacterMovementBehaviorInterfacer : CharacterComponentInterfacer<CharacterMovementHandler>
 {
-    public CharacterMovementBehaviorInterfacer(Character character, CharacterConfig config) : base(character, config) { }
+    public CharacterMovementBehaviorInterfacer(Character character, CharacterConfigManager config) : base(character, config) { }
 
-    public void Start() => GetCharacterComponent().OnStart(character);
-    public void Update() => GetCharacterComponent().OnUpdate(character);
-    public void FixedUpdate() => GetCharacterComponent().OnFixedUpdate(character);
+    public void OnUpdate() => Component.OnUpdate(character);
+    public void OnFixedUpdate() => Component.OnFixedUpdate(character);
 }

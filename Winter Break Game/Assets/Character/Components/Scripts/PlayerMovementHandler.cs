@@ -25,26 +25,25 @@ public class PlayerMovementHandler : CharacterMovementHandler
         stateMachine = new StateMachine(groundState, airborneState, wallState, climbState);
         stateMachine.SwitchState("PlayerAirborneState");
 
-        character.groundStatus.OnHitGround += () => SwichState("PlayerGroundedState");
-
-        character.groundStatus.OnEnterAir += () => SwichState("PlayerAirborneState");
-
-        character.wallStatus.OnWallExited += () =>
+        character.eventManager.AddEventListener("GroundOnTrue", () => SwichState("PlayerGroundedState"));
+        character.eventManager.AddEventListener("GroundOnFalse", () => SwichState("PlayerAirborneState"));
+        character.eventManager.AddEventListener("WallOnFalse", () => 
         {
-            if (character.groundStatus.IsOnGround())
+            if (character.enviormentStatuses.GetStatus("Ground"))
                 SwichState("PlayerGroundedState");
             else
                 SwichState("PlayerAirborneState");
-        };
+        });
 
-        character.wallStatus.OnWallEntered += () => SwichState("PlayerWallState");
-        character.climbStatus.OnClimbEnter += () => SwichState("PlayerClimbState");
-        character.climbStatus.OnClimbExit += () => {
-            if (character.groundStatus.IsOnGround())
+        character.eventManager.AddEventListener("WallOnTrue", () => SwichState("PlayerWallState"));
+        character.eventManager.AddEventListener("ClimbOnTrue", () => SwichState("PlayerClimbState"));
+        character.eventManager.AddEventListener("ClimbOnFalse", () =>
+        {
+            if (character.enviormentStatuses.GetStatus("Ground"))
                 SwichState("PlayerGroundedState");
             else
                 SwichState("PlayerAirborneState");
-        };
+        });
     }
 
     public override void OnUpdate(Character character)
@@ -60,5 +59,6 @@ public class PlayerMovementHandler : CharacterMovementHandler
     void SwichState(string stateName) 
     { 
         stateMachine.SwitchState(stateName);
+        Debug.Log(stateName);
     }
 }

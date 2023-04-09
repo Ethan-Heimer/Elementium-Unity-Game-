@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class CharacterDamageHandlerInterfacer : CharacterComponentInterfacer<CharacterDamageHandler>
 {
-    public CharacterDamageHandlerInterfacer(Character character, CharacterConfig config) : base(character, config) { }
-    public void OnDamaged() => GetCharacterComponent().OnDamaged(character);
+    public CharacterDamageHandlerInterfacer(Character character, CharacterConfigManager config) : base(character, config) { }
+    public void OnDamaged() => Component.OnDamaged(character);
 }

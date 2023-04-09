@@ -8,7 +8,7 @@ public class CharacterClimbStatusInterfacer : CharacterComponentInterfacer<Climb
     public event Action OnClimbEnter;
     public event Action OnClimbExit;
 
-    public CharacterClimbStatusInterfacer(Character character, CharacterConfig characterConfig) : base(character, characterConfig) { }
+    public CharacterClimbStatusInterfacer(Character character, CharacterConfigManager characterConfig) : base(character, characterConfig) { }
 
     bool isClimbing;
     protected Timer climbCooldown = new Timer(.5f);
@@ -16,7 +16,7 @@ public class CharacterClimbStatusInterfacer : CharacterComponentInterfacer<Climb
     {
         if (!climbCooldown.IsTimerUp()) return;
 
-        bool canClimb = GetCharacterComponent().CheckForClimb(character);
+        bool canClimb = Component.CheckForClimb(character);
 
         if (canClimb && character.input.GetClimbInput() && !isClimbing)
         {

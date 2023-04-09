@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class CharacterInputInterfacer : CharacterComponentInterfacer<CharacterInputHandler>
 {
-    public CharacterInputInterfacer(Character character, CharacterConfig characterConfig) : base(character, characterConfig) { }
+    public CharacterInputInterfacer(Character character, CharacterConfigManager characterConfig) : base(character, characterConfig) { }
    
-    public float GetHorizontalInput() => GetCharacterComponent().GetHorizontalInput(character);
-    public float GetVerticalInput() => GetCharacterComponent().GetVerticalInput(character);
-    public bool GetJumpInput() => GetCharacterComponent().GetJumpInput(character);
-    public bool GetActionInput() => GetCharacterComponent().GetActionInput(character);
-    public bool GetClimbInput() => GetCharacterComponent().GetClimbInput(character);
+    public float GetHorizontalInput() => Component.GetHorizontalInput(character);
+    public float GetVerticalInput() => Component.GetVerticalInput(character);
+    public bool GetJumpInput() => Component.GetJumpInput(character);
+    public bool GetActionInput() => Component.GetActionInput(character);
+    public bool GetClimbInput() => Component.GetClimbInput(character);
 }

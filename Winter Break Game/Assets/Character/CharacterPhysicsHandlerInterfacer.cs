@@ -8,20 +8,20 @@ public class CharacterPhysicsHandlerInterfacer : CharacterComponentInterfacer<Ch
 {
     float baseGravity;
     Rigidbody2D rigidbody;
-    public CharacterPhysicsHandlerInterfacer(Character character, CharacterConfig config) : base(character, config)
+    public CharacterPhysicsHandlerInterfacer(Character character, CharacterConfigManager config) : base(character, config)
     {
         rigidbody = character.GetComponent<Rigidbody2D>();
         baseGravity = rigidbody.gravityScale;
     }
 
-    public void Accelerate(float direction, float speed) => GetCharacterComponent().Accelerate(character, rigidbody, direction, speed);
-    public void AddForce(Vector2 force) => GetCharacterComponent().AddForce(character, rigidbody, force);
-    public void SetMaxAcceleration(float max) => GetCharacterComponent().SetMaxAcceleration(character, rigidbody, max);
-    public void FreezeGravity(bool freeze) => GetCharacterComponent().FreezeGravity(character, rigidbody, baseGravity, freeze);
-    public void SetAcceleration(float value) => GetCharacterComponent().SetAcceleration(character, rigidbody, value);
-    public Vector2 GetVelocity() => GetCharacterComponent().GetVelocity(character, rigidbody);
-    public float GetAcceleration() => GetCharacterComponent().GetAcceleration(character, rigidbody);
-    public void SetVelocity(Vector2 velocity) => GetCharacterComponent().SetVelocity(character, rigidbody, velocity);
+    public void Accelerate(float direction, float speed) => Component.Accelerate(character, rigidbody, direction, speed);
+    public void AddForce(Vector2 force) => Component.AddForce(character, rigidbody, force);
+    public void SetMaxAcceleration(float max) => Component.SetMaxAcceleration(character, rigidbody, max);
+    public void FreezeGravity(bool freeze) => Component.FreezeGravity(character, rigidbody, baseGravity, freeze);
+    public void SetAcceleration(float value) => Component.SetAcceleration(character, rigidbody, value);
+    public Vector2 GetVelocity() => Component.GetVelocity(character, rigidbody);
+    public float GetAcceleration() => Component.GetAcceleration(character, rigidbody);
+    public void SetVelocity(Vector2 velocity) => Component.SetVelocity(character, rigidbody, velocity);
 
 
     

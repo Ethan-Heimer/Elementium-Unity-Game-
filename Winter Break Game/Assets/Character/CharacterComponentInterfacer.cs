@@ -4,68 +4,48 @@ using UnityEngine;
 using System.Reflection;
 using System.Linq;
 using System;
+using System.Linq.Expressions;
 
 public abstract class CharacterComponentInterfacer<T> where T : CharacterComponent
 {
     protected Character character;
-    protected CharacterComponentFieldHandler<T> fieldHandler;
+    CharacterConfigManager configManager; 
 
-    CharacterConfig characterConfig;
+    //CharacterComponentFieldHandler<T> fieldHandler;
 
-    delegate T getCompoent();
-    getCompoent _getComponent;
-
-    public CharacterComponentInterfacer(Character _character, CharacterConfig _characterConfig)
+    public CharacterComponentInterfacer(Character _character, CharacterConfigManager _characterConfig)
     {
         character = _character;
-        characterConfig = _characterConfig;
-
-        //find correct compoenet
-        MethodInfo getComponentMethod = typeof(CharacterConfig).GetMethods().First(x => x.ReturnType == typeof(T));
-        _getComponent = () => (T)getComponentMethod.Invoke(characterConfig, null);
-
-        NewFieldHandler();
-        RunComponentStart();
-        fieldHandler.FillStats();
-
-        //subscribe to events -- set things up when component changed
-        EventInfo onChangedEvent = characterConfig.GetType().GetEvents().First(x => (Type)x.GetCustomAttribute(typeof(RepresentTypeAttribute)).GetType().GetField("type").GetValue(x.GetCustomAttribute(typeof(RepresentTypeAttribute))) == typeof(T));
-  
-        MethodInfo makeNewFieldHandler = this.GetType().BaseType.GetMethod("NewFieldHandler", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
-        Delegate newFieldDelegate = Delegate.CreateDelegate(onChangedEvent.EventHandlerType, this, makeNewFieldHandler);
-
-        MethodInfo fillStats = fieldHandler.GetType().GetMethod("FillStats");
-        Delegate fillStatsHandler = Delegate.CreateDelegate(onChangedEvent.EventHandlerType, fieldHandler, fillStats);
-
-        MethodInfo start = this.GetType().BaseType.GetMethod("RunComponentStart", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy) ;
-        Delegate startHandler = Delegate.CreateDelegate(onChangedEvent.EventHandlerType, this, start);
-
-        onChangedEvent.AddEventHandler(characterConfig, newFieldDelegate);
-        onChangedEvent.AddEventHandler(characterConfig, fillStatsHandler);
-        onChangedEvent.AddEventHandler(characterConfig, startHandler);
+        configManager = _characterConfig;
     }
+   
+    public CharacterEvent[] GetEvents() => configManager.GetCharacterComponent<T>().GetEvents();
 
-    public void GetStat(string name) => fieldHandler.GetStat(name);
-    public void SetStat(string name) => fieldHandler.GetStat(name);
-
-    protected T GetCharacterComponent() => _getComponent.Invoke();
-    void RunComponentStart() => GetCharacterComponent().OnStart(character);
-    void NewFieldHandler() => fieldHandler = new CharacterComponentFieldHandler<T>(GetCharacterComponent());
+    public T Component
+    {
+        get
+        {
+            return configManager.GetCharacterComponent<T>();
+        }
+    }
 }
 
-public class CharacterComponentFieldHandler<T> where T : CharacterComponent
+/*
+internal class CharacterComponentFieldHandler<T> where T : CharacterComponent
 {
-    Dictionary<string, float> values = new Dictionary<string, float>();
-    T component;
-
-    public CharacterComponentFieldHandler(T _component)
+    Dictionary<string, float> values;
+    getCompoent getCompoent;
+    public CharacterComponentFieldHandler(getCompoent _getCompoentMethod)
     {
-        component = _component;
-        FillStats();
+        getCompoent = _getCompoentMethod;
+
     }
 
-    public void FillStats()
+    void InitFields() => GetStats((T)getCompoent());
+
+    void GetStats(T component)
     {
+        values = new Dictionary<string, float>();
         FieldInfo[] fields = typeof(T).GetFields().Where(x => x.FieldType == typeof(float)).ToArray();
 
         foreach (FieldInfo o in fields)
@@ -77,3 +57,6 @@ public class CharacterComponentFieldHandler<T> where T : CharacterComponent
     public float GetStat(string name) => values[name];
     public void SetStat(string name, float value) => values[name] = value;
 }
+
+*/
+

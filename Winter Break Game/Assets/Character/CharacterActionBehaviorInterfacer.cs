@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterActionBehaviorInterfacer : CharacterComponentInterfacer<CharacterActionHandler>
 {
-    public CharacterActionBehaviorInterfacer(Character character, CharacterConfig config) : base(character, config) { }
-    public void OnAction() => GetCharacterComponent().OnAction(character);
+    public CharacterActionBehaviorInterfacer(Character character, CharacterConfigManager config) : base(character, config) { }
+    public void OnAction() => Component.OnAction(character);
 
 }

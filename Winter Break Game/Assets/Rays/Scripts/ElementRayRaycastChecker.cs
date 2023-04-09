@@ -10,7 +10,6 @@ public class ElementRayRaycastChecker : MonoBehaviour, IElementRayRayChecker
     {
         if (ray.collider == null) return;
 
-        Debug.Log(ray.collider.name);
         RayAffectable obj = ray.collider.GetComponent<RayAffectable>();
         if (obj is null) return;
 

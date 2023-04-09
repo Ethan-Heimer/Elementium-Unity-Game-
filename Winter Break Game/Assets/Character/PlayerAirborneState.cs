@@ -38,7 +38,7 @@ public class PlayerAirborneState : PlayerMovementState
     {
         character.movement.Move(character.input.GetHorizontalInput(), playerMovementHandler.Speed);
 
-        if (character.wallStatus.IsBackTowardsWall() && backcheckCooldown.IsTimerUp()) character.physicsHandler.SetAcceleration(0);
+        //if (character.wallStatus.IsBackTowardsWall() && backcheckCooldown.IsTimerUp()) character.physicsHandler.SetAcceleration(0);
     }
 
     public override void OnExit() { }

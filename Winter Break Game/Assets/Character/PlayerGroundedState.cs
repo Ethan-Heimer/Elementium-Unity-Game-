@@ -23,7 +23,7 @@ public class PlayerGroundedState : PlayerMovementState
     {
         xInput = character.input.GetHorizontalInput();
 
-        if(character.wallStatus.IsOnWall()) character.physicsHandler.SetAcceleration(0);
+        if(character.enviormentStatuses.GetStatus("Wall")) character.physicsHandler.SetAcceleration(0);
 
         character.movement.Move(xInput, playerMovementHandler.Speed);
     }

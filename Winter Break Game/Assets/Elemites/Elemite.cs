@@ -38,7 +38,6 @@ public class Elemite : MonoBehaviour
 
     public void Init(Character _target, int _delay, ElementRayData _elementRayData)
     {
-        Debug.Log(_target);
         PositionHandler = new ElemitePositionHandler(this, _target.transform, _delay);
 
         DirectionManager = new ElemiteDirectionManager(this, _target);

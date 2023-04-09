@@ -2968,8 +2968,136 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: config
+      value: 
+      objectReference: {fileID: 11400000, guid: 69dccfdb742cf664282ff881b927d316, type: 2}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: configManager.config
+      value: 
+      objectReference: {fileID: 11400000, guid: 69dccfdb742cf664282ff881b927d316, type: 2}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.unityEvents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.unityEvents.Array.data[0].name
+      value: Test
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.unityEvents.Array.data[1].name
+      value: Test
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.unityEvents.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[0].name
+      value: OnStartMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[1].name
+      value: OnEndMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[2].name
+      value: OnAxisMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[3].name
+      value: OnAxisMoveEnd
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[4].name
+      value: OnJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[5].name
+      value: OnDamaged
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[6].name
+      value: OnDeath
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[7].name
+      value: Test
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[8].name
+      value: ClimbOnTrue
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[9].name
+      value: ClimbOnFalse
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[10].name
+      value: WallOnTrue
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[11].name
+      value: WallOnFalse
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[12].name
+      value: GroundOnHitGround
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[13].name
+      value: GroundOnEnterAir
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[14].name
+      value: GroundOnTrue
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[15].name
+      value: GroundOnFalse
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[16].name
+      value: GroundOnFalse
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
       propertyPath: eventManager.OnGround.m_PersistentCalls.m_Calls.Array.size
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.unityEvents.Array.data[0].name
+      value: OnStartMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.unityEvents.Array.data[1].name
+      value: OnEndMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.unityEvents.Array.data[2].name
+      value: OnAxisMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.unityEvents.Array.data[3].name
+      value: OnAxisMoveEnd
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.unityEvents.Array.data[4].name
+      value: OnJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.unityEvents.Array.data[5].name
+      value: OnDamaged
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.unityEvents.Array.data[6].name
+      value: OnDeath
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.unityEvents.Array.data[7].name
+      value: OnDeath
       objectReference: {fileID: 0}
     - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
       propertyPath: eventManager.OnGround.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
@@ -2988,6 +3116,14 @@ PrefabInstance:
       value: Play
       objectReference: {fileID: 0}
     - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.unityEvents.Array.data[0]._event.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.unityEvents.Array.data[1]._event.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
       propertyPath: eventManager.OnGround.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
       value: UnityEngine.AudioSource, UnityEngine
       objectReference: {fileID: 0}
@@ -3000,7 +3136,171 @@ PrefabInstance:
       value: Land_Squish
       objectReference: {fileID: 0}
     - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.unityEvents.Array.data[0]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.unityEvents.Array.data[1]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[6]._event.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[8]._event.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.unityEvents.Array.data[0]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1777427397}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.unityEvents.Array.data[1]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1777427397}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[15]._event.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.unityEvents.Array.data[0]._event.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.unityEvents.Array.data[1]._event.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.unityEvents.Array.data[0]._event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.unityEvents.Array.data[1]._event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.unityEvents.Array.data[0]._event.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[6]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[8]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[15]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
       propertyPath: eventManager.OnGround.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[6]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1777427397}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[8]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1777427397}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[15]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1777427397}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[6]._event.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[8]._event.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.unityEvents.Array.data[0]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[15]._event.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[6]._event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[8]._event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Stop
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.unityEvents.Array.data[0]._event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.AudioSource, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.unityEvents.Array.data[1]._event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.AudioSource, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[15]._event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.unityEvents.Array.data[0]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1777427397}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.unityEvents.Array.data[0]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.unityEvents.Array.data[0]._event.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.unityEvents.Array.data[0]._event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[6]._event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.AudioSource, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[8]._event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.AudioSource, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[15]._event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.AudioSource, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.unityEvents.Array.data[0]._event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.AudioSource, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.unityEvents.Array.data[0]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.unityEvents.Array.data[1]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[6]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[8]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.Events.Array.data[15]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641231686574370761, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}
+      propertyPath: eventManager.inspectorHandler.unityEvents.Array.data[0]._event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2641231686574370778, guid: 9d7c5bfba249e944ca5c4ef1fdbfcae5, type: 3}

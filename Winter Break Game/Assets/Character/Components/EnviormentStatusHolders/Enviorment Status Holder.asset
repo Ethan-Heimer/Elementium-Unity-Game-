@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11558a959a3b99d41a2dc364faeeeebc, type: 3}
+  m_Name: Enviorment Status Holder
+  m_EditorClassIdentifier: 
+  characterEnviormentStatusProviders:
+  - {fileID: 11400000, guid: a3ac2a888d5ff724299e991f790cc2e9, type: 2}
+  - {fileID: 11400000, guid: 9521d06da02a75a45a45eecf89cd2210, type: 2}
+  - {fileID: 11400000, guid: 16832d6c9eb5d6845ab39a127741c3e6, type: 2}

@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Threading.Tasks;
+using System.Reflection;
+using System.Linq;
 
 public class CharacterMovement
 {
-    public event Action OnStartMove;
-    public event Action OnEndMove;
+    Character character;
+
+    event Action<Character> OnStartMove;
+    event Action<Character> OnEndMove;
    
-    public event Action OnAxisMove;
-    public event Action OnAxisMoveEnd;
-    public event Action OnJump; 
-
-
-    Character character; 
+    event Action<Character> OnAxisMove;
+    event Action<Character> OnAxisMoveEnd;
+    event Action<Character> OnJump; 
 
     public CharacterMovement(Character _character)
     {
         character = _character;
 
-        character.groundStatus.OnHitGround += checkForWalkEvent;
+        character.eventManager.AddEventListener("GroundOnTrue", checkForWalkEvent);
     }
 
     bool _isMoveing; 
@@ -29,17 +30,17 @@ public class CharacterMovement
         character.directionHandler.FlipCharacter(direction);
         character.physicsHandler.Accelerate(direction, speed);
 
-        if (character.groundStatus.IsOnGround())
+        if (character.enviormentStatuses.GetStatus("Ground"))
         {
             if (direction is not 0 && !_isMoveing)
             {
                 _isMoveing = true;
-                OnStartMove?.Invoke();
+                OnStartMove?.Invoke(character);
             }
             else if (direction is 0 && _isMoveing)
             {
                 _isMoveing = false;
-                OnEndMove?.Invoke();
+                OnEndMove?.Invoke(character);
             }
         }
         else
@@ -57,12 +58,12 @@ public class CharacterMovement
         if (direction == Vector2.zero && _isMoveing)
         {
             _isMoveing = false;
-            OnAxisMoveEnd?.Invoke();
+            OnAxisMoveEnd?.Invoke(character);
         }
         else if (direction != Vector2.zero && !_isMoveing)
         {
             _isMoveing = true;
-            OnAxisMove?.Invoke();
+            OnAxisMove?.Invoke(character);
         }
     }
 
@@ -70,13 +71,33 @@ public class CharacterMovement
     {
         character.physicsHandler.AddForce(Vector2.up * jumpHeight);
 
-        OnJump?.Invoke();
+        OnJump?.Invoke(character);
     }
 
     async void checkForWalkEvent()
     {
         await Task.Yield();
-        if (_isMoveing) OnStartMove?.Invoke();
+        if (_isMoveing) OnStartMove?.Invoke(character);
+    }
+
+    public CharacterEvent[] GetEvents()
+    {
+        EventInfo[] events = this.GetType().GetEvents(BindingFlags.NonPublic | BindingFlags.Instance).Where(x => x.EventHandlerType == typeof(Action<Character>)).ToArray();
+        List<CharacterEvent> cEvents = new List<CharacterEvent>();
+
+        foreach(EventInfo e in events)
+        {
+            CharacterEvent cEvent = new CharacterEvent(e.Name);
+            cEvents.Add(cEvent);
+
+            MethodInfo invokeEvent = cEvent.GetType().GetMethod("Invoke", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+            Delegate eventInvoker = Delegate.CreateDelegate(e.EventHandlerType, cEvent, invokeEvent);
+
+            var addMethod = e.GetAddMethod(true);
+            addMethod.Invoke(this, new[] { eventInvoker});
+        }
+
+        return cEvents.ToArray();
     }
 }
 

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/*
 public class CharacterWallStatusInterfacer : CharacterComponentInterfacer<WallStatusProvider>
 {
+    /*
     public event Action OnWallEntered;
     public event Action OnWallExited;
 
@@ -35,3 +37,4 @@ public class CharacterWallStatusInterfacer : CharacterComponentInterfacer<WallSt
 
     public void DrawGizmos() => GetCharacterComponent().DrawGizmos(character); 
 }
+*/

@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
+using System.Linq;
 
 public class Character : MonoBehaviour
 {
+    [SerializeField] bool isPlayer;
     public static Character GetPlayer() => _player;
     private static Character _player;
 
-    [SerializeField] CharacterConfig config;
+    public CharacterEventManager eventManager;
+    public CharacterConfigManager configManager;
 
-    public CharacterGroundStatusInterfacer groundStatus;
-    public CharacterWallStatusInterfacer wallStatus;
-    public CharacterClimbStatusInterfacer climbStatus;
+    public CharacterEnviormentStatusProvidersInterfacer enviormentStatuses; 
     public CharacterInputInterfacer input;
     public CharacterDirectionHandlerInterfacer directionHandler;
     public CharacterPhysicsHandlerInterfacer physicsHandler;
@@ -20,43 +21,44 @@ public class Character : MonoBehaviour
     CharacterDamageCheckerInterfacer damageChecker;
     CharacterDamageHandlerInterfacer damageHandler;
 
-    public CharacterMovement movement;
-    public CharacterDamageManager damageManager;
-    public CharacterEventManager eventManager;
-
     CharacterMovementBehaviorInterfacer movementBehavior;
     CharacterActionBehaviorInterfacer actionHandler;
 
-    public void Start()
+    public CharacterMovement movement;
+    public CharacterDamageManager damageManager;
+  
+
+    public void Awake()
     {
-        if (config.IsPlayer) _player = this;
+        if (isPlayer) _player = this;
+       
+        input = new CharacterInputInterfacer(this, configManager);
+        directionHandler = new CharacterDirectionHandlerInterfacer(this, configManager);
+        physicsHandler = new CharacterPhysicsHandlerInterfacer(this, configManager);
 
-        groundStatus = new CharacterGroundStatusInterfacer(this, config);
-        wallStatus = new CharacterWallStatusInterfacer(this, config);
-        climbStatus = new CharacterClimbStatusInterfacer(this, config);
-        input = new CharacterInputInterfacer(this, config);
-        directionHandler = new CharacterDirectionHandlerInterfacer(this, config);
-        physicsHandler = new CharacterPhysicsHandlerInterfacer(this, config);
+        damageChecker = new CharacterDamageCheckerInterfacer(this, configManager);
+        damageHandler = new CharacterDamageHandlerInterfacer(this, configManager);
 
-        damageChecker = new CharacterDamageCheckerInterfacer(this, config);
-        damageHandler = new CharacterDamageHandlerInterfacer(this, config);
-
-        movementBehavior = new CharacterMovementBehaviorInterfacer(this, config);
-        actionHandler = new CharacterActionBehaviorInterfacer(this, config);
+        movementBehavior = new CharacterMovementBehaviorInterfacer(this, configManager);
+        actionHandler = new CharacterActionBehaviorInterfacer(this, configManager);
 
         movement = new CharacterMovement(this);
         damageManager = new CharacterDamageManager(this, damageChecker, damageHandler);
-        eventManager.Init(this);
+        enviormentStatuses = new CharacterEnviormentStatusProvidersInterfacer(this, configManager);
 
-        movementBehavior.Start();
+        eventManager.GetType().GetMethod("Init", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(eventManager, new object[] { this });
+        
+        enviormentStatuses.CheckStatuses();
+        
+
     }
 
     public void Update()
     {
         if (pauseExecution) return;
 
-        groundStatus.Tick();
-        movementBehavior.Update();
+        enviormentStatuses.CheckStatuses();
+        movementBehavior.OnUpdate();
 
         if (input.GetActionInput())
             actionHandler.OnAction();
@@ -67,9 +69,7 @@ public class Character : MonoBehaviour
     {
         if (pauseExecution) return;
 
-        wallStatus.Tick();
-        climbStatus.Tick();
-        movementBehavior.FixedUpdate();
+        movementBehavior.OnFixedUpdate();
     }
 
 
@@ -102,12 +102,9 @@ public class Character : MonoBehaviour
     {
         try
         {
-            wallStatus.DrawGizmos();
-            groundStatus.DrawGizmos();
+            enviormentStatuses.DrawGizmos(); 
         }
         catch { }
 
     }
 }
-
-
